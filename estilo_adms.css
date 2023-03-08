@@ -1,0 +1,194 @@
+body{
+    height: 100%;
+}
+
+.formbtns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 10vh;
+    height: 50;
+}
+
+.btn_visusuarios{
+    width: 275px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #728ee2;
+    font-size: 18px;
+    position:absolute;
+
+}
+
+.btn_visquestoes{
+    width: 275px;
+    height: 50;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #95ac4f;
+    font-size: 18px;
+    position:absolute;
+
+}
+
+.btn_adiadm{
+    width: 275px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #a0a4b0;
+    font-size: 18px;
+    position:absolute;
+
+}
+
+.btn_altsenha{
+    width: 275px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #95f561;
+    font-size: 18px;
+    position:absolute;
+
+}
+
+.btn_altnome{
+    width: 275px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #72d5e2;
+    font-size: 18px;
+    position:absolute;
+
+}
+
+.btn_sair{
+    width: 50px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #cb3d0d;
+    font-size: 15px;
+    position:absolute;
+
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(114, 60, 168, 0.852);
+    padding: 1em;
+    border: 1px solid #080000;
+    height: 35px;
+    position: relative;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    margin: 0px auto;
+}
+
+.form_sair {
+    border-radius: 0.3em;
+    padding: 0.3em;
+    height: 150;
+    width: 175px;
+    
+}
+
+.center_adm {
+    position: absolute;
+    top: 0%;
+    left: 42%;
+
+}
+  
+.altdados_adm {
+    position: absolute;
+    top: 0%;
+    left: 37%;
+
+}
+
+.formdados{
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 5vh;
+    border: 1px solid whitesmoke;
+    border-radius: 0.3em;
+    padding: 0.3em;
+    width: 320px;
+}
+
+.formaltdeladm{
+    align-items: left;
+    border: 1px solid whitesmoke;
+    border-radius: 0.3em;
+    padding: 0.3em;
+    width: 1000px;
+    height: 150px;
+}
+
+.btn_alteraadm{
+    width: 75px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #19ab62;
+    font-size: 13px;
+
+
+}
+
+.btn_cancelaraadm{
+    width: 75px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #a4aea9;
+    font-size: 13px;
+
+
+}
+
+.btn_excluiradm{
+    width: 75px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #c41a07;
+    font-size: 13px;
+
+
+}
+
+.adidados_adm{
+    position: absolute;
+    top: 0%;
+    left: 41%;
+
+}
+
+.btn_adicionaradm{
+    width: 75px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #7c7612;
+    font-size: 13px;
+}
+
+.btn_canadiadm{
+    width: 75px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #971506;
+    font-size: 13px;
+}
