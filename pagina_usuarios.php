@@ -27,7 +27,7 @@ if (isset($_SESSION["nome_cad"]))
 }
 else
 {
-  echo "Usuário tal: ".$_SESSION["nome_usuario"];
+  echo "Usuário: ".$_SESSION["nome_usuario"];
 }
 ?>
 <br>
