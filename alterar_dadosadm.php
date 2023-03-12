@@ -1,23 +1,8 @@
 <?php
 session_start();
-if(isset($_POST["btn_cancelaraadm"]))
-{
-  header('location: pagina_adm.php');
-  exit;
-}
-
 if(isset($_POST["btn_alteraadm"]))
 {
-    include_once('conexao.php');
-    $nome = $_SESSION["nome_adm"];
-    $novonome = $_POST['nome_adm'];
-    $novasenha = $_POST['senha_adm'];
-    $novoemail = $_POST['email_adm'];
-    $aleterar = mysqli_query($conexao, "UPDATE tab_adms SET nome_adm='$novonome', email_adm='$novoemail', senha_adm='$novasenha' WHERE nome_adm='$nome';");
-    $_SESSION["nome_adm"]= $novonome;
-    $_SESSION["senha_adm"]= $novasenha;
-    header('location: pagina_adm.php');
-    exit;
+    
 }
 
 if(!isset($_SESSION["senha_adm"]))
@@ -31,19 +16,138 @@ else
     include_once('conexao.php');
     $dados = mysqli_query($conexao, "SELECT * FROM tab_adms WHERE nome_adm = '$nome';");
     $dado=$dados->fetch_array();
+    $email = $dado['email_adm'];
+    $senha = $dado['senha_adm'];
 }
 
 if ($_POST){
-  $nome2 = filter_input(INPUT_POST, 'campo1', FILTER_SANITIZE_SPECIAL_CHARS);
-  if ($nome2 == "True"){
+  $confexc = filter_input(INPUT_POST, 'confexc', FILTER_SANITIZE_SPECIAL_CHARS);
+  $confalt = filter_input(INPUT_POST, 'confalt', FILTER_SANITIZE_SPECIAL_CHARS);
+  if ($confexc == "True"){
     $dados = mysqli_query($conexao, "DELETE FROM tab_adms WHERE nome_adm = '$nome';");
     header('location: index.php');
     session_destroy();
   }
-  else{
+  elseif ($confexc == "False"){
     header('location: alterar_dadosadm.php');
   }
+  else{
+
   }
+
+  if ($confalt == "True"){
+    include_once('conexao.php');
+    $novonome = $_POST['nome_adm'];
+    $novasenha = $_POST['senha_adm'];
+    $novoemail = $_POST['email_adm'];
+    $sql = mysqli_query($conexao, "SELECT * FROM tab_adms WHERE email_adm = '$novoemail';");
+    $sql2 = mysqli_query($conexao, "SELECT * FROM tab_adms WHERE nome_adm = '$novonome';");
+    $emailex = mysqli_num_rows($sql);
+    $nomeex = mysqli_num_rows($sql2);
+    $emailvalouinv = filter_input(INPUT_POST, 'emailvalouinv', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+    if($emailvalouinv == "Inválido"){
+      echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erros</title> </html>";
+      $script = "<script>alert('Erro: Não foi possivel cadastra ADM. E-Mail Inválido.');location.href='adicionar_adm.php';</script>";
+      echo $script;
+    }
+    elseif($emailvalouinv == "Válido"){
+      if($email != $novoemail){
+        if($emailex>0) {
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. E-Mail já utilizado.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        elseif($nome != $novonome){
+          if($nomeex>0){
+            echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+            $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Nome de ADM já utilizado.');location.href='adicionar_adm.php';</script>";
+            echo $script;
+          }
+          elseif ($_POST['nome_adm'] == ""){
+            echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+            $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Nome ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+            echo $script;
+          }
+          elseif ($_POST['senha_adm'] == ""){
+            echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+            $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Senha ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+            echo $script;
+          }
+          else{
+          $aleterar = mysqli_query($conexao, "UPDATE tab_adms SET nome_adm='$novonome', email_adm='$novoemail', senha_adm='$novasenha' WHERE nome_adm='$nome';");
+          $_SESSION["nome_adm"]= $novonome;
+          $_SESSION["senha_adm"]= $novasenha;
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Alterado com Sucesso</title> </html>";
+          $script = "<script>alert('Dados alterados com Sucesso!!!');location.href='pagina_adm.php';</script>";
+          echo $script;
+          }
+        }
+        elseif ($_POST['nome_adm'] == ""){
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Nome ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        elseif ($_POST['senha_adm'] == ""){
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Senha ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        else{
+        $aleterar = mysqli_query($conexao, "UPDATE tab_adms SET nome_adm='$novonome', email_adm='$novoemail', senha_adm='$novasenha' WHERE nome_adm='$nome';");
+        $_SESSION["nome_adm"]= $novonome;
+        $_SESSION["senha_adm"]= $novasenha;
+        echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Alterado com Sucesso</title> </html>";
+        $script = "<script>alert('Dados alterados com Sucesso!!!');location.href='pagina_adm.php';</script>";
+        echo $script;
+        }
+      }
+      elseif($nome != $novonome){
+        if($nomeex>0){
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Nome de ADM já utilizado.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        elseif ($_POST['nome_adm'] == ""){
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Nome ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        elseif ($_POST['senha_adm'] == ""){
+          echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+          $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Senha ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+          echo $script;
+        }
+        else{
+        $aleterar = mysqli_query($conexao, "UPDATE tab_adms SET nome_adm='$novonome', email_adm='$novoemail', senha_adm='$novasenha' WHERE nome_adm='$nome';");
+        $_SESSION["nome_adm"]= $novonome;
+        $_SESSION["senha_adm"]= $novasenha;
+        echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Alterado com Sucesso</title> </html>";
+        $script = "<script>alert('Dados alterados com Sucesso!!!');location.href='pagina_adm.php';</script>";
+        echo $script;
+        }
+      }
+      elseif ($_POST['nome_adm'] == ""){
+        echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+        $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Nome ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+        echo $script;
+      }
+      elseif ($_POST['senha_adm'] == ""){
+        echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Erro</title> </html>";
+        $script = "<script>alert('Erro: Não foi possivel cadastra ADM. Campo Senha ADM deve ser preenchido.');location.href='adicionar_adm.php';</script>";
+        echo $script;
+      }
+      else{
+      $aleterar = mysqli_query($conexao, "UPDATE tab_adms SET nome_adm='$novonome', email_adm='$novoemail', senha_adm='$novasenha' WHERE nome_adm='$nome';");
+      $_SESSION["nome_adm"]= $novonome;
+      $_SESSION["senha_adm"]= $novasenha;
+      echo "<html> <meta charset ='UTF-8'> <link rel='icon' type='image/png' href='img/icone_exemplo.png'/> <title>Alterado com Sucesso</title> </html>";
+      $script = "<script>alert('Dados alterados com Sucesso!!!');location.href='pagina_adm.php';</script>";
+      echo $script;
+      }
+    }
+  }
+}
 
 ?>
 
@@ -58,15 +162,15 @@ if ($_POST){
 <body background="img_fundo/fundo_pagadm.png">
 <script>
   function excluirconta() {
-    var resultado = confirm("Deseja Realmente Excluir essa Conta?")
+    var resultado = confirm("Deseja Realmente Excluir essa Conta?");
     if (resultado == true) {
-        alert("A conta foi Excluida com Sucesso!!!")
-        var confexc = "True"
+        alert("A conta foi Excluida com Sucesso!!!");
+        var confexc = "True";
     }
         else{
-          var confexc = "False"
+          var confexc = "False";
         }
-    document.getElementById("nome2").value = confexc
+    document.getElementById("confexc").value = confexc;
 }
 
 function sair() {
@@ -75,6 +179,49 @@ function sair() {
       location.href='sair.php';
     }
 }
+
+function validacaoEmail(field) {
+usuario = field.value.substring(0, field.value.indexOf("@"));
+dominio = field.value.substring(field.value.indexOf("@")+ 1, field.value.length);
+
+if ((usuario.length >=1) &&
+    (dominio.length >=3) &&
+    (usuario.search("@")==-1) &&
+    (dominio.search("@")==-1) &&
+    (usuario.search(" ")==-1) &&
+    (dominio.search(" ")==-1) &&
+    (dominio.search(".")!=-1) &&
+    (dominio.indexOf(".") >=1)&&
+    (dominio.lastIndexOf(".") < dominio.length - 1)) {
+      document.getElementById("msgemail").innerHTML="";
+      var emailvalouinv = 'Válido';
+      document.getElementById("emailvalouinv").value = emailvalouinv;
+}
+else{
+document.getElementById("msgemail").innerHTML="<font color='red'>E-mail inválido </font>";
+var emailvalouinv = 'Inválido';
+document.getElementById("emailvalouinv").value = emailvalouinv;
+}
+}
+
+function voltar() {
+  var resultadovoltar = confirm("Cancelar alterações?");
+    if (resultadovoltar == true) {
+      location.href='pagina_adm.php';
+    }
+  }
+
+  function alterar() {
+    var resultado = confirm("Deseja Realmente alterar esses Dados?");
+    if (resultado == true) {
+        var confalt = "True";
+        document.getElementById("confalt").value = confalt;
+    }
+        else{
+          var confalt = "False";
+          document.getElementById("confalt").value = confalt;
+        }
+  }
 </script>
 
 
@@ -98,11 +245,13 @@ function sair() {
 <br><br><br><br>
 
 <center>
-<form method="POST" class="formdados" id="formteste">
+<form method="POST" class="formdados" name="f1">
 <legend style="color:grey31; font-size:25px; font-weight: bold;">Dados</legend>
 <br><br>
 <label for="email_adm" style="font-size:20px; font-weight: bold; text-align: left;">E-Mail</label>
-<input type="email" name="email_adm" id="email_adm" style="width: 300px; font-size:20px;" value="<?php echo $dado['email_adm']; ?>">
+<input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
+<input type="email" name="email_adm" id="email_adm" style="width: 300px; font-size:20px;" autofocus onblur="validacaoEmail(f1.email_adm)" value="<?php echo $email; ?>">
+<div id="msgemail"></div>
 <br><br><br>
 
 <label for="nome_adm" style="font-size:20px; font-weight: bold; text-align: left;">Nome</label>
@@ -110,15 +259,16 @@ function sair() {
 <br><br><br>
 
 <label for="senha_adm" style="font-size:20px; font-weight: bold; text-align: left;">Senha</label>
-<input type="text" name="senha_adm" id="senha_adm" style="width: 190px; font-size:20px;" value="<?php echo $dado['senha_adm']; ?>">
+<input type="text" name="senha_adm" id="senha_adm" style="width: 190px; font-size:20px;" value="<?php echo $senha; ?>">
 <br><br><br>
 
 <div>   
-<button type="submit" id="btn_alteraadm" name="btn_alteraadm" class="btn_alteraadm" data-toggle="tooltip" data-placement="top" title="Alterar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+<button type="submit" id="btn_alteraadm" name="btn_alteraadm" onclick="alterar()" class="btn_alteraadm" data-toggle="tooltip" data-placement="top" title="Alterar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="submit" id="btn_cancelaraadm" name="btn_cancelaraadm" class="btn_cancelaraadm" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+<button type="button" id="btn_cancelaraadm" name="btn_cancelaraadm" onclick="voltar()" class="btn_cancelaraadm" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="hidden" value="" id="nome2" name="campo1">   
+<input type="hidden" value="" id="confexc" name="confexc">   
+<input type="hidden" value="" id="confalt" name="confalt">
 <button onclick="excluirconta()" class="btn_excluiradm" data-toggle="tooltip" data-placement="top" title="Excluir conta"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>   
 </form>
 </div>

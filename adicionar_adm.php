@@ -1,11 +1,5 @@
 <?php
 session_start();
-if(isset($_POST["btn_canadiadm"]))
-{
-  header('location: pagina_adm.php');
-  exit;
-}
-
 if(isset($_POST["btn_adicionaradm"]))
 {
         include_once('conexao.php');
@@ -18,11 +12,11 @@ if(isset($_POST["btn_adicionaradm"]))
         $nomeex = mysqli_num_rows($sql2);
         $emailvalouinv = filter_input(INPUT_POST, 'emailvalouinv', FILTER_SANITIZE_SPECIAL_CHARS);
         
-        if($emailvalouinv = "Inválido"){
+        if($emailvalouinv == "Inválido"){
           $script = "<script>alert('Erro: Não foi possivel cadastra ADM. E-Mail Inválido.');location.href='adicionar_adm.php';</script>";
           echo $script;
         }
-        elseif($emailvalouinv = "Válido"){
+        elseif($emailvalouinv == "Válido"){
         if($emailex>0) {
           $script = "<script>alert('Erro: Não foi possivel cadastra ADM. E-Mail já utilizado.');location.href='adicionar_adm.php';</script>";
           echo $script;
@@ -94,12 +88,12 @@ if ((usuario.length >=1) &&
     (dominio.lastIndexOf(".") < dominio.length - 1)) {
       document.getElementById("msgemail").innerHTML="";
       var emailvalouinv = 'Válido';
-      document.getElementById("emailvalouinv").value = emailvalouinv
+      document.getElementById("emailvalouinv").value = emailvalouinv;
 }
 else{
 document.getElementById("msgemail").innerHTML="<font color='red'>E-mail inválido </font>";
 var emailvalouinv = 'Inválido';
-document.getElementById("emailvalouinv").value = emailvalouinv
+document.getElementById("emailvalouinv").value = emailvalouinv;
 }
 }
 
@@ -107,6 +101,13 @@ function sair() {
   var resultado = confirm("Deseja Realmente sair dessa Conta?")
     if (resultado == true) {
       location.href='sair.php';
+    }
+  }
+
+    function voltar() {
+  var resultadovoltar = confirm("Cancelar cadastro?")
+    if (resultadovoltar == true) {
+      location.href='pagina_adm.php';
     }
 }
 </script>
@@ -137,7 +138,7 @@ function sair() {
 <br><br>
 <label for="adiemail_adm" style="font-size:20px; font-weight: bold; text-align: left;" required>E-Mail</label>
 <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
-<input type="email" name="adiemail_adm" id="adiemail_adm" style="width: 300px; font-size:20px;" onblur="validacaoEmail(f1.adiemail_adm)"  maxlength="256">
+<input type="email" name="adiemail_adm" id="adiemail_adm" style="width: 300px; font-size:20px;" autofocus onblur="validacaoEmail(f1.adiemail_adm)"  maxlength="256">
 <div id="msgemail"></div>
 <br><br><br>
 
@@ -152,7 +153,7 @@ function sair() {
 <div>   
 <button type="submit" id="btn_adicionaradm" name="btn_adicionaradm" class="btn_adicionaradm" data-toggle="tooltip" data-placement="top" title="Adicionar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="submit" id="btn_canadiadm" name="btn_canadiadm" class="btn_canadiadm" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+<button type="button" id="btn_canadiadm" name="btn_canadiadm" onclick="voltar()" class="btn_canadiadm" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
 </form>
 </div>
 </center>

@@ -84,7 +84,7 @@ else
 		 <form method="POST">
 		   <div class="input-box">
 		     <span>E-Mail</span>
-			 <input type="email" name="email" placeholder="@gmail.com" required>
+			 <input type="email" name="email" placeholder="@gmail.com" autofocus required>
 		    </div>
 			<br>
 			
