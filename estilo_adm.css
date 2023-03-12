@@ -16,7 +16,7 @@ body{
     padding: 15px 20px;
     border: 1px solid #080000;
     border-radius: 6px;
-    background-color: #728ee2;
+    background-color: #6984d4;
     font-size: 18px;
     position:absolute;
 
@@ -191,4 +191,15 @@ header {
     border-radius: 6px;
     background-color: #971506;
     font-size: 13px;
+}
+
+.btn_adiquestao{
+    width: 300px;
+    padding: 15px 20px;
+    border: 1px solid #080000;
+    border-radius: 6px;
+    background-color: #7aa249;
+    font-size: 18px;
+    position:absolute;
+
 }

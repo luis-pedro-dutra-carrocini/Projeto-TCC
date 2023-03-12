@@ -15,10 +15,10 @@ else
 <meta charset="UTF-8"> 
 <title>ADM</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
-<link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
+<link rel="stylesheet" type="text/css"  href="estilo_adm.css" />
 <header>
 
-<body background="img_fundo/fundo_pagadm.png"> 
+<body style="background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));"> 
 <script>
 function sair() {
   var resultado = confirm("Deseja Realmente sair dessa Conta?")

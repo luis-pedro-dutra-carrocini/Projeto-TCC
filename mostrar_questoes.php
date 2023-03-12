@@ -20,8 +20,8 @@ else
 <meta charset="UTF-8">
 <title>Visualizar Questões</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
-<body background="img_fundo/fundo_pagadm.png">
-<link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
+<body style="background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));">
+<link rel="stylesheet" type="text/css"  href="estilo_adm.css" />
 <header>
 
 <script>
@@ -31,6 +31,10 @@ else
       location.href='sair.php';
     }
 }
+
+function voltar() {
+      location.href='pagina_adm.php';
+}
 </script>
 
 <div>
@@ -39,7 +43,7 @@ else
 
 <font face="arial black">
 <div class="altdados_adm">
-<h2>Usuários Cadastrados</h2>
+<h2>Questões Cadastradas</h2>
 </div>
 </font>
 
@@ -49,11 +53,21 @@ else
   <input type="submit" onclick="sair()" value="Sair" id="btn_sair" name="btn_sair" class="btn_sair">
 </form>
 </header>
-<br><br><br><br>
+
+<div style='text-align:right'>
+<button onclick="voltar()" style="text-align: rigth; width: 80px; height: 30px; border: 1px solid #080000; background-color: CadetBlue; font-size: 15px;">Voltar</button>
+</div>
+<br><br>
+
+</header>
+<form action="adicionar_questao.php" class="formbtns">
+<button type="submit" id="btn_adinoquestao" name="btn_adinoquestao" class="btn_adiquestao"><img src="img/img_exemple.png" height ="40px" width="40px" style="position: absolute; top: 15%; left: 2%;">&nbsp;&nbsp;&nbsp;<b>Cadastra nova Questão</b></button>
+</form>
+<br>
 
 <font size="2">
 <center>
-<table border="4" bordercolor="LightSlateGray" style="background-color:DarkTurquoise;">
+<table border="4" cellpadding="5" bordercolor="LightSlateGray" style="background-color:DarkTurquoise;">
 <tr bgcolor="LightSeaGreen" align="center">
 <td>Código Questão</td>
 <td>Questão</td>
@@ -65,21 +79,29 @@ else
 <td>Resposta D</td>
 <td>Resposta E</td>
 <td>Nome Imagem</td>
+<td align="center"><b>Alterar / Excluir<b></td>
 </tr>
-<?php while ($dado=$consulta->fetch_array()) {?> 
-<tr>
-<td align="center"><?php echo $dado["codigo_questao"];?></td>
-<td><?php echo $dado["texto_questao"];?></td>
-<td><?php echo $dado["ano_vestibular"];?></td>
-<td><?php echo $dado["resposta_correta"];?></td>
-<td><?php echo $dado["resposta_a"];?></td>
-<td><?php echo $dado["resposta_b"];?></td>
-<td><?php echo $dado["resposta_c"];?></td>
-<td><?php echo $dado["resposta_d"];?></td>
-<td><?php echo $dado["resposta_e"];?></td>
-<td><?php echo $dado["nome_imagem"];?></td>
-</tr>
-<?php }?>
+<?php while ($dado=$consulta->fetch_array()) { 
+echo "<tr>";
+echo "<td align='center'>".$dado["codigo_questao"]."</td>";
+echo "<td>".$dado["texto_questao"]."</td>";
+echo "<td>".$dado["ano_vestibular"]."</td>";
+echo "<td>".$dado["resposta_correta"]."</td>";
+echo "<td>".$dado["resposta_a"]."</td>";
+echo "<td>".$dado["resposta_b"]."</td>";
+echo "<td>".$dado["resposta_c"]."</td>";
+echo "<td>".$dado["resposta_d"]."</td>";
+echo "<td>".$dado["resposta_e"]."</td>";
+echo "<td>".$dado["nome_imagem"]."</td>";
+echo "<td align='center' height ='35'>
+<div>
+<a href='alterar_questao.php?codigo=$dado[codigo_questao]' title='Alterar'><img src='img/img_exemple.png' height ='30px' width='30px' align='center'></a>
+<br><br><br>
+<a href='deletar_questao.php?codigo=$dado[codigo_questao]' title='Excluir'><img src='img/img_exemple.png' height ='30px' width='30px' align='center'></a>
+</div>
+</td>";
+echo "</tr>";
+}?>
 </table>
 </center>
 

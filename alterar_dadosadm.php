@@ -156,10 +156,49 @@ if ($_POST){
 <meta charset="UTF-8">
 <title>Alterar dados ADM</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
-<link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
+<link rel="stylesheet" type="text/css"  href="estilo_adm.css" />
 <header>
 
-<body background="img_fundo/fundo_pagadm.png">
+<style>
+        .box{
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 15px;
+            width: 30%;
+        }
+        fieldset{
+            border: 3px solid dodgerblue;
+        }
+        legend{
+            padding: 10px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 19px;
+        }
+        .inputUser{
+            background: none;
+            border: none;
+            border-bottom: 1px solid white;
+            outline: none;
+            color: white;
+            font-size: 17px;
+            width: 100%;
+            letter-spacing: 2px;
+        }
+        .inputUser:focus ~ .labelInput,
+        .inputUser:valid ~ .labelInput{
+            top: -20px;
+            font-size: 12px;
+            color: dodgerblue;
+        }
+    </style>
+    
+<body style="background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));">
 <script>
   function excluirconta() {
     var resultado = confirm("Deseja Realmente Excluir essa Conta?");
@@ -245,21 +284,26 @@ function voltar() {
 <br><br><br><br>
 
 <center>
-<form method="POST" class="formdados" name="f1">
-<legend style="color:grey31; font-size:25px; font-weight: bold;">Dados</legend>
+<div class="box">
+<form method="POST" name="f1" >
+<fieldset  style="text-align: left;">
+<legend style="font-size:25px; font-weight: bold;">Dados</legend>
 <br><br>
-<label for="email_adm" style="font-size:20px; font-weight: bold; text-align: left;">E-Mail</label>
+
+<label for="email_adm" style="font-size:17px; text-align: left; color: dodgerblue;">E-Mail</label><br>
 <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
-<input type="email" name="email_adm" id="email_adm" style="width: 300px; font-size:20px;" autofocus onblur="validacaoEmail(f1.email_adm)" value="<?php echo $email; ?>">
-<div id="msgemail"></div>
+<input type="email" name="email_adm" id="email_adm" class="inputUser" style="width: 300px; font-size:20px; text-align: left;" autofocus onblur="validacaoEmail(f1.email_adm)" value="<?php echo $email; ?>">
+<br>
+
+<div id="msgemail" style="text-align: center;"></div>
 <br><br><br>
 
-<label for="nome_adm" style="font-size:20px; font-weight: bold; text-align: left;">Nome</label>
-<input type="text" name="nome_adm" id="nome_adm" style="width: 300px; font-size:20px;" value="<?php echo $nome; ?>">
+<label for="nome_adm" style="font-size:17px; text-align: left; color: dodgerblue;">Nome</label>
+<input type="text" name="nome_adm" id="nome_adm" class="inputUser" style="width: 300px; font-size:20px;" value="<?php echo $nome; ?>">
 <br><br><br>
 
-<label for="senha_adm" style="font-size:20px; font-weight: bold; text-align: left;">Senha</label>
-<input type="text" name="senha_adm" id="senha_adm" style="width: 190px; font-size:20px;" value="<?php echo $senha; ?>">
+<label for="senha_adm" style="font-size:17px; text-align: left; color: dodgerblue;">Senha</label><br>
+<input type="text" name="senha_adm" id="senha_adm" class="inputUser" style="width: 190px; font-size:20px;" value="<?php echo $senha; ?>">
 <br><br><br>
 
 <div>   
@@ -272,6 +316,8 @@ function voltar() {
 <button onclick="excluirconta()" class="btn_excluiradm" data-toggle="tooltip" data-placement="top" title="Excluir conta"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>   
 </form>
 </div>
+</div>
+</fieldset>
 </center>
 
 </body>

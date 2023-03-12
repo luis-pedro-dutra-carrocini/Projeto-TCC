@@ -69,8 +69,47 @@ else
 <meta charset="UTF-8">
 <title>Adicionar ADM</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
-<link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
+<link rel="stylesheet" type="text/css"  href="estilo_adm.css" />
 <header>
+
+<style>
+        .box{
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 15px;
+            width: 30%;
+        }
+        fieldset{
+            border: 3px solid dodgerblue;
+        }
+        legend{
+            padding: 10px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 19px;
+        }
+        .inputUser{
+            background: none;
+            border: none;
+            border-bottom: 1px solid white;
+            outline: none;
+            color: white;
+            font-size: 17px;
+            width: 100%;
+            letter-spacing: 2px;
+        }
+        .inputUser:focus ~ .labelInput,
+        .inputUser:valid ~ .labelInput{
+            top: -20px;
+            font-size: 12px;
+            color: dodgerblue;
+        }
+    </style>
 
 <script language="Javascript">
 function validacaoEmail(field) {
@@ -130,31 +169,34 @@ function sair() {
 </header>
 <br><br><br><br>
 
-<body background="img_fundo/fundo_pagadm.png">
+<body style="background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));">
 
 <center>
-<form method="POST" class="formdados" name="f1">
+<div class="box">
+<form method="POST" name="f1">
+<fieldset  style="text-align: left;">
 <legend style="color:grey31; font-size:25px; font-weight: bold;">Dados</legend>
 <br><br>
-<label for="adiemail_adm" style="font-size:20px; font-weight: bold; text-align: left;" required>E-Mail</label>
+<label for="adiemail_adm" style="font-size:17px; text-align: left; color: dodgerblue;" required>E-Mail</label><br>
 <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
-<input type="email" name="adiemail_adm" id="adiemail_adm" style="width: 300px; font-size:20px;" autofocus onblur="validacaoEmail(f1.adiemail_adm)"  maxlength="256">
-<div id="msgemail"></div>
+<input type="email" name="adiemail_adm" id="adiemail_adm" class="inputUser" style="width: 300px; font-size:20px;" autofocus onblur="validacaoEmail(f1.adiemail_adm)"  maxlength="256">
+<div id="msgemail" style="text-align: center;"></div>
 <br><br><br>
 
-<label for="nome_adm" style="font-size:20px; font-weight: bold; text-align: left;" required>Nome</label>
-<input type="text" name="adinome_adm" id="adinome_adm" style="width: 300px; font-size:20px;" maxlength="50">
+<label for="nome_adm" style="font-size:17px; text-align: left; color: dodgerblue;" required>Nome</label><br>
+<input type="text" name="adinome_adm" id="adinome_adm" class="inputUser" style="width: 300px; font-size:20px;" maxlength="50">
 <br><br><br>
 
-<label for="senha_adm" style="font-size:20px; font-weight: bold; text-align: left;" required>Senha</label>
-<input type="password" name="adisenha_adm" id="senha_adm" style="width: 190px; font-size:20px;" maxlength="16">
+<label for="senha_adm" style="font-size:17px; text-align: left; color: dodgerblue;" required>Senha</label><br>
+<input type="password" name="adisenha_adm" id="senha_adm" class="inputUser" style="width: 190px; font-size:20px;" maxlength="16">
 <br><br><br>
 
 <div>   
-<button type="submit" id="btn_adicionaradm" name="btn_adicionaradm" class="btn_adicionaradm" data-toggle="tooltip" data-placement="top" title="Adicionar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" id="btn_canadiadm" name="btn_canadiadm" onclick="voltar()" class="btn_canadiadm" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+<button type="submit" id="btn_adicionaradm" name="btn_adicionaradm" class="btn_adicionaradm" style="width: 50%;" data-toggle="tooltip" data-placement="top" title="Adicionar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+<button type="button" id="btn_canadiadm" name="btn_canadiadm" onclick="voltar()" class="btn_canadiadm" style="width: 47%;" data-toggle="tooltip" data-placement="top" title="Cancelar"><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></button>
+</fieldset>
 </form>
+</div>
 </div>
 </center>
 

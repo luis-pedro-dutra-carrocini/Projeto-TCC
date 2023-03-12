@@ -21,8 +21,8 @@ else
 <meta charset="UTF-8">
 <title>Visualizar Usuários</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
-<body background="img_fundo/fundo_pagadm.png">
-<link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
+<body style="background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));">
+<link rel="stylesheet" type="text/css"  href="estilo_adm.css" />
 <header>
 
 <script>
@@ -31,6 +31,10 @@ else
     if (resultado == true) {
       location.href='sair.php';
     }
+}
+
+function voltar() {
+      location.href='pagina_adm.php';
 }
 </script>
 
@@ -50,6 +54,9 @@ else
   <input type="submit" onclick="sair()" value="Sair" id="btn_sair" name="btn_sair" class="btn_sair">
 </form>
 </header>
+<div style='text-align:right'>
+<button onclick="voltar()" style="text-align: rigth; width: 80px; height: 30px; border: 1px solid #080000; background-color: CadetBlue; font-size: 15px;">Voltar</button>
+</div>
 <br><br><br><br>
 
 <center>
@@ -59,27 +66,40 @@ else
 <td><b>E-Mail</b></td>
 <td align="center"><b>Alterar / Excluir<b></td>
 </tr>
-<?php while ($dado=$consulta->fetch_array()) {?> 
-<tr>
-<td height ="35"><?php echo $dado["nome_usuario"];?></td>
-<td height ="35"><?php echo $dado["email_usuario"];?></td>
-<td height ="35">
+<?php while ($dado=$consulta->fetch_array()) { 
+echo "<tr>";
+echo "<td height ='35'>".$dado['nome_usuario']."</td>";
+echo "<td height ='35'>".$dado['email_usuario']."</td>";
+echo "<td height ='35'>
 <div>
 &nbsp;&nbsp;
-<a href='' title='Alterar'><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></a>
+<a href='alterar_usuario.php?nome=$dado[nome_usuario]' title='Alterar'><img src='img/img_exemple.png' height ='30px' width='30px' align='center'></a>
 &nbsp;&nbsp;
-<a href="deletar_usuario.php?id=$dado['nome_usuario']" title='Excluir'><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></a>
+<a href='deletar_usuario.php?nome=$dado[nome_usuario]' title='Excluir'><img src='img/img_exemple.png' height ='30px' width='30px' align='center'></a>
 &nbsp;&nbsp;
 </div>
-</td>
-</tr>
-<?php }?>
+</td>";
+echo "</tr>";
+}
+?>
+
 </table>
 </center>
-
-
-
-
+<div id="container">Teste</div>
+<button id="btn">Ação</button>
+<script>
+var btn = document.querySelector("#btn");
+btn.addEventListener("click", function() {
+    var div = document.querySelector("#container");
+    
+  if(div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+      div.style.display = "none";
+  }
+    
+});
+</script>
 
 </bodY>
 </html>
