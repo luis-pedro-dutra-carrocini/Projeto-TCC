@@ -2,7 +2,7 @@
 session_start();
 include('conexao.php');
 
-$consulta = mysqli_query($conexao,"select * from tab_questoes");
+$consulta = mysqli_query($conexao,"select * from tab_usuarios");
 
 if(!isset($_SESSION["senha_adm"]))
 {
@@ -13,12 +13,13 @@ else
 {
     $nome = $_SESSION["nome_adm"];
 }
+
 ?>
 
 <!DOCTYPE HTML>
 <html>
 <meta charset="UTF-8">
-<title>Visualizar Questões</title>
+<title>Visualizar Usuários</title>
 <link rel="icon" type="image/png" href="img/icone_exemplo.png"/>
 <body background="img_fundo/fundo_pagadm.png">
 <link rel="stylesheet" type="text/css"  href="estilo_adms.css" />
@@ -51,33 +52,26 @@ else
 </header>
 <br><br><br><br>
 
-<font size="2">
 <center>
-<table border="4" bordercolor="LightSlateGray" style="background-color:DarkTurquoise;">
-<tr bgcolor="LightSeaGreen" align="center">
-<td>Código Questão</td>
-<td>Questão</td>
-<td>Ano do Vestibular</td>
-<td>Resposta Correta</td>
-<td>Resposta A</td>
-<td>Resposta B</td>
-<td>Resposta C</td>
-<td>Resposta D</td>
-<td>Resposta E</td>
-<td>Nome Imagem</td>
+<table cellpadding="6" border="4" bordercolor="DarkBlue" style="background-color:DodgerBlue;">
+<tr height ="35" bgcolor="RoyalBlue">
+<td><b>Nome</b></td>
+<td><b>E-Mail</b></td>
+<td align="center"><b>Alterar / Excluir<b></td>
 </tr>
 <?php while ($dado=$consulta->fetch_array()) {?> 
 <tr>
-<td align="center"><?php echo $dado["codigo_questao"];?></td>
-<td><?php echo $dado["texto_questao"];?></td>
-<td><?php echo $dado["ano_vestibular"];?></td>
-<td><?php echo $dado["resposta_correta"];?></td>
-<td><?php echo $dado["resposta_a"];?></td>
-<td><?php echo $dado["resposta_b"];?></td>
-<td><?php echo $dado["resposta_c"];?></td>
-<td><?php echo $dado["resposta_d"];?></td>
-<td><?php echo $dado["resposta_e"];?></td>
-<td><?php echo $dado["nome_imagem"];?></td>
+<td height ="35"><?php echo $dado["nome_usuario"];?></td>
+<td height ="35"><?php echo $dado["email_usuario"];?></td>
+<td height ="35">
+<div>
+&nbsp;&nbsp;
+<a href='' title='Alterar'><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></a>
+&nbsp;&nbsp;
+<a href="deletar_usuario.php?id=$dado['nome_usuario']" title='Excluir'><img src="img/img_exemple.png" height ="30px" width="30px" align="center"></a>
+&nbsp;&nbsp;
+</div>
+</td>
 </tr>
 <?php }?>
 </table>
