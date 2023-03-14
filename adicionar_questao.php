@@ -1,16 +1,23 @@
 <?php
+session_start();
+if(!isset($_SESSION["senha_adm"]))
+{
+  header('location: index.php');
+}
+else
+{
+}
+
 if(isset($_POST["adcionarquestao"]))
 {
 
+	// Verificando se a questão já esta cadastrada.
 	if (isset($_POST["txtquestao"]))	
 	{
 		include_once ('conexao.php');
 		$questao = $_POST['txtquestao'];
-		echo $questao;
 		$sql = mysqli_query($conexao, "SELECT * FROM tab_questoes WHERE texto_questao = '$questao';");
 		$sql2 = mysqli_num_rows($sql);
-		echo $sql2;
-
 		
 		if(mysqli_num_rows($sql)>0) 
 		{ 
@@ -26,134 +33,137 @@ if(isset($_POST["adcionarquestao"]))
 		}
 	}
 
-    $escolha = @$_POST['chenimg'];
-    if (empty($escolha)){
-		if (!empty($_FILES['arquivo']['name'])){
-		$nomeimagem = $_FILES['arquivo']['name'];
-		$tipo = $_FILES['arquivo']['type'];
-		$nometemporario = $_FILES['arquivo']['tmp_name'];
-		$tamanho_imagem = $_FILES['arquivo']['size'];
-		$erros = array();
-		$tamanho_maximo = 1024 * 1024 * 5;
+	// Verificando se a questão tem imagem.
+    $escolha = @$_POST['chepimg'];
+    if ($escolha=="spimg"){
+	    if (!empty($_FILES['arquivo']['name'])){
+		    $nomeimagem = $_FILES['arquivo']['name'];
+		    $tipo = $_FILES['arquivo']['type'];
+		    $nometemporario = $_FILES['arquivo']['tmp_name'];
+		    $tamanho_imagem = $_FILES['arquivo']['size'];
+		    $erros = array();
+		    $tamanho_maximo = 1024 * 1024 * 5;
 
-		if ($tamanho_imagem > $tamanho_maximo){
-			$erros[] = "- Imagem exede o tamanho máximo de 5 MB.<br>";
-		}
-		
-		$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
-
-		if (!in_array ($tipo, $tipospermitidos)){
-			$erros[] = "- Tipo de arquivo não permitido.<br>";
-		}
-		
-		if (!empty($erros)) {
-			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-		    echo "<center><b>Erro</b></center><br>";
-		    echo "<font size='4' color='black'>";
-
-			foreach ($erros as $erro)
-			{
-				echo $erro;
+			if ($tamanho_imagem > $tamanho_maximo){
+				$erros[] = "- Imagem exede o tamanho máximo de 5 MB.<br>";
 			}
-
-			echo "- Questão NÃO adicionada!!!";
-			echo "</body> </html>";
-		    echo "<br>";
-			echo "<br>";
-			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
-		    exit();
-		}
 		
-		$caminho = "uploads/";
-		date_default_timezone_set('America/Sao_Paulo');
-		$hoje = date("d-m-Y_H-i-s", time());
-		$novonome = $hoje."-".$nomeimagem;
+			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
+
+			if (!in_array ($tipo, $tipospermitidos)){
+				$erros[] = "- Tipo de arquivo não permitido.<br>";
+			}
+		
+			if (!empty($erros)) {
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
+				foreach ($erros as $erro)
+				{
+					echo $erro;
+				}
+
+				echo "- Questão NÃO adicionada!!!";
+				echo "</body> </html>";
+		    	echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+		    	exit();
+			}
+		
+			$caminho = "uploads/";
+			date_default_timezone_set('America/Sao_Paulo');
+			$hoje = date("d-m-Y_H-i-s", time());
+			$novonome = $hoje."-".$nomeimagem;
 			
-		if (move_uploaded_file($nometemporario, $caminho.$novonome)){
-			echo "- Imagem salva com Sucesso!!!";
-			echo "<br>";
-		}
-		else{
-			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-		    echo "<center><b>Erro</b></center><br>";
-		    echo "<font size='4' color='black'>";
-		    echo "- Erro ao Salvar a Imagem!!!";
-		    echo "</body> </html>";
-			echo "<br>";
-			echo "<br>";
-			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
-			exit();
-		}
+			if (move_uploaded_file($nometemporario, $caminho.$novonome)){
+				echo "- Imagem salva com Sucesso!!!";
+				echo "<br>";
+			}
+			else{
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
 	    }
 		else{
 			$novonome = "Não possui Imagem";
 		}
 	}  
-	else if ($escolha = "chenao"){
+	else if ($escolha = "npimg"){
 		$novonome = "Não possui Imagem";
 	}
 
 	$escolhares = @$_POST['chenimgoutex'];
 
-    if ($escolhares = "resimg"){
+	// Verificando se a resposta é Imagem ou Texto.
+    if ($escolhares == "resimg"){
+		//Verificando se a imagem A foi selecionada,
 		if (!empty($_FILES['resimga']['name'])){
-		$nomeimagem = $_FILES['resimga']['name'];
-		$tipo = $_FILES['resimga']['type'];
-		$nometemporario = $_FILES['resimga']['tmp_name'];
-		$tamanho_imagem = $_FILES['resimga']['size'];
-		$erros = array();
+			$nomeimagem = $_FILES['resimga']['name'];
+			$tipo = $_FILES['resimga']['type'];
+			$nometemporario = $_FILES['resimga']['tmp_name'];
+			$tamanho_imagem = $_FILES['resimga']['size'];
+			$erros = array();
 		
-		$tamanho_maximo = 1024 * 1024 * 5;
+			$tamanho_maximo = 1024 * 1024 * 5;
 
-		if ($tamanho_imagem > $tamanho_maximo){
-			$erros[] = "- Imagem exede o tamanho máximo de 5 MB.<br>";
-		}
-		
-		$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
-
-		if (!in_array ($tipo, $tipospermitidos)){
-			$erros[] = "- Tipo de arquivo não permitido.<br>";
-		}
-		
-		if (!empty($erros)) {
-			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-		    echo "<center><b>Erro</b></center><br>";
-		    echo "<font size='4' color='black'>";
-
-			foreach ($erros as $erro)
-			{
-				echo $erro;
+			if ($tamanho_imagem > $tamanho_maximo){
+				$erros[] = "- Imagem da letra A exede o tamanho máximo de 5 MB.<br>";
 			}
-
-			echo "- Questão NÃO adicionada!!!";
-			echo "</body> </html>";
-		    echo "<br>";
-			echo "<br>";
-			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
-		    exit();
-		}
 		
-		$caminho = "uploads/";
-		date_default_timezone_set('America/Sao_Paulo');
-		$hoje = date("d-m-Y_H-i-s", time());
-		$nomeimgla = $hoje."-".$nomeimagem;
+			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
+
+			if (!in_array ($tipo, $tipospermitidos)){
+				$erros[] = "- Tipo de arquivo não permitido na Imagem da letra A.<br>";
+			}
+		
+			if (!empty($erros)) {
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
+				foreach ($erros as $erro)
+				{
+					echo $erro;
+				}
+
+				echo "- Questão NÃO adicionada!!!";
+				echo "</body> </html>";
+		    	echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+		   		exit();
+			}
+		
+			$caminho = "img_res/";
+			date_default_timezone_set('America/Sao_Paulo');
+			$hoje = date("d-m-Y_H-i-s", time());
+			$nomeimgla = $hoje."-".$nomeimagem;
 			
-		if (move_uploaded_file($nometemporario, $caminho.$novonome)){
-			echo "- Imagem salva com Sucesso!!!";
-			echo "<br>";
+			if (move_uploaded_file($nometemporario, $caminho.$nomeimgla)){
+				echo "- Imagem salva com Sucesso!!!";
+				echo "<br>";
+			}
+			else{
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
 		}
-		else{
-			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-		    echo "<center><b>Erro</b></center><br>";
-		    echo "<font size='4' color='black'>";
-		    echo "- Erro ao Salvar a Imagem!!!";
-		    echo "</body> </html>";
-			echo "<br>";
-			echo "<br>";
-			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
-			exit();
-		}
-	}
 		else{
 			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
 		    echo "<center><b>Erro</b></center><br>";
@@ -165,91 +175,384 @@ if(isset($_POST["adcionarquestao"]))
 			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
 			exit();
 		}
-	    
-
-	        if (!empty($_FILES['resimgb']['name'])){
+	   
+		//Verificando se a imagem B foi selecionada,
+		if (!empty($_FILES['resimgb']['name'])){
 			$nomeimagem = $_FILES['resimgb']['name'];
 			$tipo = $_FILES['resimgb']['type'];
 			$nometemporario = $_FILES['resimgb']['tmp_name'];
 			$tamanho_imagem = $_FILES['resimgb']['size'];
 			$erros = array();
-			
+		
 			$tamanho_maximo = 1024 * 1024 * 5;
-	
+
 			if ($tamanho_imagem > $tamanho_maximo){
-				$erros[] = "- Imagem exede o tamanho máximo de 5 MB.<br>";
+				$erros[] = "- Imagem da letra B exede o tamanho máximo de 5 MB.<br>";
 			}
-			
+		
 			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
-	
+
 			if (!in_array ($tipo, $tipospermitidos)){
-				$erros[] = "- Tipo de arquivo não permitido.<br>";
+				$erros[] = "- Tipo de arquivo não permitido na Imagem da letra B.<br>";
 			}
-			
+		
 			if (!empty($erros)) {
 				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-				echo "<center><b>Erro</b></center><br>";
-				echo "<font size='4' color='black'>";
-	
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
 				foreach ($erros as $erro)
 				{
 					echo $erro;
 				}
-	
+
 				echo "- Questão NÃO adicionada!!!";
 				echo "</body> </html>";
-				echo "<br>";
+		    	echo "<br>";
 				echo "<br>";
 				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
-				exit();
+		   		exit();
 			}
-			
-			$caminho = "uploads/";
+		
+			$caminho = "img_res/";
 			date_default_timezone_set('America/Sao_Paulo');
 			$hoje = date("d-m-Y_H-i-s", time());
-			$novonome = $hoje."-".$nomeimagem;
-				
-			if (move_uploaded_file($nometemporario, $caminho.$novonome)){
+			$nomeimglb = $hoje."-".$nomeimagem;
+			
+			if (move_uploaded_file($nometemporario, $caminho.$nomeimglb)){
 				echo "- Imagem salva com Sucesso!!!";
 				echo "<br>";
 			}
 			else{
 				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
-				echo "<center><b>Erro</b></center><br>";
-				echo "<font size='4' color='black'>";
-				echo "- Erro ao Salvar a Imagem!!!";
-				echo "</body> </html>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
 				echo "<br>";
 				echo "<br>";
 				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
 				exit();
 			}
-	    
+		}
+		else{
+			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    echo "<center><b>Erro</b></center><br>";
+		    echo "<font size='4' color='black'>";
+		    echo "- Imagem da letra B não selecionada!!!";
+		    echo "</body> </html>";
+			echo "<br>";
+			echo "<br>";
+			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+			exit();
+		}
+
+		//Verificando se a imagem C foi selecionada,
+		if (!empty($_FILES['resimgc']['name'])){
+			$nomeimagem = $_FILES['resimgc']['name'];
+			$tipo = $_FILES['resimgc']['type'];
+			$nometemporario = $_FILES['resimgc']['tmp_name'];
+			$tamanho_imagem = $_FILES['resimgc']['size'];
+			$erros = array();
+		
+			$tamanho_maximo = 1024 * 1024 * 5;
+
+			if ($tamanho_imagem > $tamanho_maximo){
+				$erros[] = "- Imagem da letra C exede o tamanho máximo de 5 MB.<br>";
+			}
+		
+			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
+
+			if (!in_array ($tipo, $tipospermitidos)){
+				$erros[] = "- Tipo de arquivo não permitido na Imagem da letra C.<br>";
+			}
+		
+			if (!empty($erros)) {
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
+				foreach ($erros as $erro)
+				{
+					echo $erro;
+				}
+
+				echo "- Questão NÃO adicionada!!!";
+				echo "</body> </html>";
+		    	echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+		   		exit();
+			}
+		
+			$caminho = "img_res/";
+			date_default_timezone_set('America/Sao_Paulo');
+			$hoje = date("d-m-Y_H-i-s", time());
+			$nomeimglc = $hoje."-".$nomeimagem;
+			
+			if (move_uploaded_file($nometemporario, $caminho.$nomeimglc)){
+				echo "- Imagem salva com Sucesso!!!";
+				echo "<br>";
+			}
+			else{
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		else{
+			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    echo "<center><b>Erro</b></center><br>";
+		    echo "<font size='4' color='black'>";
+		    echo "- Imagem da letra C não selecionada!!!";
+		    echo "</body> </html>";
+			echo "<br>";
+			echo "<br>";
+			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+			exit();
+		}
+
+		//Verificando se a imagem D foi selecionada,
+		if (!empty($_FILES['resimgd']['name'])){
+			$nomeimagem = $_FILES['resimgd']['name'];
+			$tipo = $_FILES['resimgd']['type'];
+			$nometemporario = $_FILES['resimgd']['tmp_name'];
+			$tamanho_imagem = $_FILES['resimgd']['size'];
+			$erros = array();
+		
+			$tamanho_maximo = 1024 * 1024 * 5;
+
+			if ($tamanho_imagem > $tamanho_maximo){
+				$erros[] = "- Imagem da letra D exede o tamanho máximo de 5 MB.<br>";
+			}
+		
+			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
+
+			if (!in_array ($tipo, $tipospermitidos)){
+				$erros[] = "- Tipo de arquivo não permitido na Imagem da letra D.<br>";
+			}
+		
+			if (!empty($erros)) {
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
+				foreach ($erros as $erro)
+				{
+					echo $erro;
+				}
+
+				echo "- Questão NÃO adicionada!!!";
+				echo "</body> </html>";
+		    	echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+		   		exit();
+			}
+		
+			$caminho = "img_res/";
+			date_default_timezone_set('America/Sao_Paulo');
+			$hoje = date("d-m-Y_H-i-s", time());
+			$nomeimgld = $hoje."-".$nomeimagem;
+			
+			if (move_uploaded_file($nometemporario, $caminho.$nomeimgld)){
+				echo "- Imagem salva com Sucesso!!!";
+				echo "<br>";
+			}
+			else{
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		else{
+			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    echo "<center><b>Erro</b></center><br>";
+		    echo "<font size='4' color='black'>";
+		    echo "- Imagem da letra D não selecionada!!!";
+		    echo "</body> </html>";
+			echo "<br>";
+			echo "<br>";
+			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+			exit();
+		}	
+
+		//Verificando se a imagem E foi selecionada,
+		if (!empty($_FILES['resimge']['name'])){
+			$nomeimagem = $_FILES['resimge']['name'];
+			$tipo = $_FILES['resimge']['type'];
+			$nometemporario = $_FILES['resimge']['tmp_name'];
+			$tamanho_imagem = $_FILES['resimge']['size'];
+			$erros = array();
+		
+			$tamanho_maximo = 1024 * 1024 * 5;
+
+			if ($tamanho_imagem > $tamanho_maximo){
+				$erros[] = "- Imagem da letra E exede o tamanho máximo de 5 MB.<br>";
+			}
+		
+			$tipospermitidos = ["image/png","image/jpg","image/jpeg"];
+
+			if (!in_array ($tipo, $tipospermitidos)){
+				$erros[] = "- Tipo de arquivo não permitido na Imagem da letra E.<br>";
+			}
+		
+			if (!empty($erros)) {
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+
+				foreach ($erros as $erro)
+				{
+					echo $erro;
+				}
+
+				echo "- Questão NÃO adicionada!!!";
+				echo "</body> </html>";
+		    	echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+		   		exit();
+			}
+		
+			$caminho = "img_res/";
+			date_default_timezone_set('America/Sao_Paulo');
+			$hoje = date("d-m-Y_H-i-s", time());
+			$nomeimgle = $hoje."-".$nomeimagem;
+			
+			if (move_uploaded_file($nometemporario, $caminho.$nomeimgle)){
+				echo "- Imagem salva com Sucesso!!!";
+				echo "<br>";
+			}
+			else{
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- Erro ao Salvar a Imagem!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		else{
+			echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    echo "<center><b>Erro</b></center><br>";
+		    echo "<font size='4' color='black'>";
+		    echo "- Imagem da letra E não selecionada!!!";
+		    echo "</body> </html>";
+			echo "<br>";
+			echo "<br>";
+			echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+			exit();
+		}	
 	}
-	else if ($escolhares = "chenao")
-	{
-		$novonome = "Não possui Imagem";
+    elseif ($escolhares == "restex"){
+		if(isset($_POST["txtletraa"])){
+			if($_POST["txtletraa"]==""){
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- A resposta A não pode ser nula!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		if(isset($_POST["txtletrab"])){
+			if($_POST["txtletrab"]==""){
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- A resposta B não pode ser nula!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		if(isset($_POST["txtletrac"])){
+			if($_POST["txtletrac"]==""){
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- A resposta C não pode ser nula!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		if(isset($_POST["txtletrad"])){
+			if($_POST["txtletrad"]==""){
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- A resposta D não pode ser nula!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
+		if(isset($_POST["txtletrae"])){
+			if($_POST["txtletrae"]==""){
+				echo "<html> <meta charset ='UTF-8'> <body bgcolor = 'cyan'> <title>Erro na Adição</title>  <font size='6' color='red'>";
+		    	echo "<center><b>Erro</b></center><br>";
+		    	echo "<font size='4' color='black'>";
+		    	echo "- A resposta E não pode ser nula!!!";
+		    	echo "</body> </html>";
+				echo "<br>";
+				echo "<br>";
+				echo "Clique <a href='adicionar_questao.php'>aqui</a> para voltar.";
+				exit();
+			}
+		}
 	}
-	
-	    include_once ('conexao.php');
+
+	include_once ('conexao.php');
         $txtquestao = $_POST["txtquestao"];
         $numano = $_POST["numano"];
         $txtrespostacorreta = $_POST["txtrespostacorreta"];
+
+		if ($escolhares == "restex"){
         $txtletraa = $_POST["txtletraa"];
         $txtletrab = $_POST["txtletrab"];
         $txtletrac = $_POST["txtletrac"];
         $txtletrad = $_POST["txtletrad"];
         $txtletrae = $_POST["txtletrae"];
-
-        $result = mysqli_query($conexao, "insert into tab_questoes(texto_questao, ano_vestibular,resposta_correta,resposta_a,resposta_b,resposta_c,resposta_d,resposta_e, nome_imagem) values('$txtquestao','$numano','$txtrespostacorreta','$txtletraa','$txtletrab','$txtletrac','$txtletrad','$txtletrae', '$novonome')");
+		$result = mysqli_query($conexao, "insert into tab_questoes(texto_questao, ano_vestibular,resposta_correta,resposta_a,resposta_b,resposta_c,resposta_d,resposta_e, nome_imagem, tipo_resposta) values('$txtquestao','$numano','$txtrespostacorreta','$txtletraa','$txtletrab','$txtletrac','$txtletrad','$txtletrae', '$novonome', 't')");
 		date_default_timezone_set('America/Sao_Paulo');
 		$hora = date('H:i:s', time());
 		echo "- Questão adicionada com Sucesso às ".$hora;
+		}
+		elseif ($escolhares == "resimg"){
+			$result = mysqli_query($conexao, "insert into tab_questoes(texto_questao, ano_vestibular,resposta_correta,resposta_a,resposta_b,resposta_c,resposta_d,resposta_e, nome_imagem, tipo_resposta) values('$txtquestao','$numano','$txtrespostacorreta','$nomeimgla','$nomeimglb','$nomeimglc','$nomeimgld','$nomeimgle', '$novonome', 'i')");
+		date_default_timezone_set('America/Sao_Paulo');
+		$hora = date('H:i:s', time());
+		echo "- Questão adicionada com Sucesso às ".$hora;
+		}
 
-		
-
+        
 }
-
 ?>
 
 <!DOCTYPE HTML>
@@ -267,7 +570,7 @@ if(isset($_POST["adcionarquestao"]))
 
 <font face="arial black">
 <div class="altdados_adm">
-<h2>Questões Cadastradas</h2>
+<h2>Adicionar Questão</h2>
 </div>
 </font>
 
@@ -341,15 +644,15 @@ divresimg.style.display = "block";
 </script>
 
 <div id="divrestext">
-<label style="left:40px; margin-right:5px;">Letra A:</label> <input type="text" name="txtletraa" style="width: 900px;" id="txtletraa" required>
+<label style="left:40px; margin-right:5px;">Letra A:</label> <input type="text" name="txtletraa" style="width: 900px;" id="txtletraa">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra B:</label> <input type="text" name="txtletrab" style="width: 900px;" id="txtletrab" required>
+<label style="left:40px; margin-right:5px;">Letra B:</label> <input type="text" name="txtletrab" style="width: 900px;" id="txtletrab">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra C:</label> <input type="text" name="txtletrac" style="width: 900px;" id="txtletrac" required>
+<label style="left:40px; margin-right:5px;">Letra C:</label> <input type="text" name="txtletrac" style="width: 900px;" id="txtletrac">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra D:</label> <input type="text" name="txtletrad" style="width: 900px;" id="txtletrad" required>
+<label style="left:40px; margin-right:5px;">Letra D:</label> <input type="text" name="txtletrad" style="width: 900px;" id="txtletrad">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra E:</label> <input type="text" name="txtletrae" style="width: 900px;" id="txtletrae" required>
+<label style="left:40px; margin-right:5px;">Letra E:</label> <input type="text" name="txtletrae" style="width: 900px;" id="txtletrae">
 <br><br>
 </div>
 
@@ -366,12 +669,29 @@ divresimg.style.display = "block";
 <br><br>
 </div>
 
-<b>Imagem:</b>
+<b>Possui imagem?</b>
 <br>
+<input type="radio" name="chepimg"  id="spimg" value="spimg">
+<label for="chepimg">Sim</label>
+<input type="radio" name="chepimg" id="npimg" value="npimg" checked>
+<label for="chepimg">Não</label>
+<br><br>
+
+<script>
+var spimg = document.querySelector("#spimg");
+spimg.addEventListener("click", function() { 
+divimgques.style.display = "block"; 
+});
+
+var npimg = document.querySelector("#npimg");
+npimg.addEventListener("click", function() { 
+divimgques.style.display = "none"; 
+});
+</script>
+
+<div id="divimgques" style="display: none;">
 <input type="file" name="arquivo" style="font-size:15px">
-<input type="checkbox" name="chenimg" value="chenao">
-<label for="chenimg">Não possui Imagem</label>
-<br>
+</div>
 
 <br><br>
 

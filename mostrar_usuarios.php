@@ -85,21 +85,5 @@ echo "</tr>";
 
 </table>
 </center>
-<div id="container">Teste</div>
-<button id="btn">Ação</button>
-<script>
-var btn = document.querySelector("#btn");
-btn.addEventListener("click", function() {
-    var div = document.querySelector("#container");
-    
-  if(div.style.display === "none") {
-        div.style.display = "block";
-    } else {
-      div.style.display = "none";
-  }
-    
-});
-</script>
-
 </bodY>
 </html>
