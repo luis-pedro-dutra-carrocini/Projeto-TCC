@@ -92,7 +92,9 @@ Linguagens e Frameworks:
 
 ## 📌 Versão
 
-Essa versão foi a apresentada no dia da apresentação, sendo ela a primeira versão;
+* Commit 8 - Versão Apresentada - 14-12-2023;
+* Commit 9 - Versão Pós-Apresentação - 14-12-2023;
+* Pretendemos relizar novas versões no futuro;
 
 ## ✒️ Autores
 
