@@ -321,6 +321,9 @@ if(isset($_POST["alterarquestao"]))
 			exit;
 		}
 
+		// Obtendo o ano da questão
+		$ano_pergunta = $_POST["anoquestao"];
+
 		// Obtendo os valores se acoso a questão estiver cadastrada
 		$sql2 = mysqli_query($conexao, "SELECT * FROM tabela_pergunta WHERE codigo_pergunta = '".addslashes($txtquestao)."';");
     	$sql = mysqli_query($conexao, "SELECT * FROM tabela_pergunta WHERE codigo_pergunta = '$codquestao';");
@@ -915,11 +918,11 @@ if(isset($_POST["alterarquestao"]))
 		if ($escolhares == "restex"){
 
 			// obtendo dados do form
-        	$txtletraa = trim($_POST["txtletraa"]);
-        	$txtletrab = trim($_POST["txtletrab"]);
-        	$txtletrac = trim($_POST["txtletrac"]);
-        	$txtletrad = trim($_POST["txtletrad"]);
-        	$txtletrae = trim($_POST["txtletrae"]);
+        	$txtletraa = Addslashes(trim($_POST["txtletraa"]));
+        	$txtletrab = Addslashes(trim($_POST["txtletrab"]));
+        	$txtletrac = Addslashes(trim($_POST["txtletrac"]));
+        	$txtletrad = Addslashes(trim($_POST["txtletrad"]));
+        	$txtletrae = Addslashes(trim($_POST["txtletrae"]));
 
 			// Obtendo o valor da disciplina
 			$disciplina = $_POST["disciplina"];
@@ -930,7 +933,7 @@ if(isset($_POST["alterarquestao"]))
 			$coddisciplina = $sql3['codigo_disciplina'];
 
 			// Salvando alterações na tabela pergunta
-			$result = mysqli_query($conexao, "UPDATE tabela_pergunta SET codigo_disciplina=$coddisciplina,pergunta='".addslashes($txtquestao)."',imagem='$novonome' WHERE codigo_pergunta=$codquestao;");
+			$result = mysqli_query($conexao, "UPDATE tabela_pergunta SET codigo_disciplina=$coddisciplina,pergunta='".addslashes($txtquestao)."',imagem='$novonome', ano=$ano_pergunta WHERE codigo_pergunta=$codquestao;");
 
 			// Obtendo dados da tabela pergunta
 			$sql4 = mysqli_query($conexao, "SELECT codigo_pergunta FROM tabela_pergunta WHERE pergunta = '".addslashes($txtquestao)."';");
@@ -1046,7 +1049,7 @@ if(isset($_POST["alterarquestao"]))
 
 
 			// aletrando os dados da tebela pergunta
-			$result = mysqli_query($conexao, "UPDATE tabela_pergunta SET codigo_disciplina=$coddisciplina,pergunta='".addslashes($txtquestao)."',imagem='$novonome' WHERE codigo_pergunta=$codquestao;");
+			$result = mysqli_query($conexao, "UPDATE tabela_pergunta SET codigo_disciplina=$coddisciplina,pergunta='".addslashes($txtquestao)."',imagem='$novonome', ano=$ano_pergunta WHERE codigo_pergunta=$codquestao;");
 
 			// Obtendo dados da tabela pergunta
 			$sql4 = mysqli_query($conexao, "SELECT codigo_pergunta FROM tabela_pergunta WHERE pergunta = '".addslashes($txtquestao)."';");
@@ -1191,477 +1194,581 @@ function restaurar() {
       location.href='alterar_questao.php?codigo=<?php echo $codquestao ?>';
 }
 
-// Função para voltar a pagina home -->
-function home() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='pagina_adm.php';
-	}
-}
-
-// Função para abrir a pagina visualizar usuários -->
-function visu_usuarios() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_usuarios.php';
-	}
-}
-
-// Função para abrir a pagina visualizar questões -->
-function visu_questoes() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_questoes.php';
-	}
-}
-
-// Função para abrir a página adicionar adm -->
-function add_adm() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='adicionar_adm.php';
-	}
-}
-
-// Função para abrir a pagina alterar dados adm -->
-function alt_dados() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='alterar_dadosadm.php';
-	}
-}
-
-// Função para ir para a página visu usu ban -->
-function visu_usuarios_banidos() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_usuarios_banidos.php';
-	}
-}
-
-// Função para ir para a página visu provas adm -->
-function provas_geradas() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provas_geradasadm.php';
-	}
-}
-
-// Função para ir para a página criar provas -->
-function gerar_prova() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='gerar_provaadm.php';
-	}
-}
-
-// Função para ir para a página add questões -->
-function add_questoes() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='adicionar_questao.php';
-	}
-}
-
-// Função para alterar dados -->
-function pgaltdados() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='alterar_dadosadm.php';
-	}
-}
-
-// Função para abrir a pagina redações para corrigir -->
-function red_corrigir() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='readacoes_corrigir.php';
-	}
-}
-
-// Função para abrir a pagina redações corrigidas -->
-function red_corrigidas() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='readacoes_corrigidas.php';
-	}
-}
-
-// Função para abrir a pagina mostrar professores -->
-function mostrar_professores() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_professores.php';
-	}
-}
-
-// Função para abrir a pagina professores banidos -->
-function mostrar_proban() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_professores_banidos.php';
-	}
-}
-
-// Função para abrir a pagina sobre -->
-function sobre() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='sobreadm.php';
-	}
-}
-
-// Função para abrir a pagina provas professores -->
-function professores() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provasadm_adm.php';
-	}
-}
-
-// Função para abrir a pagina provas usuarios -->
-function prousuarios() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provasusu_adm.php';
-	}
-}
-
-// Função para abrir a pagina temas do enem -->
-function tamas_enem() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_enem.php';
-	}
-}
-
-// Função para abrir a pagina temas usuarios -->
-function temas_usuarios() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_usuarios.php';
-	}
-}
-
-
-// Função para abrir a pagina temas adm -->
-function temas_adm() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_professores.php';
-	}
-}
-
-// Função para abrir a pagina add tema -->
-function add_tema() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='adicionar_tema.php';
-	}
-}
-
-// Função para abrir a visualizar imagens de perguntas -->
-function verimg_per() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='verficarimg_perguntas.php';
-	}
-}
-
-// Função para abrir a visualizar imagens de respostas -->
-function verimg_res() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='verficarimg_respostas.php';
-	}
-}
 </script>
 
 <!-- abrindo o cabeçalho -->
 
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
 
 <!-- Iniciando o CSS -->
+
 <!-- Definindo características da página como um todo -->
+
 <style>
+
 		/* Definindo fonte e cor da página */
+
         body{
+
             font-family: Arial, Helvetica, sans-serif;
-			background-color: LightBlue;
+
+			background-color: black;
+
         }
+
+
 
 		/* Definindo características da "caixa" do formulário */
-        .box{
-			top: 20%;
-            left: 3%;
-            color: black;
-            position: absolute;
-            background-color: white;
-            padding: 15px;
-            border-radius: 15px;
-            width: 95%;
-        }
 
-		/* Definindo propriedades da legenda */
-        legend{
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 19px;
+        .box{
+
+            color: white;
+
+            background-color: black;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
         }
 
 		/* Definindo caracteristicas dos botões */
+
         #alterarquestao{
+
             width: 32%;
+
             border: none;
+
             padding: 15px;
+
             color: white;
-            font-size: 15px;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
             cursor: pointer;
+
             border-radius: 10px;
-            background-color: DarkTurquoise;
+
+            background-color: RoyalBlue;
+
         }
+
         #alterarquestao:hover{
-            background-color: MediumTurquoise;
+
+            background-color: CornflowerBlue;
+
         }
-        #cancelar{
-            width: 64%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #cancelar:hover{
-            background-color: MediumTurquoise;
-        }
-		#limpar{
-            width: 32%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #limpar:hover{
-            background-color: MediumTurquoise;
-        }
+
+        #limpar{
+
+width: 32%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#limpar:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+#cancelar{
+
+width: 32%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#cancelar:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
+
 </style>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -1683,73 +1790,101 @@ body.mobile-nav-active #mobile-nav {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header id="header">
-    <div class="container">
+<div class="container">
 
-      <div id="logo" class="pull-left">
-        <h1><a onclick='sobre()' class="scrollto">DSENEM</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
+<div id="logo" class="pull-left">
+  <h1><a class="scrollto">DSENEM</a></h1>
+  <!-- Uncomment below if you prefer to use an image logo -->
+  <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
+</div>
 
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-		<li class="menu-active"><a onclick="home()">Home</a></li>
+<nav id="nav-menu-container">
+  <ul class="nav-menu">
 
-          <li class='menu-has-children'><a >Professores</a>
-            <ul>
-              <li><a onclick='mostrar_professores()'>Cadastrados</a></li>
-			  <li><a onclick='mostrar_proban()'>Banidos</a></li>
-              <li><a onclick='add_adm()'> ADD Professor</a></li>
-            </ul>
-			</li>
-          
-          <li class='menu-has-children'><a >Questões</a>
-            <ul>
-              <li><a onclick='visu_questoes()'>Visualizar Questões</a></li>
-              <li><a onclick='add_questoes()'>ADD Questão</a></li>
-			  <li class='menu-has-children'><a >Verificar Imagens</a>
-                <ul>
-                    <li><a onclick='verimg_per()'>Perguntas</a></li>
-                    <li><a onclick='verimg_res()'>Respostas</a></li>
-                </ul>
-                </li>
-            </ul>
-          </li>
-           <li class='menu-has-children'><a >Usuários</a>
-            <ul>
-            <li><a onclick='visu_usuarios()'>Cadastrados</a></li>
-              <li><a onclick='visu_usuarios_banidos()'>Banidos</a></li>
-            </ul>
-          </li>
+  <li class='menu-active'><a href='pagina_adm.php'>Home</a></li>
 
-            <li class='menu-has-children'><a >Redações</a>
-            <ul>
-              <li><a onclick='red_corrigir()'>Para Corrigir</a></li>
-              <li><a onclick='red_corrigidas()'>Corrigidas</a></li>
-			  <li class='menu-has-children'><a >Temas</a>
-              <ul>
-                <li><a onclick='tamas_enem()'>ENEM</a></li>
-                <li><a onclick='temas_usuarios()'>Usuários</a></li>
-                <li><a onclick='temas_adm()'>Professores</a></li>
-                <li><a onclick='add_tema()'>ADD Tema</a></li>
-              </ul>
-            </ul>
-          </li>
-          
-          <li class="menu-has-children"><a >Provas</a>
-            <ul>
-              <li><a onclick="provas_geradas()">Minhas</a></li>
-			  <li><a onclick="professores()">Professores</a></li>
-              <li><a onclick="prousuarios()">Usuários</a></li>
-              <li><a onclick="gerar_prova()">Criar</a></li>
-            </ul>
-          </li>
-          <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="pgaltdados()"></i></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
+  <!-- Iniciando PHP -->
+	<?php
 
-    </div>
+	// Verificando o nivel do adm para ver quais intens do cabeçalho se deve mostrar
+	if ($nivel =="admgeral" || $nivel == "adm"){echo "
+	<li class='menu-has-children'><a>Provas</a>
+	<ul>
+	  <li><a href='mostrar_provas.php'>Vizualizar</a></li>
+	  <li><a href='provas_cadastradas.php'>Cadastradas</a></li>
+	  <li><a href='adicionar_prova.php'>ADD Prova</a>
+	  <li class='menu-has-children'><a>Disciplinas</a>
+		  <ul>
+			  <li><a href='mostrar_disciplinas.php'>Cadastradas</a></li>
+			  <li><a href='adicionar_disciplina.php'>ADD Disciplina</a></li>
+		  </ul>
+	  </li>
+	</ul>
+	</li>
+	<li class='menu-has-children'><a>Questões</a>
+	  <ul>
+		<li><a href='mostrar_questoes.php'>Cadastradas</a></li>
+		<li><a href='adicionar_questao.php'>ADD Questão</a></li>
+		<li class='menu-has-children'><a>Verificar Imagens</a>
+		  <ul>
+			  <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
+			  <li><a href='verficarimg_respostas.php'>Respostas</a></li>
+		  </ul>
+		  </li>
+	  </ul>
+	</li>
+	 <li class='menu-has-children'><a >Usuários</a>
+	  <ul>
+	  <li><a href='mostrar_usuarios.php'>Alu. Cadastrados</a></li>
+	  <li><a href='mostrar_usuarios_banidos.php'>Alu. Banidos</a></li>
+	  <li><a href='mostrar_professores.php'>Prof. Cadastrados</a></li>
+	  <li><a href='mostrar_professores_banidos.php'>Prof. Banidos</a></li>
+	  <li><a href='adicionar_adm.php'> ADD Professor</a></li>
+	  </ul>
+	</li>";
+	}
+
+
+	if ($nivel =="admgeral" || $nivel == "adm" || $nivel == "corretor"){echo"
+	  <li class='menu-has-children'><a >Redações</a>
+	  <ul>
+		<li><a href='readacoes_corrigir.php'>Para Corrigir</a></li>
+		<li><a href='readacoes_corrigidas.php'>Corrigidas</a></li>
+		<li class='menu-has-children'><a >Temas</a>
+		<ul>
+		  <li><a href='temas_enem.php'>ENEM</a></li>
+		  <li><a href='temas_usuarios.php'>Usuários</a></li>
+		  <li><a href='temas_professores.php'>Professores</a></li>
+		  <li><a href='adicionar_tema.php'>ADD Tema</a></li>
+		</ul>
+	  </ul>
+	</li>";
+
+	if ($nivel =="corretor"){echo"
+	<li><a href='pagina_adm.php?mos_tabques=Todas'>Questões</a></li>";
+	}
+	}
+
+	if ($nivel !="admgeral" && $nivel != "adm"){echo "
+	<li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>";
+	}
+	?>
+
+	<li class="menu-has-children"><a >Simulados</a>
+	  <ul>
+		<li><a href="provas_geradasadm.php">Meus</a></li>
+		<li><a href="provasadm_adm.php">Professores</a></li>
+		<li><a href="provasusu_adm.php">Usuários</a></li>
+		<li><a href="gerar_provaadm.php">Criar</a></li>
+	  </ul>
+	</li>
+	<li><a href="alterar_dadosadm.php">Dados</a></li>
+	<li class="menu-active"><a onclick="sair()">Sair</a></li>
+	<!-- <li><a >Contact</a></li> -->
+  </ul>
+</nav><!-- #nav-menu-container -->
+
+</div>
   </header><!-- #header -->	<script type="text/javascript">
 	// Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -1825,13 +1960,16 @@ body.mobile-nav-active #mobile-nav {
     }
   });	</script>
 <!-- Fechando cabeçalho -->
+<br><br><br><br><br><br>
+
 
 <!-- Colocando os campos para a inserção de dados -->
 <body>
 
 <!-- Caixa em volta do form -->
 <font color="black" size="4">
-<div class="box">
+	<center>
+<div class="box" align="left">
 	<!-- Borda do form -->
 <fieldset> 
 <form action="" method="POST" enctype="multipart/form-data"> 
@@ -1844,28 +1982,72 @@ body.mobile-nav-active #mobile-nav {
 <!-- Campo questão -->
 <b>Questão:</b>
 <br>
-<textarea cols="95" rows="10" name="txtquestao" style="width: 99%;" value="text" required><?php echo $dado['pergunta']; ?></textarea>
+<textarea style="width: 99%; border: 2px solid white; color:white; background-color: black;" cols="95" rows="10" name="txtquestao" style="width: 99%;" value="text" required><?php echo $dado['pergunta']; ?></textarea>
 <br><br>
 
 <!-- Campo disciplina e opção correta -->
 <div>
 <b>Disciplina:</b>
-<select name="disciplina">
+<select style="border: 2px solid white; color:white; background-color: black;" name="disciplina">
 <option value="<?php echo $nome_disciplina; ?>"><?php echo $nome_disciplina; ?></option>
 <?php 
-while($diciplinas = mysqli_fetch_assoc($selc_diciplinas)) { ?>
-<option value="<?php echo $diciplinas["disciplina"]; ?>"><?php echo $diciplinas["disciplina"]; ?></option>
-<?php } ?>
+while($diciplinas = mysqli_fetch_assoc($selc_diciplinas)) { 
+if ($nome_disciplina != $diciplinas['disciplina']){
+echo "<option value='".$diciplinas["disciplina"]."'>".$diciplinas["disciplina"]."</option>";
+}
+} ?>
 </select>
 &nbsp;&nbsp;&nbsp;
 <b>Opção Correta:</b>
-<select name="txtrespostacorreta">
-                    <option value="<?php echo $alternativa_correta; ?>"><?php echo $alternativa_correta; ?></option>
-                    <option value="Letra A">Letra A</option>
-                    <option value="Letra B">Letra B</option>
-                    <option value="Letra C">Letra C</option>
-                    <option value="Letra D">Letra D</option>
-					          <option value="Letra E">Letra E</option>
+<select style="border: 2px solid white; color:white; background-color: black;" name="txtrespostacorreta">
+	<?php
+                   echo "<option value='".$alternativa_correta."'>".$alternativa_correta."</option>";
+
+				   if ($alternativa_correta != "Letra A"){
+					echo "<option value='Letra A'>Letra A</option>";
+				   }
+				   if ($alternativa_correta != "Letra B"){
+					echo "<option value='Letra B'>Letra B</option>";
+				   }
+				   if ($alternativa_correta != "Letra C"){
+					echo "<option value='Letra C'>Letra C</option>";
+				   }
+				   if ($alternativa_correta != "Letra D"){
+					echo "<option value='Letra D'>Letra D</option>";
+				   }
+				   if ($alternativa_correta != "Letra E"){
+					echo "<option value='Letra E'>Letra E</option>";
+				   }
+
+	?>
+                </select>
+
+				&nbsp;&nbsp;&nbsp;
+
+				<b>Ano:</b>
+				<select style="border: 2px solid white; color:white; background-color: black;" name="anoquestao">
+                    <?php
+					// Ano cadastrado
+					$ano_cad = $dadotipper['ano'];
+
+					// Contador de ano desde o inicio do enem
+					$contano = 1998;
+
+					// Ano atual
+					$hoje = date('Y');
+
+					// Exibindo o ano cadastrado
+					echo "<option value='".$ano_cad."'>".$ano_cad."</option>";
+
+					while ($contano <= $hoje){
+						if ($ano_cad != $contano){
+						echo "<option value='".$contano."'>".$contano."</option>";
+						}
+
+						$contano = $contano + 1;
+					}
+
+					?>
                 </select>
 </div>
 <br>
@@ -1918,15 +2100,15 @@ else if (resimgoutex == 1) {
 
 <!-- Div Tipo resposta texto -->
 <div id="divrestext" style="display: <?php echo $tiprestex; ?>;">
-<label style="left:40px; margin-right:5px;">Letra A:</label> <input type="text" name="txtletraa" style="width: 90%;" id="txtletraa" value="<?php echo $letraa; ?>">
+<label style="left:40px; margin-right:5px;">Letra A:</label> <input style="border: 2px solid white; color:white; background-color: black; width: 88%;" type="text" name="txtletraa" id="txtletraa" value="<?php echo $letraa; ?>">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra B:</label> <input type="text" name="txtletrab" style="width: 90%;" id="txtletrab" value="<?php echo $letrab; ?>">
+<label style="left:40px; margin-right:5px;">Letra B:</label> <input style="border: 2px solid white; color:white; background-color: black; width: 88%;" type="text" name="txtletrab" style="width: 90%;" id="txtletrab" value="<?php echo $letrab; ?>">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra C:</label> <input type="text" name="txtletrac" style="width: 90%;" id="txtletrac" value="<?php echo $letrac; ?>">
+<label style="left:40px; margin-right:5px;">Letra C:</label> <input style="border: 2px solid white; color:white; background-color: black; width: 88%;" type="text" name="txtletrac" style="width: 90%;" id="txtletrac" value="<?php echo $letrac; ?>">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra D:</label> <input type="text" name="txtletrad" style="width: 90%;" id="txtletrad" value="<?php echo $letrad; ?>">
+<label style="left:40px; margin-right:5px;">Letra D:</label> <input style="border: 2px solid white; color:white; background-color: black; width: 88%;" type="text" name="txtletrad" style="width: 90%;" id="txtletrad" value="<?php echo $letrad; ?>">
 <br><br>
-<label style="left:40px; margin-right:5px;">Letra E:</label> <input type="text" name="txtletrae" style="width: 90%;" id="txtletrae" value="<?php echo $letrae; ?>">
+<label style="left:40px; margin-right:5px;">Letra E:</label> <input style="border: 2px solid white; color:white; background-color: black; width: 88%;" type="text" name="txtletrae" style="width: 90%;" id="txtletrae" value="<?php echo $letrae; ?>">
 <br><br>
 </div>
 
@@ -2019,6 +2201,7 @@ else {
 <img src="uploads/<?php echo $dado['imagem']; ?>" width="310">
 </div>
 </div>
+</center>
 <br><br>
 
 <!-- Botões de alterar, restaurar form e cancelar -->
@@ -2036,6 +2219,7 @@ else {
 </fieldset>
 
 </div>
+<br><br>
 </font>
 </body>
 </html>

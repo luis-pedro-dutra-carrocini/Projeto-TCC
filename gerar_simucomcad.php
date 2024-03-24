@@ -208,7 +208,7 @@ function voltar() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -234,7 +234,7 @@ function voltar() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -267,6 +267,8 @@ function voltar() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -306,7 +308,7 @@ function voltar() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -394,9 +396,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -424,7 +426,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -544,7 +546,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -575,6 +579,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -582,7 +587,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -596,179 +601,153 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
 
+<!-- Iniciando o CSS -->
 
-
-<!-- Iniciando CSS -->
+<!-- Definindo características da página como um todo -->
 
 <style>
 
+		/* Definindo fonte e cor da página */
 
+        body{
 
-/* caracteristicas do corpo da página */
+            font-family: Arial, Helvetica, sans-serif;
 
-body{
+			background-color: black;
 
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-color: LightBlue;
-
-}
-
-
-
-/* Caracteristicas do quadro em volta do form */
-
-.box{
-
-    color: black;
-
-    background-color: white;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    width: 50%;
-
-}
+        }
 
 
 
-/* Caracteristicas da legenda do form */
+		/* Definindo características da "caixa" do formulário */
+
+        .box{
+
+            color: white;
+
+            background-color: black;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+        }
+
+		/* Definindo caracteristicas dos botões */
+
+        #adcionarquestao{
+
+            width: 32%;
+
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #adcionarquestao:hover{
+
+            background-color: CornflowerBlue;
+
+        }
 
 legend{
 
-    padding: 10px;
+padding: 10px;
 
-    text-align: center;
+text-align: center;
 
-    border-radius: 8px;
+border-radius: 8px;
 
-    font-size: 22px;
-
-}
-
-
-
-/* Caracteristicas dos inputs */
-
-.inputBox{
-
-    position: relative;
+font-size: clamp(1em, 1em + 1vw, 1.5em);
 
 }
-
-.inputUser{
-
-    background: none;
-
-    border: none;
-
-    border-bottom: 1px solid black;
-
-    outline: none;
-
-    color: black;
-
-    font-size: 17px;
-
-    width: 100%;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-/* Caracteristicas do labels */
-
-.labelInput{
-
-    position: absolute;
-
-    top: 0px;
-
-    left: 0px;
-
-    pointer-events: none;
-
-    transition: .5s;
-
-}
-
-.inputUser:focus ~ .labelInput,
-
-.inputUser:valid ~ .labelInput{
-
-    top: -20px;
-
-    font-size: 12px;
-
-    color: black;
-
-}
-
-
 
 /* caracteristicas dos botões */
 
 #adicionar{
 
-    width: 50%;
+width: 50%;
 
-    border: none;
+border: none;
 
-    padding: 15px;
+padding: 15px;
 
-    color: white;
+color: white;
 
-    font-size: 15px;
+font-size: 15px;
 
-    cursor: pointer;
+cursor: pointer;
 
-    border-radius: 10px;
+border-radius: 10px;
 
-    background-color: DarkTurquoise;
+background-color: RoyalBlue;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
 }
 
 #adicionar:hover{
 
-    background-color: MediumTurquoise;
+background-color: CornflowerBlue;
 
 }
 
 #cancelar{
 
-    width: 47%;
+width: 47%;
 
-    border: none;
+border: none;
 
-    padding: 15px;
+padding: 15px;
 
-    color: white;
+color: white;
 
-    font-size: 15px;
+font-size: 15px;
 
-    cursor: pointer;
+cursor: pointer;
 
-    border-radius: 10px;
+border-radius: 10px;
 
-    background-color: DarkTurquoise;
+background-color: RoyalBlue;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
 }
 
 #cancelar:hover{
 
-    background-color: MediumTurquoise;
+background-color: CornflowerBlue;
 
 }
-
-
 
 </style>
 
@@ -818,7 +797,7 @@ legend{
 
       <div id="logo" class="pull-left">
 
-        <h1><a href="sobreusu.php" class="scrollto">DSENEM</a></h1>
+        <h1><a  class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -833,6 +812,8 @@ legend{
         <ul class="nav-menu">
 
         <li class="menu-active"><a href="pagina_usuarios.php">Home</a></li>
+
+        <li><a href='mostrar_provas.php'>Provas</a></li>
 
         <li class="menu-has-children"><a >Simulados</a>
 
@@ -888,9 +869,8 @@ legend{
 
           
 
+          <li><a href="alterar_dadosusuario.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="Alterar_Dados()"></i></li>
 
           <!-- <li><a >Contact</a></li> -->
 
@@ -1052,7 +1032,7 @@ legend{
 
 <!-- Fechando cabeçalho -->
 
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 
 
@@ -1165,13 +1145,28 @@ divlinest.style.display = "none";
 
 
 <!-- Fechando tags em aberto -->
-
 </form>
-
 </div>
-
 </center>
+<br><br>
+
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 
 </body>
-
 </html>

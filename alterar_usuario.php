@@ -113,10 +113,10 @@ exit;
             $email = $selectemail['email'];
 
             // Nome
-            $novonome = $_POST['nome'];
+            $novonome = Addslashes(trim($_POST['nome']));
 
             // Novo email
-            $novoemail = $_POST['email'];
+            $novoemail = Addslashes(trim($_POST['email']));
 
             // Obtendo dados do bd, para ver se o nome de usuario ou emaol ja existem
             // Email
@@ -214,55 +214,6 @@ function sair() {
     }
 }
 
-// Função para abrir a pagina visulizar usuarios -->
-function visu_usuarios() {
-    var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-        location.href='mostrar_usuarios.php';
-    }
-}
-
-// Função para abrir a pagina visualizar questões -->
-function visu_questoes() {
-    var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-        location.href='mostrar_questoes.php';
-    }
-}
-
-// função paraabrir a pagina adiionar adm -->
-function add_adm() {
-    var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-        location.href='adicionar_adm.php';
-    }
-}
-
-// Função para abrir a página alterar dados adm -->
-function alt_dados() {
-    var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-        location.href='alterar_dadosadm.php';
-    }
-}
-
-// Função para abrir a pagina home -->
-function home() {
-  var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-      location.href='pagina_adm.php';
-    }
-}
-
-  // Função para alterar os dados -->
-function alterardados() {
-var resultadoalterar = confirm("Deseja Realmente alterar esses Dados?");
-if (resultadoalterar == true) {
-    var confalte = "True";
-    document.getElementById("confalte").value = confalte;
-  }
-}
-
 // Função para voltar para a pagina anterior -->
 function voltar() {
   var resultadovoltar = confirm("Cancelar Alteração?");
@@ -271,456 +222,581 @@ function voltar() {
     }
 }
 
-// Função para alterar dados -->
-function pgaltdados() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='alterar_dadosadm.php';
-	}
-}
-
-// Função para abrir a pagina redações para corrigir -->
-function red_corrigir() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='readacoes_corrigir.php';
-	}
-}
-
-// Função para abrir a pagina redações corrigidas -->
-function red_corrigidas() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='readacoes_corrigidas.php';
-	}
-}
-
-// Função para abrir a pagina mostrar professores -->
-function mostrar_professores() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_professores.php';
-	}
-}
-
-// Função para abrir a pagina professores banidos -->
-function mostrar_proban() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_professores_banidos.php';
-	}
-}
-
-// função paraabrir a pagina adiionar adm -->
-function add_questoes() {
-    var resultadovoltar = confirm("Cancelar Alteração?");
-    if (resultadovoltar == true) {
-        location.href='adicionar_questao.php';
-    }
-}
-
-// Função para abrir a pagina sobre -->
-function visu_usuarios_banidos() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='mostrar_professores_banidos.php';
-	}
-}
-
-// Função para abrir a pagina sobre -->
-function sobre() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='sobreadm.php';
-	}
-}
-
-// Função para abrir a pagina provas professores -->
-function professores() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provasadm_adm.php';
-	}
-}
-
-// Função para abrir a pagina provas usuarios -->
-function prousuarios() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provasusu_adm.php';
-	}
-}
-
-// Função para ir para a página visu provas adm -->
-function provas_geradas() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='provas_geradasadm.php';
-	}
-}
-
-// Função para ir para a página criar provas -->
-function gerar_prova() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='gerar_provaadm.php';
-	}
-}
-
-// Função para abrir a pagina temas do enem -->
-function tamas_enem() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_enem.php';
-	}
-}
-
-// Função para abrir a pagina temas usuarios -->
-function temas_usuarios() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_usuarios.php';
-	}
-}
-
-
-// Função para abrir a pagina temas adm -->
-function temas_adm() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='temas_professores.php';
-	}
-}
-
-// Função para abrir a pagina add tema -->
-function add_tema() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='adicionar_tema.php';
-	}
-}
-
-// Função para abrir a visualizar imagens de perguntas -->
-function verimg_per() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='verficarimg_perguntas.php';
-	}
-}
-
-// Função para abrir a visualizar imagens de respostas -->
-function verimg_res() {
-	var resultado = confirm("Cancelar alterarções?")
-    if (resultado == true) {
-      location.href='verficarimg_respostas.php';
-	}
-}
 </script>
 
 <!-- abrindo o cabeçalho -->
 
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
 
 <!-- Iniciando o CSS -->
-<!-- definindo caracteristicas para a pagina -->
+
+<!-- Definindo características da página como um todo -->
+
 <style>
 
-/* caracteristicas do corpo da página */
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: LightBlue;
-}
+		/* Definindo fonte e cor da página */
 
-/* Caracteristicas do quadro em volta do form */
-.box{
-    color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: white;
-    padding: 15px;
-    border-radius: 15px;
-    width: 50%;
-}
+        body{
 
-/* Definindo propriedades da legenda */
-legend{
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 19px;
+            font-family: Arial, Helvetica, sans-serif;
+
+			background-color: black;
+
         }
 
-/* Caracteristicas dos inputs */
-.inputBox{
-    position: relative;
-}
-.inputUser{
-    background: none;
-    border: none;
-    border-bottom: 1px solid black;
-    outline: none;
-    color: black;
-    font-size: 17px;
-    width: 100%;
-    letter-spacing: 2px;
+
+
+		/* Definindo características da "caixa" do formulário */
+
+        .box{
+
+            color: white;
+
+            background-color: black;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+        }
+
+		/* Definindo caracteristicas dos botões */
+
+        #alterar{
+
+            width: 49%;
+
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #alterar:hover{
+
+            background-color: CornflowerBlue;
+
+        }
+
+        #limpar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
 }
 
-/* Caracteristicas do labels */
-.labelInput{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    pointer-events: none;
-    transition: .5s;
-}
-.inputUser:focus ~ .labelInput,
-.inputUser:valid ~ .labelInput{
-    top: -20px;
-    font-size: 12px;
-    color: black;
+#limpar:hover{
+
+background-color: CornflowerBlue;
+
 }
 
-/* caracteristicas dos botões */
-#alterar{
-    width: 50%;
-    border: none;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    background-color: DarkTurquoise;
-}
-#alterar:hover{
-    background-color: MediumTurquoise;
-}
 #cancelar{
-    width: 47%;
-    border: none;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    background-color: DarkTurquoise;
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
 }
+
 #cancelar:hover{
-    background-color: MediumTurquoise;
+
+background-color: CornflowerBlue;
+
 }
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
+
 </style>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -742,73 +818,101 @@ legend{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header id="header">
-    <div class="container">
+<div class="container">
 
-      <div id="logo" class="pull-left">
-        <h1><a onclick='sobre()' class="scrollto">DSENEM</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
+<div id="logo" class="pull-left">
+  <h1><a class="scrollto">DSENEM</a></h1>
+  <!-- Uncomment below if you prefer to use an image logo -->
+  <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
+</div>
 
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-        <li class="menu-active"><a onclick='home()'>home</a></li>
+<nav id="nav-menu-container">
+  <ul class="nav-menu">
 
-          <li class='menu-has-children'><a >Professores</a>
-            <ul>
-              <li><a onclick='mostrar_professores()'>Cadastrados</a></li>
-              <li><a onclick='mostrar_proban()'>Banidos</a></li>
-              <li><a onclick='add_adm()'> ADD Professor</a></li>
-            </ul>
-            </li>
-          
-          <li class='menu-has-children'><a >Questões</a>
-            <ul>
-              <li><a onclick='visu_questoes()'>Visualizar Questões</a></li>
-              <li><a onclick='add_questoes()'>ADD Questão</a></li>
-              <li class='menu-has-children'><a >Verificar Imagens</a>
-                <ul>
-                    <li><a onclick='verimg_per()'>Perguntas</a></li>
-                    <li><a onclick='verimg_res()'>Respostas</a></li>
-                </ul>
-                </li>
-            </ul>
-          </li>
-           <li class='menu-has-children'><a >Usuários</a>
-            <ul>
-            <li><a onclick='visu_usuarios()'>Cadastrados</a></li>
-              <li><a onclick='visu_usuarios_banidos()'>Banidos</a></li>
-            </ul>
-          </li>
-          
-            <li class='menu-has-children'><a >Redações</a>
-            <ul>
-              <li><a onclick='red_corrigir()'>Para Corrigir</a></li>
-              <li><a onclick='red_corrigidas()'>Corrigidas</a></li>
-              <li class='menu-has-children'><a >Temas</a>
-              <ul>
-                <li><a onclick='tamas_enem()'>ENEM</a></li>
-                <li><a onclick='temas_usuarios()'>Usuários</a></li>
-                <li><a onclick='temas_adm()'>Professores</a></li>
-                <li><a onclick='add_tema()'>ADD Tema</a></li>
-              </ul>
-            </ul>
-          </li>
+  <li class='menu-active'><a href='pagina_adm.php'>Home</a></li>
 
-          <li class="menu-has-children"><a >Provas</a>
-            <ul>
-              <li><a onclick='provas_geradas()'>Minhas</a></li>
-              <li><a onclick="professores()">Professores</a></li>
-              <li><a onclick="prousuarios()">Usuários</a></li>
-              <li><a onclick='gerar_prova()'>Criar</a></li>
-            </ul>
-          </li>
-          <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="pgaltdados()"></i></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
+  <!-- Iniciando PHP -->
+	<?php
 
-    </div>
+	// Verificando o nivel do adm para ver quais intens do cabeçalho se deve mostrar
+	if ($nivel =="admgeral" || $nivel == "adm"){echo "
+	<li class='menu-has-children'><a>Provas</a>
+	<ul>
+	  <li><a href='mostrar_provas.php'>Vizualizar</a></li>
+	  <li><a href='provas_cadastradas.php'>Cadastradas</a></li>
+	  <li><a href='adicionar_prova.php'>ADD Prova</a>
+	  <li class='menu-has-children'><a>Disciplinas</a>
+		  <ul>
+			  <li><a href='mostrar_disciplinas.php'>Cadastradas</a></li>
+			  <li><a href='adicionar_disciplina.php'>ADD Disciplina</a></li>
+		  </ul>
+	  </li>
+	</ul>
+	</li>
+	<li class='menu-has-children'><a>Questões</a>
+	  <ul>
+		<li><a href='mostrar_questoes.php'>Cadastradas</a></li>
+		<li><a href='adicionar_questao.php'>ADD Questão</a></li>
+		<li class='menu-has-children'><a>Verificar Imagens</a>
+		  <ul>
+			  <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
+			  <li><a href='verficarimg_respostas.php'>Respostas</a></li>
+		  </ul>
+		  </li>
+	  </ul>
+	</li>
+	 <li class='menu-has-children'><a >Usuários</a>
+	  <ul>
+	  <li><a href='mostrar_usuarios.php'>Alu. Cadastrados</a></li>
+	  <li><a href='mostrar_usuarios_banidos.php'>Alu. Banidos</a></li>
+	  <li><a href='mostrar_professores.php'>Prof. Cadastrados</a></li>
+	  <li><a href='mostrar_professores_banidos.php'>Prof. Banidos</a></li>
+	  <li><a href='adicionar_adm.php'> ADD Professor</a></li>
+	  </ul>
+	</li>";
+	}
+
+
+	if ($nivel =="admgeral" || $nivel == "adm" || $nivel == "corretor"){echo"
+	  <li class='menu-has-children'><a >Redações</a>
+	  <ul>
+		<li><a href='readacoes_corrigir.php'>Para Corrigir</a></li>
+		<li><a href='readacoes_corrigidas.php'>Corrigidas</a></li>
+		<li class='menu-has-children'><a >Temas</a>
+		<ul>
+		  <li><a href='temas_enem.php'>ENEM</a></li>
+		  <li><a href='temas_usuarios.php'>Usuários</a></li>
+		  <li><a href='temas_professores.php'>Professores</a></li>
+		  <li><a href='adicionar_tema.php'>ADD Tema</a></li>
+		</ul>
+	  </ul>
+	</li>";
+
+	if ($nivel =="corretor"){echo"
+	<li><a href='pagina_adm.php?mos_tabques=Todas'>Questões</a></li>";
+	}
+	}
+
+	if ($nivel !="admgeral" && $nivel != "adm"){echo "
+	<li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>";
+	}
+	?>
+
+	<li class="menu-has-children"><a >Simulados</a>
+	  <ul>
+		<li><a href="provas_geradasadm.php">Meus</a></li>
+		<li><a href="provasadm_adm.php">Professores</a></li>
+		<li><a href="provasusu_adm.php">Usuários</a></li>
+		<li><a href="gerar_provaadm.php">Criar</a></li>
+	  </ul>
+	</li>
+	<li><a href="alterar_dadosadm.php">Dados</a></li>
+	<li class="menu-active"><a onclick="sair()">Sair</a></li>
+	<!-- <li><a >Contact</a></li> -->
+  </ul>
+</nav><!-- #nav-menu-container -->
+
+</div>
   </header><!-- #header -->	<script type="text/javascript">
 	// Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -883,9 +987,17 @@ legend{
       }
     }
   });	</script>
-
-<br><br><br><br>
 <!-- Fechando cabeçalho -->
+<br><br><br><br><br><br>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- link para mostrar senha -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <!-- Iniciando java para a validação do email -->
 <script>
@@ -916,8 +1028,9 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
 </script>
 
 <!-- Inserindo inputs com suas caracteristicas -->
-<body>
-    <div class="box">
+<body style='background-color: black;'>
+  <center>
+    <div class="box" align="left">
         <form action="" method="POST" name="f1">
 
             <!-- Borda em volta do form -->
@@ -927,23 +1040,23 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
                 <legend><b>Alterar Dados Usuário</b></legend>
                 <br><br>
 
-                <!-- Campo email -->
-                <div class="inputBox">
-                    <input type="email" name="email" id="email" class="inputUser" onblur="validacaoEmail(f1.email)" autofocus maxlength="256" value="<?php echo $email;?>" required>
-                    <label for="email" class="labelInput">Email</label>
-                    <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
-                <br><br>
-                <!-- DIV menssagem de email valido ou invalido -->
+                <div class="form-group input-group">
+    	          <div class="input-group-prepend">
+		            <span class="input-group-text"> <i class="fa fa-envelope" style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);"></i> </span>
+		            </div>
+                <input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" class="form-control" autofocus placeholder="E-Mail" type="email" name="email" id="email" onblur="validacaoEmail(f1.email)" maxlength="256" value="<?php echo $email;?>" required>
+                <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
                 </div>
-                <div id="msgemail" style="text-align: center;"></div>
-			          <br><br>
+			          <div id="msgemail" style="text-align: center;"></div>
+			          <br>
 
-                <!-- campo nome -->
-                <div class="inputBox">
-                    <input type="text" name="nome" id="nome" class="inputUser" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" maxlength="50" value="<?php echo $nomemos;?>" required>
-                    <label for="nome" class="labelInput">Nome</label>
-                </div>
-                <br><br>
+                <div class="form-group input-group">
+		        <div class="input-group-prepend">
+		        <span class="input-group-text"> <i class="fa fa-user" style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);"></i> </span>
+		        </div>
+            <input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" name="nome" maxlength="50" placeholder="Nome" required class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="<?php echo $nomemos;?>" placeholder="Nome" type="text">
+            </div>
+            <br>
 
                 <!-- Inputs para passar informações do java para o php -->
 				        <input type="hidden" name="id" value=<?php echo $nome;?>>
@@ -957,5 +1070,8 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
 <!-- Fechando tags em aberto -->
 </form>
 </div>
+</center>
+<br><br>
+
 </body>
 </html>

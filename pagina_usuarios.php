@@ -257,6 +257,187 @@ if ($total_respsotas == 1){
   $total_respsotas = 0;
 }
 
+  // Obtendo a avaliação do usuario caso exista
+
+  $sqlavaliacao = mysqli_query($conexao, "SELECT * FROM tabela_avaliacoes WHERE nome_usuario = '$nome_usuario' and tipo = 2;");
+
+  $dadosavaliacao=$sqlavaliacao->fetch_array();
+
+// verificando se a avaliação existe
+
+if(mysqli_num_rows($sqlavaliacao)>0) {
+
+
+
+  // Obtendo comentário
+
+  $comentarioantigo = $dadosavaliacao['comentario'];
+
+
+
+  // Obtendo nota
+
+  $notaantiga = $dadosavaliacao['nota'];
+
+
+
+  // Obtendo melhorias ou erros encontrados
+
+  $melhoriaerroantigo = $dadosavaliacao['melhoria_erro'];
+
+}else{
+
+
+
+  // Definindo campos como vazios pois não existe avaliação antiga
+
+  $comentarioantigo = "";
+
+  $notaantiga = 0;
+
+  $melhoriaerroantigo = "";
+
+
+
+}
+
+// Selecionando as estrelas corretas
+if ($notaantiga == 0){
+  $chestar1 = "";
+  $chestar2 = "";
+  $chestar3 = "";
+  $chestar4 = "";
+  $chestar5 = "";
+}elseif ($notaantiga == 1){
+  $chestar1 = "checked";
+  $chestar2 = "";
+  $chestar3 = "";
+  $chestar4 = "";
+  $chestar5 = "";
+}elseif ($notaantiga == 2){
+  $chestar1 = "";
+  $chestar2 = "checked";
+  $chestar3 = "";
+  $chestar4 = "";
+  $chestar5 = "";
+}elseif ($notaantiga == 3){
+  $chestar1 = "";
+  $chestar2 = "";
+  $chestar3 = "checked";
+  $chestar4 = "";
+  $chestar5 = "";
+}elseif ($notaantiga == 5){
+  $chestar1 = "";
+  $chestar2 = "";
+  $chestar3 = "";
+  $chestar4 = "checked";
+  $chestar5 = "";
+}elseif ($notaantiga == 5){
+  $chestar1 = "";
+  $chestar2 = "";
+  $chestar3 = "";
+  $chestar4 = "";
+  $chestar5 = "checked";
+}else{
+  $chestar1 = "";
+  $chestar2 = "";
+  $chestar3 = "";
+  $chestar4 = "";
+  $chestar5 = "";
+}
+
+// Enviando avaliação
+
+if (isset($_POST['adcionarquestao'])){
+
+
+
+// Obtendo comentário
+
+$comentario = trim($_POST['txtcomentario']);
+
+
+
+// Verificando se o comentário foi pereechido
+
+if ($comentario == ""){
+
+
+
+  // Emitindo mensagem de erro
+
+  $script = "<script>alert('Erro: Campo Comentário não pode ser nulo.');location.href='sobreusu.php';</script>";
+
+  echo $script;
+
+  exit;
+
+}
+
+
+
+// Obtendo melhoria ou erro
+
+$melhoriaerro = trim($_POST['txterromelhoria']);
+
+
+
+// Verificando se o campo melhoria/erro esta nulo
+
+if ($melhoriaerro == ""){
+
+
+
+  // Definindo a melhoria/erro para nada
+
+  $melhoriaerro = "Nenhuma melhoria ou erro";
+
+}
+
+
+
+// Obtendo nota
+$nota = @$_POST['star'];
+
+
+
+// Definindo um nome para o usuario
+
+$nome = $nome_usuario;
+
+
+
+if(mysqli_num_rows($sqlavaliacao)>0) {
+
+
+
+  // Alterando os dados
+
+  $sqlInsert = "UPDATE tabela_avaliacoes SET nota='$nota',comentario='".addslashes($comentario)."',melhoria_erro='".addslashes($melhoriaerro)."' WHERE nome_usuario='$nome_usuario' and tipo = 2;";
+
+  $result = $conexao->query($sqlInsert);
+
+}else{
+
+
+
+// Inserindo dados na tabela
+
+$insert = mysqli_query($conexao, "INSERT into tabela_avaliacoes(nome_usuario, nota, comentario, melhoria_erro, tipo) values('$nome','$nota','".addslashes($comentario)."','".addslashes($melhoriaerro)."', 2);");
+
+}
+
+
+
+// Emitindo mensagem de sucesso
+
+$script = "<script>alert('Avaliação enviada com Sucesso');location.href='pagina_usuarios.php';</script>";
+
+echo $script;
+
+exit;
+
+}
 ?>
 
 <!-- Inicaisndo o corpo da página -->
@@ -274,7 +455,7 @@ if ($total_respsotas == 1){
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
 <!-- Definindo caracteristicas para o corpo da página -->
-<body style="background-color: LightBlue;">
+<body style="background-color: black;">
 
 <!-- iniciando java -->
 <script>
@@ -287,312 +468,527 @@ function sair() {
     }
 }
 
-// Função para abrir a pagina alterar dados
-function Alterar_Dados() {
-      location.href='alterar_dadosusuario.php';
-}
-
 </script>
 
 <!-- abrindo o cabeçalho -->
 
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
 
-<!-- Iniciando CSS -->
+<!-- Iniciando o CSS -->
+
+<!-- Definindo características da página como um todo -->
+
 <style>
 
-/* caracteristicas do corpo da página */
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: LightBlue;
-}
+		/* Definindo fonte e cor da página */
 
-/* Caracteristicas do quadro em volta do form */
-.box{
-    color: black;
-    position: absolute;
-    background-color: white;
-    padding: 15px;
-    border-radius: 15px;
-    width: 50%;
-}
+        body{
 
-/* Caracteristicas da legenda do form */
+            font-family: Arial, Helvetica, sans-serif;
+
+			background-color: black;
+
+        }
+
+
+
+		/* Definindo características da "caixa" do formulário */
+
+        .box{
+
+            color: white;
+
+            background-color: black;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+        }
+
+		/* Definindo caracteristicas dos botões */
+
+        #adcionarquestao{
+
+            width: 32%;
+
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #adcionarquestao:hover{
+
+            background-color: CornflowerBlue;
+
+        }
+
 legend{
-    padding: 10px;
-    text-align: center;
-    border-radius: 8px;
-    font-size: 22px;
-}
 
-/* Caracteristicas dos inputs */
-.inputBox{
-    position: relative;
-}
-.inputUser{
-    background: none;
-    border: none;
-    border-bottom: 1px solid black;
-    outline: none;
-    color: black;
-    font-size: 17px;
-    width: 100%;
-    letter-spacing: 2px;
-}
+padding: 10px;
 
-/* Caracteristicas do labels */
-.labelInput{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    pointer-events: none;
-    transition: .5s;
-}
-.inputUser:focus ~ .labelInput,
-.inputUser:valid ~ .labelInput{
-    top: -20px;
-    font-size: 12px;
-    color: black;
-}
+text-align: center;
 
-/* caracteristicas dos botões */
-#adicionar{
-    width: 50%;
-    border: none;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    background-color: DarkTurquoise;
-}
-#adicionar:hover{
-    background-color: MediumTurquoise;
-}
-#cancelar{
-    width: 47%;
-    border: none;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    background-color: DarkTurquoise;
-}
-#cancelar:hover{
-    background-color: MediumTurquoise;
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
 }
 
 </style>
@@ -619,13 +1015,14 @@ legend{
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="sobreusu.php" class="scrollto">DSENEM</a></h1>
+        <h1><a  class="scrollto">DSENEM</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="sobreusu.php"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
+        <li><a href='mostrar_provas.php'>Provas</a></li>
         <li class="menu-has-children"><a >Simulados</a>
             <ul>
               <li><a href="gerar_simucomcad.php">Completos</a></li>
@@ -647,9 +1044,8 @@ legend{
 		      <li><a href="todasprovas_realizadasusu.php">Evolução</a></li>
           <li><a href="ranking_usuarios.php">Ranking</a></li>
           
-          
+          <li><a href="alterar_dadosusuario.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="Alterar_Dados()"></i></li>
           <!-- <li><a >Contact</a></li> -->
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -730,7 +1126,7 @@ legend{
     }
   });	</script>
 <!-- Fechando cabeçalho -->
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 <!-- Iniciando CSS -->
 <style>
@@ -740,6 +1136,7 @@ legend{
   height: 400px;
   align-items: center;
   background-color: White;
+  border: 2px solid #0000FF;
 }
 
 .slides{
@@ -1162,7 +1559,7 @@ legend{
 
 <center>
 
-<h2><b>Meu Desempenho</b></h2>
+<h2 style="color:white;"><b>Meu Desempenho</b></h2>
 <br>
 
 <div class="slider">
@@ -1248,6 +1645,132 @@ legend{
     </div>
 </div>
 </center>
+<br><br>
+
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
+
+<!-- Mostrando sobre o desenrrola enem -->
+<center>
+
+<form action="" method="POST"> 
+<!-- Borda do form -->
+<fieldset>  
+
+<!-- Legenda do form -->
+<div class="box" Align="left">
+<b><legend>Deixe sua avaliação.... </legend></b>
+
+
+
+<b>Comentários</b>
+<br>
+<textarea cols="95" rows="5" style="width: 99%; border: 2px solid white; color:white; background-color: black;" name="txtcomentario" value="text" required><?php echo $comentarioantigo; ?></textarea>
+<br><br>
+
+<b>Avaliação</b>
+<br>
+<style>
+  .rating{
+  transform: translate(-73%,-50%) rotateY(180deg);
+  display: flex;
+}
+
+.rating input{
+  display: none;
+}
+
+.rating label{
+    display: block;
+    cursor: pointer;
+    width: 50px;
+}
+
+.rating label:before{
+  content: '\f005';
+  font-family: fontAwesome;
+  position: relative;
+  display: block;
+  font-size: 50px;
+  color: white;
+}
+
+.rating label:after{
+  content: '\f005';
+  font-family: fontAwesome;
+  position: absolute;
+  display: block;
+  font-size: 50px;
+  color: #ffff00;
+  top: 0;
+  opacity: 0;
+  transition: .5;
+  text-shadow: 0 4px 5px rgba(0, 0, 0, .5);
+}
+.rating label:hover:after,
+.rating label:hover ~ label:after,
+.rating input:checked ~ label:after{
+  opacity: 1;
+}
+</style>
+
+<br><br>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <div class="rating" aling="center">
+      <input type="radio" name="star" id="star6" value="5" <?php echo $chestar5; ?>><label for="star6"></label>
+      <input type="radio" name="star" id="star7" value="4" <?php echo $chestar4; ?>><label for="star7"></label>
+      <input type="radio" name="star" id="star8" value="3" <?php echo $chestar3; ?>><label for="star8"></label>
+      <input type="radio" name="star" id="star9" value="2" <?php echo $chestar2; ?>><label for="star9"></label>
+      <input type="radio" name="star" id="star10" value="1" <?php echo $chestar1; ?>><label for="star10"></label>
+    </div>
+
+<b>Erro ou Melhoria? (Opicional)</b>
+<br>
+<textarea cols="95" rows="5" style="width: 99%; border: 2px solid white; color:white; background-color: black;" name="txterromelhoria" value="text"><?php echo $melhoriaerroantigo; ?></textarea>
+<br><br>
+
+<center>
+<input type="submit" name="adcionarquestao" id="adcionarquestao" value="Enviar Avaliação">    
+</form> 
+
+</fieldset>
+</diV>
+</center>
+<br><br>
+</center>
+
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 
 <!-- Fechando tags em aberto -->
 </body>

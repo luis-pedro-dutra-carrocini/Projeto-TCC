@@ -38,12 +38,17 @@ if($slcadm->num_rows > 0){
   // Se for adm ou adm geral
   if ($niveladm =="admgeral" || $niveladm == "adm"){
     $mosdivaltimgesobre = "block";
+    $mosfeedback = "block";
     $mosdivredacoes = "none";
     $mosquestoes = "none";
 
     // Pegando dados do bd, para mostrar as imagens e o sobre do index
     $consulta = mysqli_query($conexao,"SELECT * from tabela_informacoesdosite where codigo = 1;");
     $dadoindex = $consulta->fetch_array();
+
+    // Obtendo as avaliações
+
+    $consultaavaliacao = mysqli_query($conexao, "SELECT * FROM tabela_avaliacoes order by codigo DESC;");
 
     $sobre = $dadoindex['sobre'];
     $img1 = $dadoindex['imagem_index1'];
@@ -55,6 +60,7 @@ if($slcadm->num_rows > 0){
   }elseif ($niveladm == "corretor"){
     $mosdivaltimgesobre = "none";
     $mosdivredacoes = "block";
+    $mosfeedback = "none";
 
     // Pegando dados do bd, para mostrar as redaçõe spara corrigir
     $consulta = mysqli_query($conexao,"SELECT * from tabela_redacoes where situacao = 0 order by codigo;");
@@ -63,6 +69,7 @@ if($slcadm->num_rows > 0){
   }else{
     $mosdivaltimgesobre = "none";
     $mosdivredacoes = "none";
+    $mosfeedback = "none";
 
     // Obtendo dados da tabela pergunta
     $consulta = mysqli_query($conexao,"SELECT * from tabela_pergunta");
@@ -106,6 +113,7 @@ if($slcadm->num_rows > 0){
 
 // Quando clicar no botão alterar
 if(isset($_POST["alterardadosindex"])){
+  if ($niveladm =="admgeral" || $niveladm == "adm"){
 
   // Obtendo o sobre
   $sobrenovo = trim($_POST['sobre']);
@@ -407,7 +415,7 @@ if(isset($_POST["alterardadosindex"])){
   echo $script;
   exit;
 }
-
+}
 ?>
 
 <!-- Iniciando o corpo da página -->
@@ -425,7 +433,7 @@ if(isset($_POST["alterardadosindex"])){
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
 <!-- Definindo caracteristica para o corpo da pagina -->
-<body style="background-color: LightBlue;"> 
+<body style="background-color: black;"> 
 
 <!-- Iniciando o java -->
 <script>
@@ -438,342 +446,557 @@ function sair() {
     }
 }
 
-// Função para alterar dados -->
-function pgaltdados() {
-      location.href='alterar_dadosadm.php';
-}
-
 </script>
 
 <!-- abrindo o cabeçalho -->
 
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<style type="text/css">
+
+    <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
 
 <!-- Iniciando o CSS -->
+
 <!-- Definindo características da página como um todo -->
+
 <style>
+
 		/* Definindo fonte e cor da página */
+
         body{
+
             font-family: Arial, Helvetica, sans-serif;
-			background-color: LightBlue;
+
+			background-color: black;
+
         }
+
+
 
 		/* Definindo características da "caixa" do formulário */
+
         .box{
-			top: 20%;
-            left: 3%;
-            color: black;
-            position: absolute;
-            background-color: white;
+
+            color: white;
+
+            background-color: black;
+
             padding: 15px;
+
             border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
             width: 95%;
-        }
 
-		/* Definindo propriedades da legenda */
-        legend{
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 19px;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
         }
 
 		/* Definindo caracteristicas dos botões */
-        #alterarquestao{
-            width: 32%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #alterarquestao:hover{
-            background-color: MediumTurquoise;
-        }
-        #cancelar{
-            width: 64%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #cancelar:hover{
-            background-color: MediumTurquoise;
-        }
-		#limpar{
-            width: 32%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #limpar:hover{
-            background-color: MediumTurquoise;
-        }
 
-		
-		/* Definindo caracteristicas dos botões */
         #adcionarquestao{
-            width: 32%;
+
+            width: 49%;
+
             border: none;
+
             padding: 15px;
+
             color: white;
-            font-size: 15px;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
             cursor: pointer;
+
             border-radius: 10px;
-            background-color: DarkTurquoise;
+
+            background-color: RoyalBlue;
+
         }
+
         #adcionarquestao:hover{
-            background-color: MediumTurquoise;
+
+            background-color: CornflowerBlue;
+
         }
-        #cancelar{
-            width: 32%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #cancelar:hover{
-            background-color: MediumTurquoise;
-        }
-		#limpar{
-            width: 32%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #limpar:hover{
-            background-color: MediumTurquoise;
-        }
+
+        #limpar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#adcionarquestao:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
 
 </style>
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -796,7 +1019,7 @@ body.mobile-nav-active #mobile-nav {
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="sobreadm.php" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
@@ -809,18 +1032,24 @@ body.mobile-nav-active #mobile-nav {
 
           // Verificando o nivel do adm para ver quais intens do cabeçalho se deve mostrar
           if ($niveladm =="admgeral" || $niveladm == "adm"){echo "
-          <li class='menu-has-children'><a >Professores</a>
+          <li class='menu-has-children'><a>Provas</a>
+          <ul>
+            <li><a href='mostrar_provas.php'>Vizualizar</a></li>
+            <li><a href='provas_cadastradas.php'>Cadastradas</a></li>
+            <li><a href='adicionar_prova.php'>ADD Prova</a>
+            <li class='menu-has-children'><a>Disciplinas</a>
+                <ul>
+                    <li><a href='mostrar_disciplinas.php'>Cadastradas</a></li>
+                    <li><a href='adicionar_disciplina.php'>ADD Disciplina</a></li>
+                </ul>
+            </li>
+          </ul>
+          </li>
+          <li class='menu-has-children'><a>Questões</a>
             <ul>
-              <li><a href='mostrar_professores.php'>Cadastrados</a></li>
-              <li><a href='mostrar_professores_banidos.php'>Banidos</a></li>
-              <li><a href='adicionar_adm.php'> ADD Professor</a></li>
-            </ul>
-          
-          <li class='menu-has-children'><a >Questões</a>
-            <ul>
-              <li><a href='mostrar_questoes.php'>Visualizar Questões</a></li>
+              <li><a href='mostrar_questoes.php'>Cadastradas</a></li>
               <li><a href='adicionar_questao.php'>ADD Questão</a></li>
-              <li class='menu-has-children'><a >Verificar Imagens</a>
+              <li class='menu-has-children'><a>Verificar Imagens</a>
                 <ul>
                     <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
                     <li><a href='verficarimg_respostas.php'>Respostas</a></li>
@@ -830,11 +1059,15 @@ body.mobile-nav-active #mobile-nav {
           </li>
            <li class='menu-has-children'><a >Usuários</a>
             <ul>
-            <li><a href='mostrar_usuarios.php'>Cadastrados</a></li>
-              <li><a href='mostrar_usuarios_banidos.php'>Banidos</a></li>
+            <li><a href='mostrar_usuarios.php'>Alu. Cadastrados</a></li>
+            <li><a href='mostrar_usuarios_banidos.php'>Alu. Banidos</a></li>
+            <li><a href='mostrar_professores.php'>Prof. Cadastrados</a></li>
+            <li><a href='mostrar_professores_banidos.php'>Prof. Banidos</a></li>
+            <li><a href='adicionar_adm.php'> ADD Professor</a></li>
             </ul>
           </li>";
           }
+
 
           if ($niveladm =="admgeral" || $niveladm == "adm" || $niveladm == "corretor"){echo"
             <li class='menu-has-children'><a >Redações</a>
@@ -850,20 +1083,27 @@ body.mobile-nav-active #mobile-nav {
               </ul>
             </ul>
           </li>";
+
+          if ($niveladm =="corretor"){echo"
+          <li><a href='pagina_adm.php?mos_tabques=Todas'>Questões</a></li>";
+          }
+          }
+
+          if ($niveladm !="admgeral" && $niveladm != "adm"){echo "
+          <li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>";
           }
           ?>
 
-          <li class="menu-has-children"><a >Provas</a>
+          <li class="menu-has-children"><a >Simulados</a>
             <ul>
-              <li><a href="provas_geradasadm.php">Minhas</a></li>
+              <li><a href="provas_geradasadm.php">Meus</a></li>
               <li><a href="provasadm_adm.php">Professores</a></li>
               <li><a href="provasusu_adm.php">Usuários</a></li>
               <li><a href="gerar_provaadm.php">Criar</a></li>
-              <li><a href="pagina_adm.php?mos_tabques=Todas">Questões</a></li>
             </ul>
           </li>
+          <li><a href="alterar_dadosadm.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="pgaltdados()"></i></li>
           <!-- <li><a >Contact</a></li> -->
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -944,14 +1184,14 @@ body.mobile-nav-active #mobile-nav {
     }
   });	</script>
 
-<br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 <!-- Fechando cabeçalho -->
 
 <!-- Div para alterar dados das imagens do index e do sobre -->
-<div style="display: <?php  echo $mosdivaltimgesobre; ?>">
+<div style="display: <?php  echo $mosdivaltimgesobre; ?>;" align="center">
 <!-- Caixa em volta do form -->
 <font color="black" size="4">
-<div class="box">
+<div class="box" align="left">
 <form action="" method="POST" enctype="multipart/form-data"> 
 </font>
 	
@@ -959,12 +1199,12 @@ body.mobile-nav-active #mobile-nav {
 <fieldset>  
 
 <!-- Legenda do form -->
-<legend style="color:grey31; font-size:25px; font-weight: bold;">Alterar dados da Página Index</legend>
+<legend style="color:white; font-size:25px; font-weight: bold;">Alterar dados da Página Index</legend>
 
 <!-- Campo texto da quetão, com suas propriedades -->
 <b>Sobre:</b>
 <br>
-<textarea cols="95" rows="10" style="width: 99%;" name="sobre" value="text" required><?php echo $sobre; ?></textarea>
+<textarea style="width: 99%; border: 2px solid white; color:white; background-color: black;" cols="95" rows="10" style="width: 99%;" name="sobre" value="text" required><?php echo $sobre; ?></textarea>
 <br><br>
 
 <b>Imagens:</b>
@@ -1006,6 +1246,7 @@ Imagem 4:
 </form> 
 </center>
 </div>
+<br><br>
 </div>
 
 <?php 
@@ -1013,15 +1254,16 @@ if ($niveladm == "professor" || $mosquestoes == "s"){
 echo "
 <div class='container'>
     <div class='row'>
-        <div class='panel panel-primary filterable'>
-            <div class='panel-heading'>
-                <h3 class='panel-title'>Questões por Disiplina</h3>
+    <div class='panel panel-primary filterable' style='background-color:#828282;'>
+
+    <div class='panel-heading' style='background-color:#363636;'>
+                <h3 class='panel-title' style='font-size: clamp(1em, 1em + 1vw, 1.5em);'>Questões por Disiplina</h3>
             </div>
             <table class='table'>
                 <thead>
-                    <tr class='filters'>
-                        <th><input type='text' class='form-control' placeholder='Disciplina' disabled></th>
-                        <th><input type='text' class='form-control' placeholder='Quantidade de Questões' disabled></th>
+                    <tr class='filters' style='background-color:#696969;'>
+                        <th><input type='text' style='font-size: clamp(1em, 1em + 0.5vw, 1.5em);' class='form-control' placeholder='Disciplina' disabled></th>
+                        <th><input type='text' style='font-size: clamp(1em, 1em + 0.5vw, 1.5em);' class='form-control' placeholder='Quantidade de Questões' disabled></th>
                     </tr>
                 </thead>
                 <tbody>";
@@ -1038,7 +1280,7 @@ $qtperguntas = mysqli_num_rows($sql_qtper);
 echo "<tr>";
 
 // nome da disciplina
-echo "<td><a href='mostrar_questoes_professor.php?codigo=$codigo_dis'>" .$dado_qtperguntas['disciplina']. "</a></td>";
+echo "<td><a href='mostrar_questoes_professor.php?codigo=$codigo_dis'><font color='MidnightBlue'><u>" .$dado_qtperguntas['disciplina']. "</u></font></a></td>";
 
 // quantidade de questões
 echo "<td>".$qtperguntas."</td>";
@@ -1047,7 +1289,7 @@ echo "</tr>";
 
 echo"
 <tr>
-<td><a href='mostrar_questoes_professor.php?codigo=Todas'>Total</a></td>
+<td><a href='mostrar_questoes_professor.php?codigo=Todas'><font color='MidnightBlue'><u>Total</u></font></a></td>
 <td>".$totalquestoes."</td>
 </tr>
                 </tbody>
@@ -1055,6 +1297,25 @@ echo"
         </div>
     </div>
 </div>
+<br><br>
+
+<center>
+<div style='width: 90%; height:75px;'>
+<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868'
+     crossorigin='anonymous'></script>
+<!-- bloco3 -->
+<ins class='adsbygoogle'
+     style='display:block'
+     data-ad-client='ca-pub-1724042721194868'
+     data-ad-slot='8102388707'
+     data-ad-format='auto'
+     data-full-width-responsive='true'></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 ";}
 ?>
 
@@ -1089,6 +1350,14 @@ echo"
 .filterable .filters input[disabled]:-ms-input-placeholder {
     color: #333;
 }
+tr:nth-child(even) {
+  background:#828282;
+  
+}
+
+tr {
+  font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+}
 </style>
 
 <!-- Iniciando JS -->
@@ -1109,9 +1378,9 @@ echo"
 
     <div class="container">
     <div class="row">
-        <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">Redações para Corrigir</h3>
+    <div class="panel panel-primary filterable" style="background-color:#828282;">
+    <div class="panel-heading" style="background-color:#363636;"> 
+                <h3 class="panel-title" style="font-size: clamp(1em, 1em + 1vw, 1.5em);">Redações para Corrigir</h3>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filtro</button>
                 </div>
@@ -1119,11 +1388,11 @@ echo"
             <table class="table">
                 <thead>
                     <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Título" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Tema" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Usuário" disabled></th>
-                        <th><label>Corrigir / Excluir</label></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="#" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Tema" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Usuário" disabled></th>
+                        <th>Corrigir</th>
+                        <th>Excluir</th>
                         
                     </tr>
                 </thead>
@@ -1142,19 +1411,14 @@ $nome_usuario = $dado_usu['nome'];
 // Inserindo dados na tabela 
 echo "<tr>";
 echo "<td>".$dado['codigo']."</td>";
-echo "<td>".$dado['titulo']."</td>";
 echo "<td>".$dado['tema']."</td>";
 echo "<td>".$nome_usuario."</td>";
 
 // Inserindo os botões corrigir e excluir 
 echo "<td>
-<div>
-&nbsp;&nbsp;
 <a href='corrigir_redacao.php?codigo=$dado[codigo]' title='Corrigir'><img src='img/alterar.png' height ='30px' width='30px' align='center'></a>
-&nbsp;&nbsp;
-<a href='confex_redadm.php?codigo=$dado[codigo]' title='Excluir'><img src='img/deletar.png' height ='30px' width='30px' align='center'></a>
-&nbsp;&nbsp;
-</div>
+</td>
+<td><a href='confex_redadm.php?codigo=$dado[codigo]' title='Excluir'><img src='img/deletar.png' height ='30px' width='30px' align='center'></a>
 </td>";
 echo "</tr>";
 }
@@ -1164,6 +1428,8 @@ echo "</tr>";
         </div>
     </div>
 </div>
+
+<br><br>
 
 <!--- Verificando pesquisa nos campos -->
 <script type="text/javascript">
@@ -1211,7 +1477,123 @@ $(document).ready(function(){
 });	</script>
 <!-- Fechando a tabela -->
 </div>
+</center>
 
+<center>
+<!-- DIV para mostrar todas as avaliações -->
+
+<!-- Para ADMs e ADM Geral -->
+
+<div class="box" style="display: <?php echo $mosfeedback; ?>" Align="left">
+
+
+
+<!-- Iniciando PHP para mostrar as avaliações -->
+
+<?php 
+
+// Titulo
+echo "<center><h3><b>Avaliações dos Usuários</b></h3></center>";
+echo "<br>";
+
+
+// Verificando se alguma avalaiação foi enviada
+
+if(mysqli_num_rows($consultaavaliacao)<1) {
+
+echo "<center><b>Nenhuma Avaliação Enviada</b></center>";
+
+}
+
+
+
+// verificando se a avaliação deve ser mostrada ou não
+
+if ($niveladm == "adm" || $niveladm == "admgeral"){
+
+while ($dado=$consultaavaliacao->fetch_array()) { 
+
+
+
+// Obtendo o tipo de usuario
+
+// Verificando o tipo de usuario
+
+if ($dado['tipo'] == 1){
+
+
+
+  // Definindo o tipo de usuario
+
+  $tipo_usu = "Professor: ";
+
+
+
+}elseif ($dado['tipo'] == 2){
+
+
+
+  // Definindo o tipo de usuario
+
+  $tipo_usu = "Usuário: ";
+
+}else{
+
+
+
+  // Definindo o tipo de usuario
+
+  $tipo_usu = "";
+
+}
+
+
+// Nome do usuario
+
+echo "<u><b>". $tipo_usu ."</b>" . $dado['nome_usuario']."</u> - ";
+echo "<a href='deletar_avaliacao.php?codigo=$dado[codigo]' title='Excluir Avaliação'><img src='img/deletar.png' height ='20px' width='20px' align='center'></a>";
+
+echo "<br>";
+
+
+
+// Nota
+
+echo "<b>Estrelas: </b>" . $dado['nota']."/5";
+
+echo "<br>";
+
+
+
+// Comentario
+
+echo "<b>Comentário: </b>";
+
+print nl2br($dado['comentario']);
+
+echo "<br>";
+
+
+
+// Melhoria/Erro
+
+echo "<b>Melhoria/Erro: </b>";
+
+print nl2br($dado['melhoria_erro']);
+
+echo "<br><br>";
+
+}
+
+}
+
+?>
+
+
+
+</div>
+</center>
+<br><br>
 
 <!-- Fechando tags em aberto -->
 </body>

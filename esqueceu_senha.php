@@ -333,7 +333,7 @@ function simucom() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -359,7 +359,7 @@ function simucom() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -392,6 +392,8 @@ function simucom() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -431,7 +433,7 @@ function simucom() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -519,9 +521,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -549,7 +551,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -669,7 +671,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -700,6 +704,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -707,7 +712,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -721,6 +726,14 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
@@ -963,13 +976,13 @@ body.mobile-nav-active #mobile-nav {
 
 <!-- Fechando cabeçalho -->
 
-<br><br><br><br>
+<br><br><br><br><br>
 
 
 
 <!-- Inserindo inputs no form -->
 
-<body style="background-color: LightBlue;">
+<body style="background-color: black;">
 
 
 
@@ -994,15 +1007,8 @@ body.mobile-nav-active #mobile-nav {
 
 
 <div class="container">
-
-<div class="card bg-light">
-
-
-
-<article class="card-body mx-auto" style="max-width: 400px;">
-
-<h4 class="card-title mt-3 text-center">Recuperar Senha</h4>
-
+<article class="card-body mx-auto" style="max-width: 400px; background-color: #363636;">
+<h4 class="card-title mt-3 text-center" style="color:white;">Recuperar Senha</h4>
 <br>
 
 <form method="POST" action="" name="f1">
@@ -1033,7 +1039,7 @@ body.mobile-nav-active #mobile-nav {
 
 	        <div class="form-group">
 
-	        <input type="radio" name="radadus" value="usuario" checked> Aluno &nbsp;&nbsp;
+	        <input type="radio" name="radadus" value="usuario" checked> <font color="white"> Aluno &nbsp;&nbsp;
 
 	        <input type="radio" name="radadus" value="ADM"> Professor<br> 
 

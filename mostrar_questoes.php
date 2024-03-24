@@ -70,7 +70,7 @@ if(!isset($_SESSION["senha_adm"])){
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
 <!-- Definindo caracteristicas para o corpo da pagina -->
-<body style="background-color: LightBlue;">
+<body style="background-color: black;">
 
 <!-- Iniciando java -->
 <script>
@@ -83,227 +83,556 @@ function sair() {
     }
 }
 
-// Função para alterar dados -->
-function pgaltdados() {
-      location.href='alterar_dadosadm.php';
-}
 </script>
 
 <!-- abrindo o cabeçalho -->
 
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
+
+<!-- Iniciando o CSS -->
+
+<!-- Definindo características da página como um todo -->
+
+<style>
+
+		/* Definindo fonte e cor da página */
+
+        body{
+
+            font-family: Arial, Helvetica, sans-serif;
+
+			background-color: black;
+
+        }
+
+
+
+		/* Definindo características da "caixa" do formulário */
+
+        .box{
+
+            color: white;
+
+            background-color: black;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+        }
+
+		/* Definindo caracteristicas dos botões */
+
+        #adcionarquestao{
+
+            width: 49%;
+
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #adcionarquestao:hover{
+
+            background-color: CornflowerBlue;
+
+        }
+
+        #limpar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#adcionarquestao:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
+
+</style>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -326,27 +655,38 @@ body.mobile-nav-active #mobile-nav {
 <header id="header">
     <div class="container">
 
-      <div id="logo" class="pull-left">
-        <h1><a href="sobreadm.php" class="scrollto">DSENEM</a></h1>
+    <div id="logo" class="pull-left">
+        <h1><a class="scrollto">DSENEM</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-        <li class="menu-active"><a href="pagina_adm.php">Home</a></li>
-        <li class='menu-has-children'><a >Professores</a>
+
+        <li class='menu-active'><a href='pagina_adm.php'>Home</a></li>
+        <!-- Iniciando PHP -->
+          <?php
+
+          // Verificando o nivel do adm para ver quais intens do cabeçalho se deve mostrar
+          if ($nivel =="admgeral" || $nivel == "adm"){echo "
+          <li class='menu-has-children'><a>Provas</a>
+          <ul>
+            <li><a href='mostrar_provas.php'>Vizualizar</a></li>
+            <li><a href='provas_cadastradas.php'>Cadastradas</a></li>
+            <li><a href='adicionar_prova.php'>ADD Prova</a>
+            <li class='menu-has-children'><a>Disciplinas</a>
+                <ul>
+                    <li><a href='mostrar_disciplinas.php'>Cadastradas</a></li>
+                    <li><a href='adicionar_disciplina.php'>ADD Disciplina</a></li>
+                </ul>
+            </li>
+          </ul>
+          </li>
+          <li class='menu-has-children'><a>Questões</a>
             <ul>
-              <li><a href='mostrar_professores.php'>Cadastrados</a></li>
-              <li><a href='mostrar_professores_banidos.php'>Banidos</a></li>
-              <li><a href='adicionar_adm.php'> ADD Professor</a></li>
-            </ul>
-	      </li>
-          
-          <li class="menu-has-children"><a >Questões</a>
-            <ul>
-              <li><a href="adicionar_questao.php">ADD Questão</a></li>
-              <li class='menu-has-children'><a >Verificar Imagens</a>
+              <li><a href='adicionar_questao.php'>ADD Questão</a></li>
+              <li class='menu-has-children'><a>Verificar Imagens</a>
                 <ul>
                     <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
                     <li><a href='verficarimg_respostas.php'>Respostas</a></li>
@@ -354,14 +694,20 @@ body.mobile-nav-active #mobile-nav {
                 </li>
             </ul>
           </li>
-           <li class="menu-has-children"><a >Usuários</a>
+           <li class='menu-has-children'><a >Usuários</a>
             <ul>
-            <li><a href="mostrar_usuarios.php">Cadastrados</a></li>
-              <li><a href="mostrar_usuarios_banidos.php">Banidos</a></li>
+            <li><a href='mostrar_usuarios.php'>Alu. Cadastrados</a></li>
+            <li><a href='mostrar_usuarios_banidos.php'>Alu. Banidos</a></li>
+            <li><a href='mostrar_professores.php'>Prof. Cadastrados</a></li>
+            <li><a href='mostrar_professores_banidos.php'>Prof. Banidos</a></li>
+            <li><a href='adicionar_adm.php'> ADD Professor</a></li>
             </ul>
-          </li>
+          </li>";
+          }
 
-          <li class='menu-has-children'><a >Redações</a>
+
+          if ($nivel =="admgeral" || $nivel == "adm" || $nivel == "corretor"){echo"
+            <li class='menu-has-children'><a >Redações</a>
             <ul>
               <li><a href='readacoes_corrigir.php'>Para Corrigir</a></li>
               <li><a href='readacoes_corrigidas.php'>Corrigidas</a></li>
@@ -373,19 +719,28 @@ body.mobile-nav-active #mobile-nav {
                 <li><a href='adicionar_tema.php'>ADD Tema</a></li>
               </ul>
             </ul>
-          </li>
-          
-          <li class="menu-has-children"><a >Provas</a>
+          </li>";
+
+          if ($nivel =="corretor"){echo"
+          <li><a href='pagina_adm.php?mos_tabques=Todas'>Questões</a></li>";
+          }
+          }
+
+          if ($nivel !="admgeral" && $nivel != "adm"){echo "
+          <li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>";
+          }
+          ?>
+
+          <li class="menu-has-children"><a >Simulados</a>
             <ul>
-              <li><a href="provas_geradasadm.php">Minhas</a></li>
+              <li><a href="provas_geradasadm.php">Meus</a></li>
               <li><a href="provasadm_adm.php">Professores</a></li>
               <li><a href="provasusu_adm.php">Usuários</a></li>
               <li><a href="gerar_provaadm.php">Criar</a></li>
             </ul>
           </li>
+          <li><a href="alterar_dadosadm.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          
-<li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="pgaltdados()"></i></li>
         </ul>
       </nav><!-- #nav-menu-container -->
 
@@ -466,6 +821,9 @@ body.mobile-nav-active #mobile-nav {
   });	</script>
 <!-- Fechando cabeçalho -->
 
+
+
+
 <!-- Definindo cacateristicas da tabela atraves do bootstrap -->
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
@@ -492,20 +850,28 @@ body.mobile-nav-active #mobile-nav {
 .filterable .filters input[disabled]:-ms-input-placeholder {
     color: #333;
 }
+tr:nth-child(even) {
+  background:#828282;
+  
+}
+
+tr {
+  font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+}
 </style>
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
     <div class="container">
     <div class="row">
-        <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">Questões por Disiplina</h3>
+    <div class="panel panel-primary filterable" style="background-color:#828282;">
+<div class="panel-heading" style="background-color:#363636;">
+                <h3 class="panel-title" style="font-size: clamp(1em, 1em + 1vw, 1.5em);">Questões por Disiplina</h3>
             </div>
             <table class="table">
                 <thead>
-                    <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="Disciplina" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Quantidade de Questões" disabled></th>
+                    <tr class="filters" style="background-color:#696969;">
+                        <th><input type="text" style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" class="form-control" placeholder="Disciplina" disabled></th>
+                        <th><input type="text" style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" class="form-control" placeholder="Quantidade de Questões" disabled></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -526,7 +892,7 @@ $qtperguntas = mysqli_num_rows($sql_qtper);
 echo "<tr>";
 
 // nome da disciplina
-echo "<td><a href='mostrar_questoes_disciplina.php?codigo=$codigo_dis'>" .$dado_qtperguntas['disciplina']. "</a></td>";
+echo "<td><a href='mostrar_questoes_disciplina.php?codigo=$codigo_dis'><font color='MidnightBlue'><u>" .$dado_qtperguntas['disciplina']. "<u></font></a></td>";
 
 // quantidade de questões
 echo "<td>".$qtperguntas."</td>";
@@ -536,7 +902,7 @@ echo "</tr>";
 
 <!-- Mostrando a quantidade total de questões -->
 <tr>
-<td><a href="mostrar_questoes_disciplina.php?codigo=Todas">Total</a></td>
+<td><a href="mostrar_questoes_disciplina.php?codigo=Todas"><font color='MidnightBlue'><u>Total</u></font></a></td>
 <td><?php echo $totalquestoes; ?></td>
 </tr>
                 </tbody>
@@ -577,6 +943,7 @@ echo "</tr>";
 </style>
 <!-- fechando a tabela -->
 
+<br><br><br>
 <!-- Fechando tags em aberto -->
 </bodY>
 </html>

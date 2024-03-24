@@ -46,247 +46,7 @@ include_once('conexao.php');
 
 <!-- Definindo caracteristica para o corpo da página -->
 
-<body style="background-color: LightBlue;">
-
-
-
-<!-- iniciando CSS para definir caracteristicas para o slide -->
-
-<style>
-
-
-
-.slider{
-
-  border: 2px solid #000000;
-
-  width: 90%;
-
-  height: 60%;
-
-  overflow: hidden;
-
-  vertical-align: middle;
-
-}
-
-
-
-.slides{
-
-  width: 400%;
-
-  height: 60%;
-
-  display: flex;
-
-}
-
-
-
-.slides input{
-
-  display: none;
-
-}
-
-
-
-.slide {
-
-  width: 25%;
-
-  position: relative;
-
-}
-
-
-
-.slide img {
-
-  width: 100%;
-
-  height: 100%;
-
-}
-
-
-
-.manual-navegatin {
-
-  position: absolute;
-
-  width: 90%;
-
-  margin-top: -40px;
-
-  display: flex;
-
-  justify-content: center;
-
-}
-
-
-
-.manual-btn {
-
-  border: 2px solid #FFF;
-
-  padding: 5px;
-
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  transition: 1s;
-
-}
-
-
-
-.manual-btn:not(:Last-child){
-
-  margin-right: 20px;
-
-}
-
-
-
-.manual-btn:hover {
-
-  background-color: #FFF;
-
-}
-
-
-
-#radio1:checked ~ .first{
-
-  margin-left: 0;
-
-}
-
-
-
-#radio2:checked ~ .first{
-
-  margin-left: -25%;
-
-}
-
-
-
-#radio3:checked ~ .first{
-
-  margin-left: -50%;
-
-}
-
-
-
-#radio4:checked ~ .first{
-
-  margin-left: -75%;
-
-}
-
-
-
-.navegation-auto div{
-
-  border: 2px solid #000000;
-
-  padding: 5px;
-
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  transition: 1s;
-
-}
-
-
-
-.navegation-auto{
-
-  position: absolute;
-
-  width: 90%;
-
-  margin-top: -45px;
-
-  display: flex;
-
-  justify-content: center;
-
-}
-
-
-
-.navegation-auto div:not(:Last-child){
-
-  margin-right: 20px;
-
-}
-
-
-
-#radio1:checked ~ .navegation-auto .auto-btn1{
-
-  background-color: #FFF;
-
-}
-
-
-
-#radio2:checked ~ .navegation-auto .auto-btn2{
-
-  background-color: #FFF;
-
-}
-
-
-
-#radio3:checked ~ .navegation-auto .auto-btn3{
-
-  background-color: #FFF;
-
-}
-
-
-
-#radio4:checked ~ .navegation-auto .auto-btn4{
-
-  background-color: #FFF;
-
-}
-
-</style>
-
-
-
-
-
-
-
-<!-- Iniciando java -->
-
-<script>
-
-
-
-// Fução para entar na pagina de login -->
-
-function login() {
-
-      location.href='login.php';
-
-}
-
-
-
-</script>
+<body style="background-color: black;">
 
 
 
@@ -328,7 +88,7 @@ function login() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -354,7 +114,7 @@ function login() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -387,6 +147,8 @@ function login() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -426,7 +188,7 @@ function login() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -514,9 +276,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -544,7 +306,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -664,7 +426,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -695,6 +459,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -702,7 +467,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -716,19 +481,31 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
 }
 
-}    
+#header {
+  height: 102px;
+}
 
+}    </style>
 
+<!-- Iniciando o CSS -->
 
-/* Definindo fonte e cor da página */
+<!-- Definindo características da página como um todo -->
 
-body{
+<style>
+
+		/* Definindo fonte e cor da página */
+
+        body{
 
             font-family: Arial, Helvetica, sans-serif;
 
-			background-color: LightBlue;
+			background-color: black;
 
         }
 
@@ -738,46 +515,63 @@ body{
 
         .box{
 
-			top: 20%;
+            color: white;
 
-            left: 3%;
-
-            color: black;
-
-            position: absolute;
-
-            background-color: white;
+            background-color: black;
 
             padding: 15px;
 
             border-radius: 15px;
 
+            border: 2px solid #0000FF;
+
             width: 95%;
 
-        }
-
-
-
-		/* Definindo propriedades da legenda */
-
-        legend{
-
-            padding: 10px;
-
-            text-align: center;
-
-            border-radius: 8px;
-
-            font-size: 19px;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
         }
 
+		/* Definindo caracteristicas dos botões */
 
+        #adcionarquestao{
 
+            width: 32%;
 
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #adcionarquestao:hover{
+
+            background-color: CornflowerBlue;
+
+        }
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
 
 </style>
-
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -824,7 +618,7 @@ body{
 
       <div id="logo" class="pull-left">
 
-        <h1><a href="sobre.php" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -838,6 +632,10 @@ body{
 
         <ul class="nav-menu">
 
+        <li><a href='mostar_questoesusu.php'>Questões</a></li>
+
+        <li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>
+
         <li class="menu-has-children"><a>Simulados</a>
 
             <ul>
@@ -849,14 +647,9 @@ body{
             </ul>
 
             <li><a href="pagina_inscrever-se.php">Voltar</a>
+            <li class="menu-active"><a href="login.php">Entrar</a></li>
 
           </li>
-
-
-
-          <li class="menu-active"><i class="bi bi-person-circle" title='Entrar' height ='30px' width='30px' onclick="login()"></i></li>
-
-          <!-- <li><a >Contact</a></li> -->
 
         </ul>
 
@@ -1016,33 +809,37 @@ body{
 
 <!-- Fechando cabeçalho -->
 
-<br><br><br><br><br>
+<br><br><br><br><br><br>
 
 
+<center>
+<div class="box" align="left">
 
-<div class="box">
+<center><h3><b>Política de Privacidade</b></h3></center><br><br>
 
-<strong>Quem somos?</strong>
+<h4><b>Quem somos?</b></h4>
 
-<br>
+Nesse site onde você se encontra, foi criado como um trabalho para a conclusão do curso no ano de 2023, sendo o seu nome <b>Desenrola ENEM (desenrolaenem.com.br)</b>. Com o decorrer do tempo, fomos aprimorando, deixando-o cada vez mais completo e seguro.<br><br>
 
-Nesse site onde você se encontra, foi criado como um trabalho para a conclusão do curso no ano de 2023, seu nome é Desenrola ENEM (desenrolaenem.com.br).<br>
+Tendo em vista que o Enem cobra o conteúdo dos três anos do ensino médio, o grau de dificuldade para alunos que acabaram de terminar os estudos já é alto, e para os que pararam de estudar há algum tempo, é maior ainda. Por isso é preciso muito comprometimento e dedicação nos estudos, para que seja possível chegar mais perto da aprovação e deixar de lado um pouco de toda a insegurança. <br><br>
 
-Nele você pode gerar uma prova com até 90 questões aleatórias de todas as áreas de conhecimento para que você possa responder, e no fim, exibirá a pontuação feita, com a quantidade de acertos e erros, além de provas feitas por professores de diferentes áreas. Também se pode ver o ranking com a sua colocação onde é mostrado seus pontos e desempenho. Além disso, você pode escrever redações, para que professores voluntários e capacitados possam avalia-la.br<br>
+Em consequência disso, na internet existem muitos ótimos cursos preparatórios para vestibular, mas o que não notam é que o valor cobrado por esses cursos está fora da realidade da maioria das pessoas, essas que muitas vezes acabam também não tendo tempo para destinar a esses estudos porque trabalham. Pensando nisso, uma forma de agilizar esses estudos e torná-los bem mais práticos, é com o uso de um site de questões de provas antigas do Enem, onde o usuário pode com a prática adquirir resistência e facilidade para o vestibular. Além de treinar o seu modo de desenvolver redações. <br><br>
 
-Caso você seja professor, esse site também lhe será útil, já que nele estão cadastradas todas as perguntas do vestibular, desde 2009, sendo assim você pode selecionar perguntas que já caíram no ENEM, e elaborar uma prova para os seus alunos.<br>
+Nesse site onde você se encontra, foi criado como um trabalho para a conclusão do curso no ano de 2023, nele você pode gerar uma prova com até 90 questões aleatórias de todas as áreas de conhecimento para que você possa responder, e no fim, exibirá a pontuação feita, com a quantidade de acertos e erros, além de provas feitas por professores de diferentes áreas. Também se pode ver o ranking com a sua colocação onde é mostrado seus pontos e desempenho. Além disso, você pode escrever redações, para que professores voluntários e capacitados possam avalia-la. <br><br>
 
-Foi desenvolvido por: Júlia Mota Torlini, Kaio Leandro Rissato, Luis Felipe Puliani, Luís Pedro Dutra Carrocini, Miguel Malanote Pereira e Tainara Parpinelli Silva.
+Caso você seja professor, esse site também lhe será útil, já que nele estão cadastradas todas as perguntas do vestibular, desde 2009, sendo assim você pode selecionar perguntas que já caíram no ENEM, e elaborar uma prova para os seus alunos. <br><br>
+<b>Desenvolvido por: </b><br>
+- Código e Banco de Dados: Luís Pedro Dutra Carrocini;<br>
+- Cadastro de Provas e Questões: Júlia Mota Torlini, Kaio Leandro Rissato, Luis Felipe Puliani, Miguel Malanote Pereira; <br>
+- Artigo Científico: Tainara Parpinelli Silva; <br>
+
 
 <br><br><br>
 
 
 
-<strong>Quais dados pessoais coletamos e porque</strong>
-
-<br>
-
-Os dados que coletamos para o cadastro são:<br>
+<h4><b>Quais dados pessoais coletamos e porque?</h4></b>
+<b>Os dados que coletamos para o cadastro são:</b><br>
 
 - E-Mail (Caso você se esqueça de sua senha, uma mendagem de recuperação será enviada para esse e-mail);<br>
 
@@ -1058,9 +855,7 @@ Os dados que coletamos para o cadastro são:<br>
 
 
 
-<strong>Mídia</strong>
-
-<br>
+<h4><b>Mídia</h4></b>
 
 As informaçãos (Nome, Data de Nascimento e Arquivos Anexados) só serão divulgadas dentro do próprio site, não serão divulgadas para terceiros.
 
@@ -1068,9 +863,7 @@ As informaçãos (Nome, Data de Nascimento e Arquivos Anexados) só serão divul
 
 
 
-<strong>Com quem compartilhamos seus dados</strong>
-
-<br>
+<h4><b>Com quem compartilhamos seus dados?</h4></b>
 
 Seus dados não serão compartilhados com ninguém fora deste site.
 
@@ -1078,9 +871,7 @@ Seus dados não serão compartilhados com ninguém fora deste site.
 
 
 
-<strong>Por quanto tempo mantemos os seus dados</strong>
-
-<br>
+<h4><b>Por quanto tempo mantemos os seus dados?</h4></b>
 
 Seus dados ficarão armazenados por tempo indeterminado, ficarão armazenados até que você decida excluir a sua conta, assim todos os dados relacionados a você serão excluidos.
 
@@ -1088,9 +879,7 @@ Seus dados ficarão armazenados por tempo indeterminado, ficarão armazenados at
 
 
 
-<strong>Quais os seus direitos sobre seus dados</strong>
-
-<br>
+<h4><b>Quais os seus direitos sobre seus dados?</h4></b>
 
 Você tem todo o deireito sobre seus dados, porém caso não queira que seus dados sejam compartilhados com outros usuários desse mesmo site, você não poderá se cadastrar.
 
@@ -1098,31 +887,23 @@ Você tem todo o deireito sobre seus dados, porém caso não queira que seus dad
 
 
 
-<strong>Para onde seus dados são enviados</strong>
+<h4><b>Para onde seus dados são enviados?</h4></b>
 
-<br>
 Seus dados são enviados para os serviços de hospedagem da LocaWeb, onde são protegidos pelos serviços de segurança da hospedagem.
 
 <br><br><br>
 
 
 
-<strong>Informação de contato</strong>
-
-<br>
+<h4><b>Informação de contato:</h4></b>
 
 E-Mail: desenrolaenem@gmail.com
 
-<br><br><br>
-
-
-
+<br><br>
 </div>
-
-
+<center>
+<br><br>
 
 <!-- Fechando tags em aberto -->
-
 </body>
-
 </html>

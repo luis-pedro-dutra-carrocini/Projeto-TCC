@@ -366,21 +366,17 @@ if ($_POST){
 
             $nomeex = mysqli_num_rows($sql2);
 
-
-
         // Verificando se o email já existe
 
         // Se o email novo é diferente do antigo
 
         if ($novoemail != $email){
 
-
-
             // Verficando se ja existe
 
             if($emailex>0) {
 
-
+              
 
                 // Emitindo mensagem de erro
 
@@ -391,9 +387,7 @@ if ($_POST){
                 exit;
 
             }
-
         }
-
 
 
         // Verificando se o nome já existe
@@ -426,7 +420,7 @@ if ($_POST){
 
         // Verificando se nome ou email estão banidos
 
-        // Eamil
+        // Email
 
         $verificarusuban = mysqli_query($conexao, "SELECT * FROM tabela_usuarios_banidos WHERE email = '$novoemail';");
 
@@ -510,13 +504,15 @@ if ($_POST){
 
                 }
 
-
+                // Criptografando a senha
+                $novasenha = password_hash($novasenha, PASSWORD_DEFAULT);
 
                 // Alterando os dados
 
-                $sqlInsert = "UPDATE tabela_usuario SET nome='$novonome',email='".addslashes($novoemail)."',senha='".addslashes($novasenha)."',data_nascimento='$novadtnascimento' WHERE nome='$nome';";
+                $sqlInsert = "UPDATE tabela_usuario SET nome='$novonome',email='".addslashes($novoemail)."',senha='".addslashes($novasenha)."',data_nascimento='$novadtnascimento' WHERE email='$email';";
 
                 $result = $conexao->query($sqlInsert);
+
 
 
 
@@ -1029,7 +1025,19 @@ function evolucao() {
 }
 
 
+// Função para página provas e gabaritos -->
 
+function provas() {
+
+var resultado = confirm("Cancelar Simulado?")
+
+  if (resultado == true) {
+
+    location.href='mostrar_provas.php';
+
+}
+
+}
 
 
 </script>
@@ -1074,7 +1082,7 @@ function evolucao() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -1100,7 +1108,7 @@ function evolucao() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -1133,6 +1141,8 @@ function evolucao() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -1172,7 +1182,7 @@ function evolucao() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -1260,9 +1270,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -1290,7 +1300,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -1410,7 +1420,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -1441,6 +1453,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -1448,7 +1461,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -1462,185 +1475,61 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
 
-
-
 <!-- Iniciando o CSS -->
 
-<!-- definindo caracteristicas para a pagina -->
+<!-- Definindo características da página como um todo -->
 
 <style>
 
+		/* Definindo fonte e cor da página */
 
+        body{
 
-/* caracteristicas do corpo da página */
+            font-family: Arial, Helvetica, sans-serif;
 
-body{
+			background-color: black;
 
-    font-family: Arial, Helvetica, sans-serif;
+        }
 
-    background-color: LightBlue;
 
-}
 
+		/* Definindo características da "caixa" do formulário */
 
+        .box{
 
-/* Caracteristicas do quadro em volta do form */
+            color: white;
 
-.box{
+            background-color: black;
 
-    color: black;
+            padding: 15px;
 
-    background-color: white;
+            border-radius: 15px;
 
-    padding: 15px;
+            border: 2px solid #0000FF;
 
-    border-radius: 15px;
+            width: 95%;
 
-    width: 50%;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
-}
+        }
 
+		/* Definindo caracteristicas dos botões */
 
+        #alterar{
 
-/* Caracteristicas da legenda do form */
-
-legend{
-
-    padding: 10px;
-
-    text-align: center;
-
-    border-radius: 8px;
-
-    font-size: 19px;
-
-}
-
-
-
-/* Caracteristicas dos inputs */
-
-.inputBox{
-
-    position: relative;
-
-}
-
-.inputUser{
-
-    background: none;
-
-    border: none;
-
-    border-bottom: 1px solid black;
-
-    outline: none;
-
-    color: black;
-
-    font-size: 17px;
-
-    width: 100%;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-/* Caracteristicas do labels */
-
-.labelInput{
-
-    position: absolute;
-
-    top: 0px;
-
-    left: 0px;
-
-    pointer-events: none;
-
-    transition: .5s;
-
-}
-
-.inputUser:focus ~ .labelInput,
-
-.inputUser:valid ~ .labelInput{
-
-    top: -20px;
-
-    font-size: 12px;
-
-    color: black;
-
-}
-
-
-
-/* caracteristicas dos botões */
-
-#alterar{
-
-    width: 50%;
-
-    border: none;
-
-    padding: 15px;
-
-    color: white;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-
-    background-color: DarkTurquoise;
-
-}
-
-#alterar:hover{
-
-    background-color: MediumTurquoise;
-
-}
-
-#cancelar{
-
-    width: 47%;
-
-    border: none;
-
-    padding: 15px;
-
-    color: white;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-
-    background-color: DarkTurquoise;
-
-}
-
-#cancelar:hover{
-
-    background-color: MediumTurquoise;
-
-}
-
-
-
-#deletar_conta{
-
-            width: 98%;
+            width: 49%;
 
             border: none;
 
@@ -1648,21 +1537,85 @@ legend{
 
             color: white;
 
-            font-size: 15px;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
             cursor: pointer;
 
             border-radius: 10px;
 
-            background-color: DarkTurquoise;
+            background-color: RoyalBlue;
 
         }
 
-        #deletar_conta:hover{
+        #alterar:hover{
 
-            background-color: MediumTurquoise;
+            background-color: CornflowerBlue;
 
         }
+
+        #cancelar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#cancelar:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+#deletar_conta{
+
+width: 100%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#deletar_conta:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 2vw, 1.5em);
+
+}
 
 </style>
 
@@ -1698,7 +1651,7 @@ legend{
 
 </head>
 
-<body>
+<body style="background-color: black;">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -1712,7 +1665,7 @@ legend{
 
       <div id="logo" class="pull-left">
 
-        <h1><a onclick="sobre()" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -1727,6 +1680,8 @@ legend{
         <ul class="nav-menu">
 
         <li class="menu-active"><a onclick="home()">Home</a></li>
+
+        <li><a onclick="provas()">Provas</a></li>
 
         <li class="menu-has-children"><a >Simulados</a>
 
@@ -1946,8 +1901,18 @@ legend{
 
 <!-- Fechando cabeçalho -->
 
-<br><br><br><br><br>
+<br><br><br><br><br><br>
 
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- link para mostrar senha -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <!-- Iniciando java para a validação do email -->
 
@@ -2003,6 +1968,26 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
 
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+<script>
+  // função para quando clicar no btn mostrar a senha ou escondela -->
+function mos_senha() {
+	var inputpass = document.getElementById('senha')
+	var btnmossenha = document.getElementById('mos_senha')
+
+	if (inputpass.type === "password"){
+		inputpass.setAttribute('type', 'text')
+		btnmossenha.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
+	}
+	else{
+		inputpass.setAttribute('type', 'password')
+		btnmossenha.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
+	}
+	
+}
+</script>
+
 
 <center>
 <!-- Inserindo inputs com suas caracteristicas -->
@@ -2023,75 +2008,52 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
 
                 <!-- legenda do Formulario -->
 
-                <legend><b>Dados</b></legend>
+                <legend><b>MEUS DADOS</b></legend>
 
                 <br><br>
 
-
-
-                <!-- Campo email -->
-
-                <div class="inputBox">
-
-                    <input type="email" name="email" id="email" class="inputUser" onblur="validacaoEmail(f1.email)" autofocus maxlength="256" value="<?php echo $email;?>" required>
-
-                    <label for="email" class="labelInput">Email</label>
-
-                    <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
-
-                <br><br>
-
-
-
-                <!-- DIV menssagem de email valido ou invalido -->
-
+                <div class="form-group input-group">
+    	          <div class="input-group-prepend">
+		            <span class="input-group-text"> <i class="fa fa-envelope" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+		            </div>
+                <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" class="form-control" autofocus placeholder="E-Mail" type="email" name="email" id="email" onblur="validacaoEmail(f1.email)" maxlength="256" value="<?php echo $email;?>" required>
+                <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
                 </div>
-
-                <div id="msgemail" style="text-align: center;"></div>
-
-			    <br><br>
+			          <div id="msgemail" style="text-align: center;"></div>
+			          <br>
 
 
-
-                <!-- campo nome -->
-
-                <div class="inputBox">
-
-                    <input type="text" name="nome" id="nome" class="inputUser" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" maxlength="50" value="<?php echo $nomemos;?>" required>
-
-                    <label for="nome" class="labelInput">Nome</label>
-
-                </div>
-
-                <br><br>
+            <div class="form-group input-group">
+		        <div class="input-group-prepend">
+		        <span class="input-group-text"> <i class="fa fa-user" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+		        </div>
+            <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" name="nome" maxlength="50" placeholder="Nome" required class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="<?php echo $nomemos;?>" placeholder="Nome" type="text">
+            </div>
+            <br>
 
 
 
                 <!-- Campo data de nascimento -->
-
-			    <div class="input-box">
-
-		        <span>Data de Nascimento</span><br>
-
-			    <input type="date" name ="dtnasc" value="<?php echo $dtnascimento;?>" required>
-
-		        </div>
-
-			    <br><br>
-
+              <div class="form-group input-group">
+              <div class="input-group-prepend">
+		          <span class="input-group-text"> <i style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);">Data de Nascimento</i> </span>
+		          </div>
+		          <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" type="date" class="form-control" value="<?php echo $dtnascimento;?>" name ="dtnasc" required>
+              </div>
+			        <br>
 
 
                 <!-- campo senha -->
 
-                <div class="inputBox">
-
-                <input type="text" name="senha" id="senha" class="inputUser" maxlength="50" value="<?php echo $senha;?>" required>
-
-                <label for="nome" class="labelInput">Senha</label>
-
+                <div class="form-group input-group">
+    	          <div class="input-group-prepend">
+		           <span class="input-group-text"> <i class="fa fa-lock" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+	            	</div>
+               <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" class="form-control" placeholder="Nova Senha" maxlength="50" name="senha" id="senha" value="" type="password" required>
+                &nbsp;
+	            	<span class="input-group-text" style="background-color: black; border:none; font-size: clamp(1em, 1em + 0.5vw, 1.5em);"><i class="bi bi-eye-fill" id="mos_senha" style="color:#6495ED" title='Mostrar Senha' onclick="mos_senha()"></i></span>
                 </div>
-
-                <br><br>
+                <br>
 
 
 
@@ -2138,12 +2100,10 @@ document.getElementById("emailvalouinv").value = emailvalouinv;
 
 
 <!-- Fechando tags em aberto -->
-
 </form>
-
 </div>
 </center>
+<br><br>
 
 </body>
-
 </html>

@@ -1588,6 +1588,10 @@ body.mobile-nav-active #mobile-nav {
 
 <?php 
 
+// Titulo
+echo "<br>";
+echo "<center><b><h3>Avaliações dos Usuários</h3></b></center>";
+echo "<br><br>";
 
 
 // Verificando se alguma avalaiação foi enviada
@@ -1641,12 +1645,11 @@ if ($dado['tipo'] == 1){
 }
 
 
-
 // Nome do usuario
 
-echo "<b>". $tipo_usu ."</b>" . $dado['nome_usuario'];
+echo "<u><b>". $tipo_usu ."</b>" . $dado['nome_usuario']."</u>";
 
-echo "<br><br>";
+echo "<br>";
 
 
 
@@ -1654,15 +1657,15 @@ echo "<br><br>";
 
 echo "<b>Nota: </b>" . $dado['nota'];
 
-echo "<br><br>";
+echo "<br>";
 
 
 
 // Comentario
 
-echo "<b>Comentário:</b><br>";
+echo "<b>Comentário: </b>";
 
-print "<p>".nl2br($dado['comentario'])."</p>";
+print nl2br($dado['comentario']);
 
 echo "<br>";
 
@@ -1670,11 +1673,11 @@ echo "<br>";
 
 // Melhoria/Erro
 
-echo "<b>Melhoria/Erro:</b><br>";
+echo "<b>Melhoria/Erro: </b>";
 
-print "<p>".nl2br($dado['melhoria_erro'])."</p>";
+print nl2br($dado['melhoria_erro']);
 
-echo "<br><br><br>";
+echo "<br><br>";
 
 
 

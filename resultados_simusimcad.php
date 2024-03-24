@@ -35420,7 +35420,7 @@ function voltar() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -35446,7 +35446,7 @@ function voltar() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -35479,6 +35479,8 @@ function voltar() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -35518,7 +35520,7 @@ function voltar() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -35606,9 +35608,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -35636,7 +35638,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -35756,7 +35758,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -35787,6 +35791,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -35794,7 +35799,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -35808,12 +35813,20 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
 
 
-
+<!-- Iniciando o CSS -->
 <!-- Iniciando o CSS -->
 
 <!-- Definindo características da página como um todo -->
@@ -35826,7 +35839,7 @@ body.mobile-nav-active #mobile-nav {
 
             font-family: Arial, Helvetica, sans-serif;
 
-			background-color: LightBlue;
+			background-color: black;
 
         }
 
@@ -35836,15 +35849,9 @@ body.mobile-nav-active #mobile-nav {
 
         .box{
 
-			top: 20%;
-
-            left: 3%;
-
             color: black;
 
-            position: absolute;
-
-            background-color: white;
+            background-color: #F8F8FF;
 
             padding: 15px;
 
@@ -35852,9 +35859,9 @@ body.mobile-nav-active #mobile-nav {
 
             width: 95%;
 
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
         }
-
-
 
 
 
@@ -35892,13 +35899,15 @@ body.mobile-nav-active #mobile-nav {
 
     border-radius: 10px;
 
-    background-color: DarkTurquoise;
+    background-color: RoyalBlue;
+    
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
 }
 
 #finalizar:hover{
 
-    background-color: MediumTurquoise;
+    background-color: CornflowerBlue;
 
 }
 
@@ -35918,19 +35927,23 @@ body.mobile-nav-active #mobile-nav {
 
     border-radius: 10px;
 
-    background-color: DarkTurquoise;
+    background-color: RoyalBlue;
+    
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
 }
 
 #cancelar:hover{
 
-    background-color: MediumTurquoise;
+    background-color: CornflowerBlue;
 
 }       
 
 
 
 </style>
+
+
 
 
 
@@ -35978,7 +35991,7 @@ body.mobile-nav-active #mobile-nav {
 
       <div id="logo" class="pull-left">
 
-        <h1><a href="sobreusu.php" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -35993,6 +36006,8 @@ body.mobile-nav-active #mobile-nav {
         <ul class="nav-menu">
 
         <li class="menu-active"><a href="pagina_usuarios.php">Home</a></li>
+
+        <li><a href='mostrar_provas.php'>Provas</a></li>
 
         <li class="menu-has-children"><a>Simulados</a>
 
@@ -36036,9 +36051,8 @@ body.mobile-nav-active #mobile-nav {
 
           
 
+          <li><a href="alterar_dadosusuario.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="Alterar_Dados()"></i></li>
 
           <!-- <li><a >Contact</a></li> -->
 
@@ -36200,7 +36214,7 @@ body.mobile-nav-active #mobile-nav {
 
 <!-- Fechando cabeçalho -->
 
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 
 
@@ -36214,7 +36228,8 @@ body.mobile-nav-active #mobile-nav {
 
 <font color="black" size="3">
 
-<div class="box">
+<center>
+<div class="box" Align="left">
 
 
 
@@ -48483,11 +48498,28 @@ echo "<br><br><br>";
 
 
 <!-- Fechando TAGs em aberto -->
-
 </form>
-
 </div>
+</center>
+<br><br>
+
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 
 </body>
-
 </html>

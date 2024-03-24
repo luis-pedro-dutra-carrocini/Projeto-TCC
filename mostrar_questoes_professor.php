@@ -1067,6 +1067,8 @@ if ($niveladm =="admgeral" || $niveladm == "adm" || $niveladm == "corretor"){ech
 <!-- Fechando cabeçalho -->
 <br><br><br><br><br>
 
+
+
 <!-- Colocando os campos para a inserção de dados -->
 
 <body>

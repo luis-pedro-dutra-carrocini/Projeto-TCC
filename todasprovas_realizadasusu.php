@@ -1006,7 +1006,7 @@ if ($qt_provascom < 2 && $qt_provasper <2){
 
 <!-- Definindo caracteristicas para o corpo da página -->
 
-<body style="background-color: LightBlue;">
+<body style="background-color: black;">
 
 
 
@@ -1084,7 +1084,7 @@ function Alterar_Dados() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -1110,7 +1110,7 @@ function Alterar_Dados() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -1143,6 +1143,8 @@ function Alterar_Dados() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -1182,7 +1184,7 @@ function Alterar_Dados() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -1270,9 +1272,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -1300,7 +1302,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -1420,7 +1422,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -1451,6 +1455,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -1458,7 +1463,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -1472,179 +1477,93 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
 
+<!-- Iniciando o CSS -->
 
-
-<!-- Iniciando CSS -->
+<!-- Definindo características da página como um todo -->
 
 <style>
 
+		/* Definindo fonte e cor da página */
 
+        body{
 
-/* caracteristicas do corpo da página */
+            font-family: Arial, Helvetica, sans-serif;
 
-body{
+			background-color: black;
 
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-color: LightBlue;
-
-}
-
-
-
-/* Caracteristicas do quadro em volta do form */
-
-.box{
-
-    color: black;
-
-    background-color: white;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    width: 90%;
-
-}
+        }
 
 
 
-/* Caracteristicas da legenda do form */
+		/* Definindo características da "caixa" do formulário */
+
+        .box{
+
+            color: black;
+
+            background-color: white;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+        }
+
+		/* Definindo caracteristicas dos botões */
+
+        #adcionarquestao{
+
+            width: 32%;
+
+            border: none;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            background-color: RoyalBlue;
+
+        }
+
+        #adcionarquestao:hover{
+
+            background-color: CornflowerBlue;
+
+        }
 
 legend{
 
-    padding: 10px;
+padding: 10px;
 
-    text-align: center;
+text-align: center;
 
-    border-radius: 8px;
+border-radius: 8px;
 
-    font-size: 22px;
-
-}
-
-
-
-/* Caracteristicas dos inputs */
-
-.inputBox{
-
-    position: relative;
+font-size: clamp(1em, 1em + 1vw, 1.5em);
 
 }
-
-.inputUser{
-
-    background: none;
-
-    border: none;
-
-    border-bottom: 1px solid black;
-
-    outline: none;
-
-    color: black;
-
-    font-size: 17px;
-
-    width: 100%;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-/* Caracteristicas do labels */
-
-.labelInput{
-
-    position: absolute;
-
-    top: 0px;
-
-    left: 0px;
-
-    pointer-events: none;
-
-    transition: .5s;
-
-}
-
-.inputUser:focus ~ .labelInput,
-
-.inputUser:valid ~ .labelInput{
-
-    top: -20px;
-
-    font-size: 12px;
-
-    color: black;
-
-}
-
-
-
-/* caracteristicas dos botões */
-
-#adicionar{
-
-    width: 50%;
-
-    border: none;
-
-    padding: 15px;
-
-    color: white;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-
-    background-color: DarkTurquoise;
-
-}
-
-#adicionar:hover{
-
-    background-color: MediumTurquoise;
-
-}
-
-#cancelar{
-
-    width: 47%;
-
-    border: none;
-
-    padding: 15px;
-
-    color: white;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-
-    background-color: DarkTurquoise;
-
-}
-
-#cancelar:hover{
-
-    background-color: MediumTurquoise;
-
-}
-
-
 
 </style>
 
@@ -1694,7 +1613,7 @@ legend{
 
       <div id="logo" class="pull-left">
 
-        <h1><a href="sobreusu.php" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -1709,6 +1628,8 @@ legend{
         <ul class="nav-menu">
 
         <li class="menu-active"><a href="pagina_usuarios.php">Home</a></li>
+
+        <li><a href='mostrar_provas.php'>Provas</a></li>
 
         <li class="menu-has-children"><a >Simulados</a>
 
@@ -1768,9 +1689,8 @@ legend{
 
           
 
+          <li><a href="alterar_dadosusuario.php">Dados</a></li>
           <li class="menu-active"><a onclick="sair()">Sair</a></li>
-
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="Alterar_Dados()"></i></li>
 
           <!-- <li><a >Contact</a></li> -->
 
@@ -1934,15 +1854,12 @@ legend{
 
 <br><br><br><br><br><br>
 
-
-
 <!-- Mostrando os graficos de desempenho -->
 
 <center>
 
-<h2><b>Minhas Evoluções</b></h2>
-
-<br><br><br>
+<h2 style="color: white;"><b>Evolução</b></h2>
+<br>
 
 
 
@@ -2334,17 +2251,14 @@ echo "<legend><b>Últimos 8 Simulados Completos</b></legend>
 
 </script>
 
-<br><br>
+<br><br><br>
 
 
 
 <?php
 
 if ($qt_provasper > 2){
-
-echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend>
-
-<br><br>";
+echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend><br><br>";
 
 }
 
@@ -2716,9 +2630,25 @@ echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend>
 
 </div>
 </center>
-<br><br><br><br>
+<br><br>
 
-
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 
 <!-- Tabela para mostrar todas as provas realizadas -->
 
@@ -2778,6 +2708,16 @@ echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend>
 
 }
 
+tr:nth-child(even) {
+  background:#828282;
+  
+}
+
+tr {
+  font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+}
+</style>
+
 </style>
 
 
@@ -2818,11 +2758,11 @@ echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend>
 
     <div class="row">
 
-        <div class="panel panel-primary filterable">
+    <div class="panel panel-primary filterable" style="background-color:#828282;">
 
-            <div class="panel-heading">
+      <div class="panel-heading" style="background-color:#363636;">
 
-                <h3 class="panel-title">Simulados Realizados</h3>
+                <h3 class="panel-title" style="font-size: clamp(1em, 1em + 1vw, 1.5em);">Simulados Realizados</h3>
 
                 <div class="pull-right">
 
@@ -2836,19 +2776,19 @@ echo "<legend><b>Últimos 8 Simulados Personalizados</b></legend>
 
                 <thead>
 
-                    <tr class="filters">
+                <tr class="filters" style="background-color:#696969;">
 
-                        <th><input type="text" class="form-control" placeholder="Tipo" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Tipo" disabled></th>
 
-                        <th><input type="text" class="form-control" placeholder="Qt. Questões" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Qt. Questões" disabled></th>
 
-                        <th><input type="text" class="form-control" placeholder="Pontuação" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Pontuação" disabled></th>
 
-                        <th><input type="text" class="form-control" placeholder="Precisão" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Precisão" disabled></th>
 
-                        <th><input type="text" class="form-control" placeholder="Média de Tempo (M)" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Média de Tempo (M)" disabled></th>
 
-                        <th><input type="text" class="form-control" placeholder="Data/Hora Realização" disabled></th>
+                        <th><input style="font-size: clamp(1em, 1em + 0.2vw, 1.5em);" type="text" class="form-control" placeholder="Data/Hora Realização" disabled></th>
 
                         
 
@@ -2938,7 +2878,7 @@ $data_realizacao = date('d/m/y - H:i',  strtotime($data_reaSM));
 
 // Data e hora da realização
 
-echo "<td><a href='simu_meuusu.php?codigorea=$dado[codigo]'>$data_realizacao</a></td>";
+echo "<td><a href='simu_meuusu.php?codigorea=$dado[codigo]'><font color='MidnightBlue'><u>$data_realizacao</u></font></a></td>";
 
 
 
@@ -3047,15 +2987,26 @@ $(document).ready(function(){
     });
 
 });	</script>
-
 <!-- Fechando a tabela -->
-
-
-
-<!-- Fechando TAGs em aberto -->
-
 </center>
+<br><br>
 
-<br><br><br><br>
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
 
 </html>

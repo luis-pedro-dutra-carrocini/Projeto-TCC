@@ -12,9 +12,9 @@ if(isset($_POST["btn_adicionaradm"]))
 {
       
         // Obtendo dados do formulário sem espaco no começo e final
-        $adiemail_adm = trim($_POST['adiemail_adm']);
-        $adinome_adm = trim($_POST['adinome_adm']);
-        $adisenha_adm = trim($_POST['adisenha_adm']);
+        $adiemail_adm = Addslashes(trim($_POST['adiemail_adm']));
+        $adinome_adm = Addslashes(trim($_POST['adinome_adm']));
+        $adisenha_adm = Addslashes(trim($_POST['adisenha_adm']));
 
         // Buscando informções do banco
         $sql = mysqli_query($conexao, "SELECT * FROM tabela_adm WHERE email = '$adiemail_adm';");
@@ -23,19 +23,6 @@ if(isset($_POST["btn_adicionaradm"]))
         // Verificando se já tem um email ou nome no banco de dados 
         $emailex = mysqli_num_rows($sql);
         $nomeex = mysqli_num_rows($sql2);
-
-        // Obtendo dado do formulário para verificar o email
-        $emailvalouinv = filter_input(INPUT_POST, 'emailvalouinv', FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        // Verificando se o email é valido
-        if($emailvalouinv == "Inválido"){
-
-          // Emitindo menssagem de erro
-          $script = "<script>alert('Erro: Não foi possivel cadastrar Professor. E-Mail Inválido.');location.href='adicionar_adm.php';</script>";
-          echo $script;
-          exit;
-        }
-        elseif($emailvalouinv == "Válido"){
 
         // Verificando se o email já esta cadastrado
         if($emailex>0) {
@@ -82,14 +69,17 @@ if(isset($_POST["btn_adicionaradm"]))
 
                 // Verificando qual é o nivel do ADM a ser adicionado
                 if (isset($_POST['chenivel'])){
-                  $niveladmcad = $_POST['chenivel'];
+                  $niveladmcad = Addslashes($_POST['chenivel']);
                 }
                 else{
                   $niveladmcad = "corretor";
                 }
 
+                // Criptografando a senha
+                $adisenha_adm = password_hash($adisenha_adm, PASSWORD_DEFAULT);
+
                 // Adicionando o ADM no banco de dados
-                $adicionar = mysqli_query($conexao, "INSERT into tabela_adm(email, nome, senha, nivel) values('".addslashes($adiemail_adm)."','$adinome_adm','".addslashes($adisenha_adm)."','$niveladmcad');");
+                $adicionar = mysqli_query($conexao, "INSERT into tabela_adm(email, nome, senha, nivel) values('".addslashes($adiemail_adm)."','".addslashes($adinome_adm)."','".addslashes($adisenha_adm).")','$niveladmcad');");
 
                 // Emitindo menssagem de sucesso
                 $script = "<script>alert('Professor ". $adinome_adm ." cadastrado com Sucesso!!!');location.href='adicionar_adm.php';</script>";
@@ -99,8 +89,6 @@ if(isset($_POST["btn_adicionaradm"]))
             }
         }
       }
-    
-}
 
 // Verificando se sessão foi iniciada
 // Ou seja teve senha e email válidos no form anterior
@@ -199,11 +187,6 @@ function sair() {
     }
 }
 
-// Função para abrir a página alterar dados -->
-function pgaltdados() {
-      location.href='alterar_dadosadm.php';
-}
-
 // Função para voltar a página adm
 function voltar() {
       location.href='pagina_adm.php';
@@ -225,311 +208,604 @@ function mos_senha() {
 	
 }
 
-</script>
+// Função para validar o email -->
+function validacaoEmail(field) {
+usuario = field.value.substring(0, field.value.indexOf("@"));
+dominio = field.value.substring(field.value.indexOf("@")+ 1, field.value.length);
 
-<!-- Definindo propriedades para o cabeçalho -->
+if ((usuario.length >=1) &&
+    (dominio.length >=3) &&
+    (usuario.search("@")==-1) &&
+    (dominio.search("@")==-1) &&
+    (usuario.search(" ")==-1) &&
+    (dominio.search(" ")==-1) &&
+    (dominio.search(".")!=-1) &&
+    (dominio.indexOf(".") >=1)&&
+    (dominio.lastIndexOf(".") < dominio.length - 1)) {
+      document.getElementById("msgemail").innerHTML="";
+      var emailvalouinv = 'Válido';
+      document.getElementById("emailvalouinv").value = emailvalouinv;
+}
+else{
+document.getElementById("msgemail").innerHTML="<font color='red'>E-mail inválido </font>";
+var emailvalouinv = 'Inválido';
+document.getElementById("emailvalouinv").value = emailvalouinv;
+}
+}
+
+</script>
+<!-- abrindo o cabeçalho -->
+
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <style type="text/css">
+
     #header.header-scrolled {
+
     background: #fff;
+
     padding: 20px 0;
+
     height: 72px;
+
     transition: all 0.5s;
+
 }
+
 #header {
+
     padding: 30px 0;
+
     height: 92px;
+
     position: fixed;
+
     left: 0;
+
     top: 0;
+
     right: 0;
+
     transition: all 0.5s;
+
     z-index: 997;
-    background-color: #fff;
+
+    background-color: #363636;
+
     box-shadow: 5px 0px 15px #c3c3c3;
+
 }
+
 #header #logo h1 {
+
     font-size: 34px;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     letter-spacing: 3px;
+
 }
+
 #header #logo h1 a, #header #logo h1 a:hover {
-    color: #000;
+
+    color: white;
+
     padding-left: 10px;
+
     border-left: 4px solid grey;
+
 }
+
 #nav-menu-container {
+
     float: right;
+
     margin: 0;
+
 }
+
 .nav-menu > li {
+
     margin-left: 10px;
+
 }
+
 .nav-menu > li {
+
     float: left;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+
+    color: white;
+
 }
+
 .nav-menu, .nav-menu * {
+
     margin: 0;
+
     padding: 0;
+
     list-style: none;
+
 }
+
 .header-scrolled .nav-menu li:hover > a, .header-scrolled .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .header-scrolled .nav-menu a {
+
     color: black;
+
 }
+
 .nav-menu li:hover > a, .nav-menu > .menu-active > a {
+
     color: #1E90FF;
+
 }
+
 .nav-menu a {
+
     padding: 0 8px 10px 8px;
+
     text-decoration: none;
+
     display: inline-block;
-    color: #000;
+
+    color: white;
+
     font-family: "Montserrat", sans-serif;
+
     font-weight: 700;
+
     font-size: 13px;
+
     text-transform: uppercase;
+
     outline: none;
+
 }
+
 #mobile-nav-toggle {
+
     display: inline;
+
 }
+
 #mobile-nav-toggle {
+
     position: fixed;
+
     right: 0;
+
     top: 0;
+
     z-index: 999;
+
     margin: 20px 20px 0 0;
+
     border: 0;
+
     background: none;
+
     font-size: 24px;
+
     display: none;
+
     transition: all 0.4s;
+
     outline: none;
+
     cursor: pointer;
+
 }
+
 #mobile-body-overly {
+
     width: 100%;
+
     height: 100%;
+
     z-index: 997;
+
     top: 0;
+
     left: 0;
+
     position: fixed;
+
     background: rgba(0, 0, 0, 0.7);
+
     display: none;
+
 }
+
 body.mobile-nav-active #mobile-nav {
+
     left: 0;
+
 }
+
 #mobile-nav {
+
     position: fixed;
+
     top: 0;
+
     padding-top: 18px;
+
     bottom: 0;
+
     z-index: 998;
+
     background: rgba(0, 0, 0, 0.8);
-    left: -260px;
-    width: 260px;
+
+    left: -50%;
+
+    width: 50%;
+
     overflow-y: auto;
+
     transition: 0.4s;
+
 }
+
 #mobile-nav ul {
+
     padding: 0;
+
     margin: 0;
+
     list-style: none;
+
 }
+
 #mobile-nav ul li {
+
     position: relative;
+
 }
+
 #mobile-nav ul li a {
+
     color: #fff;
-    font-size: 13px;
+
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
     text-transform: uppercase;
+
     overflow: hidden;
+
     padding: 10px 22px 10px 15px;
+
     position: relative;
+
     text-decoration: none;
+
     width: 100%;
+
     display: block;
+
     outline: none;
+
     font-weight: 700;
+
     font-family: "Montserrat", sans-serif;
+
 }
+
 #mobile-nav ul .menu-has-children i.fa-chevron-up {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul .menu-has-children i {
+
     position: absolute;
+
     right: 0;
+
     z-index: 99;
+
     padding: 15px;
+
     cursor: pointer;
+
     color: #fff;
+
 }
+
 #mobile-nav ul .menu-item-active {
+
     color: #1E90FF;
+
 }
+
 #mobile-nav ul li li {
+
     padding-left: 30px;
+
 }
+
+
 
 .menu-has-children ul
+
 {display: none;}
 
+
+
 .sf-arrows .sf-with-ul {
+
   padding-right: 30px;
+
 }
+
+
 
 .sf-arrows .sf-with-ul:after {
+
   content: "\f107";
+
   position: absolute;
+
   right: 15px;
+
   font-family: FontAwesome;
+
   font-style: normal;
+
   font-weight: normal;
+
   color:black;
+
 }
 
+
+
 .sf-arrows ul .sf-with-ul:after {
+
   content: "\f105";
+
 }
+
+
+
 
 
 .nav-menu li:hover > ul,
+
 .nav-menu li.sfHover > ul {
+
   display: block;
+
 }
+
 .nav-menu ul {
+
     margin: 4px 0 0 0;
+
     padding: 10px;
+
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    background: #fff;
+
+    background: #4F4F4F;
+
+    color: white;
+
 }
+
 .nav-menu ul {
+
     position: absolute;
+
     display: none;
+
     top: 100%;
+
     left: 0;
+
     z-index: 99;
+
 }
+
+
 
 .sf-arrows .sf-with-ul {
+
     padding-right: 30px;
+
 }
+
 .nav-menu li {
+
     position: relative;
+
     white-space: nowrap;
+    
+
 }
 
 
-@media (max-width: 768px){
+
+
+
+@media (max-width: 1000px){
+
 #nav-menu-container {
+
     display: none;
+
 }
+
+
 
 #mobile-nav-toggle {
+
     display: inline;
+
+    padding-right: 50px;
+
+    
+
 }
+
+#header {
+  height: 102px;
+}
+
 }    </style>
 
 <!-- Iniciando o CSS -->
+
 <!-- Definindo características da página como um todo -->
+
 <style>
 
-        /* Definindo fonte e cor da página */
+		/* Definindo fonte e cor da página */
+
         body{
+
             font-family: Arial, Helvetica, sans-serif;
-            background-color: LightBlue;
+
+			background-color: black;
+
         }
 
-        /* Definindo características da "caixa" do formulário */
+
+
+		/* Definindo características da "caixa" do formulário */
+
         .box{
-            color: black;
-            position: absolute;
-            top: 75%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            background-color: white;
+
+            color: white;
+
+            background-color: black;
+
             padding: 15px;
+
             border-radius: 15px;
-            width: 50%;
+
+            border: 2px solid #0000FF;
+
+            width: 95%;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
         }
 
-         /* Definindo propriedades da legenda */
-        legend{
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 19px;
-        }
+		/* Definindo caracteristicas dos botões */
 
-         /* Definindo propriedades dos inputs */
-        .inputBox{
-            position: relative;
-        }
-        .inputUser{
-            background: none;
-            border: none;
-            border-bottom: 1px solid black;
-            outline: none;
-            color: black;
-            font-size: 17px;
-            width: 90%;
-            letter-spacing: 2px;
-        }
-
-        /* Definindo propriedades dos labels */
-        .labelInput{
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            pointer-events: none;
-            transition: .5s;
-        }
-        .inputUser:focus ~ .labelInput,
-        .inputUser:valid ~ .labelInput{
-            top: -20px;
-            font-size: 12px;
-            color: black;
-        }
-
-        /* Definindo caracteristicas dos botões */
         #adicionar{
-            width: 50%;
+
+            width: 49%;
+
             border: none;
+
             padding: 15px;
+
             color: white;
-            font-size: 15px;
+
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
             cursor: pointer;
+
             border-radius: 10px;
-            background-color: DarkTurquoise;
+
+            background-color: RoyalBlue;
+
         }
+
         #adicionar:hover{
-            background-color: MediumTurquoise;
+
+            background-color: CornflowerBlue;
+
         }
-        #cancelar{
-            width: 47%;
-            border: none;
-            padding: 15px;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 10px;
-            background-color: DarkTurquoise;
-        }
-        #cancelar:hover{
-            background-color: MediumTurquoise;
-        }
+
+        #limpar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#limpar:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+#cancelar{
+
+width: 49%;
+
+border: none;
+
+padding: 15px;
+
+color: white;
+
+font-size: clamp(1em, 1em + 0.5vw, 1.5em);
+
+cursor: pointer;
+
+border-radius: 10px;
+
+background-color: RoyalBlue;
+
+}
+
+#cancelar:hover{
+
+background-color: CornflowerBlue;
+
+}
+
+legend{
+
+padding: 10px;
+
+text-align: center;
+
+border-radius: 8px;
+
+font-size: clamp(1em, 1em + 1vw, 1.5em);
+
+}
 
 </style>
 
@@ -551,72 +827,101 @@ body.mobile-nav-active #mobile-nav {
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<!-- Inserindo o cabeçalho -->
 <header id="header">
-    <div class="container">
+<div class="container">
 
-      <div id="logo" class="pull-left">
-        <h1><a href="sobreadm.php" class="scrollto">DSENEM</a></h1>
-      </div>
+<div id="logo" class="pull-left">
+  <h1><a class="scrollto">DSENEM</a></h1>
+  <!-- Uncomment below if you prefer to use an image logo -->
+  <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
+</div>
 
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a href="pagina_adm.php">Home</a></li>
-          
-          <li class='menu-has-children'><a >Professores</a>
-            <ul>
-              <li><a href='mostrar_professores.php'>Cadastrados</a></li>
-              <li><a href='mostrar_professores_banidos.php'>Banidos</a></li>
-            </ul>
-            </li>
-          
-          <li class='menu-has-children'><a >Questões</a>
-            <ul>
-              <li><a href='mostrar_questoes.php'>Visualizar Questões</a></li>
-              <li><a href='adicionar_questao.php'>ADD Questão</a></li>
-              <li class='menu-has-children'><a >Verificar Imagens</a>
-                <ul>
-                    <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
-                    <li><a href='verficarimg_respostas.php'>Respostas</a></li>
-                </ul>
-                </li>
-            </ul>
-          </li>
-           <li class='menu-has-children'><a >Usuários</a>
-            <ul>
-            <li><a href='mostrar_usuarios.php'>Cadastrados</a></li>
-              <li><a href='mostrar_usuarios_banidos.php'>Banidos</a></li>
-            </ul>
-          </li>
+<nav id="nav-menu-container">
+  <ul class="nav-menu">
 
-            <li class='menu-has-children'><a >Redações</a>
-            <ul>
-              <li><a href='readacoes_corrigir.php'>Para Corrigir</a></li>
-              <li><a href='readacoes_corrigidas.php'>Corrigidas</a></li>
-              <li class='menu-has-children'><a >Temas</a>
-              <ul>
-                <li><a href='temas_enem.php'>ENEM</a></li>
-                <li><a href='temas_usuarios.php'>Usuários</a></li>
-                <li><a href='temas_professores.php'>Professores</a></li>
-                <li><a href='adicionar_tema.php'>ADD Tema</a></li>
-              </ul>
-            </ul>
-          </li>
+  <li class='menu-active'><a href='pagina_adm.php'>Home</a></li>
 
-          <li class="menu-has-children"><a >Provas</a>
-            <ul> 
-              <li><a href="provas_geradasadm.php">Minhas</a></li>
-              <li><a href="provasadm_adm.php">Professores</a></li>
-              <li><a href="provasusu_adm.php">Usuários</a></li>
-              <li><a href="gerar_provaadm.php">Criar</a></li>
-            </ul>
-          </li>
-          <li class="menu-active"><a onclick="sair()">Sair</a></li>
-          <li class="menu-active"><i class="bi bi-person-circle" title='Dados da Conta' height ='30px' width='30px' onclick="pgaltdados()"></i></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
+  <!-- Iniciando PHP -->
+	<?php
 
-    </div>
+	// Verificando o nivel do adm para ver quais intens do cabeçalho se deve mostrar
+	if ($nivel =="admgeral" || $nivel == "adm"){echo "
+	<li class='menu-has-children'><a>Provas</a>
+	<ul>
+	  <li><a href='mostrar_provas.php'>Vizualizar</a></li>
+	  <li><a href='provas_cadastradas.php'>Cadastradas</a></li>
+	  <li><a href='adicionar_prova.php'>ADD Prova</a>
+	  <li class='menu-has-children'><a>Disciplinas</a>
+		  <ul>
+			  <li><a href='mostrar_disciplinas.php'>Cadastradas</a></li>
+			  <li><a href='adicionar_disciplina.php'>ADD Disciplina</a></li>
+		  </ul>
+	  </li>
+	</ul>
+	</li>
+	<li class='menu-has-children'><a>Questões</a>
+	  <ul>
+		<li><a href='mostrar_questoes.php'>Cadastradas</a></li>
+		<li><a href='adicionar_questao.php'>ADD Questão</a></li>
+		<li class='menu-has-children'><a>Verificar Imagens</a>
+		  <ul>
+			  <li><a href='verficarimg_perguntas.php'>Perguntas</a></li>
+			  <li><a href='verficarimg_respostas.php'>Respostas</a></li>
+		  </ul>
+		  </li>
+	  </ul>
+	</li>
+	 <li class='menu-has-children'><a >Usuários</a>
+	  <ul>
+	  <li><a href='mostrar_usuarios.php'>Alu. Cadastrados</a></li>
+	  <li><a href='mostrar_usuarios_banidos.php'>Alu. Banidos</a></li>
+	  <li><a href='mostrar_professores.php'>Prof. Cadastrados</a></li>
+	  <li><a href='mostrar_professores_banidos.php'>Prof. Banidos</a></li>
+	  </ul>
+	</li>";
+	}
+
+
+	if ($nivel =="admgeral" || $nivel == "adm" || $nivel == "corretor"){echo"
+	  <li class='menu-has-children'><a >Redações</a>
+	  <ul>
+		<li><a href='readacoes_corrigir.php'>Para Corrigir</a></li>
+		<li><a href='readacoes_corrigidas.php'>Corrigidas</a></li>
+		<li class='menu-has-children'><a >Temas</a>
+		<ul>
+		  <li><a href='temas_enem.php'>ENEM</a></li>
+		  <li><a href='temas_usuarios.php'>Usuários</a></li>
+		  <li><a href='temas_professores.php'>Professores</a></li>
+		  <li><a href='adicionar_tema.php'>ADD Tema</a></li>
+		</ul>
+	  </ul>
+	</li>";
+
+	if ($nivel =="corretor"){echo"
+	<li><a href='pagina_adm.php?mos_tabques=Todas'>Questões</a></li>";
+	}
+	}
+
+	if ($nivel !="admgeral" && $nivel != "adm"){echo "
+	<li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>";
+	}
+	?>
+
+	<li class="menu-has-children"><a >Simulados</a>
+	  <ul>
+		<li><a href="provas_geradasadm.php">Meus</a></li>
+		<li><a href="provasadm_adm.php">Professores</a></li>
+		<li><a href="provasusu_adm.php">Usuários</a></li>
+		<li><a href="gerar_provaadm.php">Criar</a></li>
+	  </ul>
+	</li>
+	<li><a href="alterar_dadosadm.php">Dados</a></li>
+	<li class="menu-active"><a onclick="sair()">Sair</a></li>
+	<!-- <li><a >Contact</a></li> -->
+  </ul>
+</nav><!-- #nav-menu-container -->
+
+</div>
   </header><!-- #header -->	<script type="text/javascript">
 	// Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -692,9 +997,25 @@ body.mobile-nav-active #mobile-nav {
     }
   });	</script>
 <!-- Fechando cabeçalho -->
+<br><br><br><br><br><br>
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- link para mostrar senha -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
 <!-- Colocando os campos para a inserção de dados -->
-<body style="background-color: LightBlue;">
+
+
+
+<!-- Colocando os campos para a inserção de dados -->
+
+<body style='background-color: black;'>
 <center>
 
 <!-- Caixa em volta do form -->
@@ -711,30 +1032,34 @@ body.mobile-nav-active #mobile-nav {
             ">Adicionar Professores</legend>
 <br><br>
 
-<!-- Campo email com suas caracteristicas -->
-<label for="adiemail_adm" style="font-size:17px; text-align: left; color: black;">E-Mail</label><br>
-<input type="email" name="adiemail_adm" id="adiemail_adm" class="inputUser" style=" font-size:20px;" autofocus onblur="validacaoEmail(f1.adiemail_adm)"  maxlength="256" required>
+<div class="form-group input-group">
+    	          <div class="input-group-prepend">
+		            <span class="input-group-text"> <i class="fa fa-envelope" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+		            </div>
+                <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" class="form-control" autofocus placeholder="E-Mail" type="email" name="adiemail_adm" id="adiemail_adm" onblur="validacaoEmail(f1.email)" maxlength="256" required>
+                <input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
+                </div>
+			          <div id="msgemail" style="text-align: center;"></div>
+			          <br>
 
-<!-- Input usado para passar dados do java para o php -->
-<input type="hidden" value="" id="emailvalouinv" name="emailvalouinv"> 
 
-<!-- Div para emitir uma alerta de email invalido -->
-<div id="msgemail" style="text-align: center;"></div>
-<br><br><br>
+            <div class="form-group input-group">
+		        <div class="input-group-prepend">
+		        <span class="input-group-text"> <i class="fa fa-user" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+		        </div>
+            <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" name="adinome_adm" maxlength="50" placeholder="Nome" required class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" placeholder="Nome" type="text">
+            </div>
+            <br>
 
-<!-- Campo nome com suas caracteristicas -->
-<label for="nome_adm" style="font-size:17px; text-align: left; color: black;">Nome</label><br>
-<input type="text" name="adinome_adm" id="adinome_adm" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" class="inputUser" style=" font-size:20px;" maxlength="50" required>
-<br><br><br>
-
-<!-- Campo senha com suas caracteristicas -->
-<label for="senha_adm" style="font-size:17px; text-align: left; color: black;">Senha</label><br>
-<input type="password" name="adisenha_adm" id="senha_adm" class="inputUser" style="width: 190px; font-size:20px;" maxlength="50" required>
-
-<!-- Botão para mostrar ou ocultar a senha -->
-&nbsp; 
-<i class="bi bi-eye-fill" id="mos_senha" title='Mostrar Senha' onclick="mos_senha()"></i>
-<br><br><br>
+            <div class="form-group input-group">
+    	          <div class="input-group-prepend">
+		           <span class="input-group-text"> <i class="fa fa-lock" style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);"></i> </span>
+	            	</div>
+               <input style="font-size: clamp(1em, 1em + 0.5vw, 1.5em);" class="form-control" placeholder="Senha" maxlength="50" name="adisenha_adm" id="senha_adm" type="password" required>
+                &nbsp;
+	            	<span class="input-group-text" style="background-color: black; border:none; font-size: clamp(1em, 1em + 0.5vw, 1.5em);"><i class="bi bi-eye-fill" id="mos_senha" style="color:#6495ED" title='Mostrar Senha' onclick="mos_senha()"></i></span>
+                </div>
+                <br>
 
 <!-- Iniciando PHP para verificar o nível de acesso do AD< -->
 <?php
@@ -774,5 +1099,6 @@ echo "<font color='red'>Você só tem permição de adicionar Corretores</font>"
 </fieldset>
 </div>
 </center>
+<br><br>
 </body>
 </html>

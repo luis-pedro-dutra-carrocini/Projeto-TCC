@@ -62,7 +62,7 @@ if (isset($_POST['adcionarquestao'])){
 
     // Emitindo mensagem de erro
 
-		$script = "<script>alert('Erro: Campo Comentário não pode ser nulo.');location.href='sobre.php';</script>";
+		$script = "<script>alert('Erro: Campo Comentário não pode ser nulo.');location.href='index.php';</script>";
 
 		echo $script;
 
@@ -135,7 +135,9 @@ if (isset($_POST['adcionarquestao'])){
 
 <title>Desenrola ENEM</title>
 
-
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
 
 <!-- Colocando ícone na página -->
 
@@ -157,7 +159,7 @@ if (isset($_POST['adcionarquestao'])){
 
 <!-- Definindo caracteristica para o corpo da página -->
 
-<body style="background-color: LightBlue;">
+<body style="background-color: black;">
 
 
 
@@ -169,7 +171,7 @@ if (isset($_POST['adcionarquestao'])){
 
 .slider{
 
-  border: 2px solid #000000;
+  border: 2px solid #0000FF;
 
   width: 90%;
 
@@ -471,7 +473,7 @@ function simucom() {
 
     z-index: 997;
 
-    background-color: #fff;
+    background-color: #363636;
 
     box-shadow: 5px 0px 15px #c3c3c3;
 
@@ -497,7 +499,7 @@ function simucom() {
 
 #header #logo h1 a, #header #logo h1 a:hover {
 
-    color: #000;
+    color: white;
 
     padding-left: 10px;
 
@@ -530,6 +532,8 @@ function simucom() {
     position: relative;
 
     white-space: nowrap;
+
+    color: white;
 
 }
 
@@ -569,7 +573,7 @@ function simucom() {
 
     display: inline-block;
 
-    color: #000;
+    color: white;
 
     font-family: "Montserrat", sans-serif;
 
@@ -657,9 +661,9 @@ body.mobile-nav-active #mobile-nav {
 
     background: rgba(0, 0, 0, 0.8);
 
-    left: -260px;
+    left: -50%;
 
-    width: 260px;
+    width: 50%;
 
     overflow-y: auto;
 
@@ -687,7 +691,7 @@ body.mobile-nav-active #mobile-nav {
 
     color: #fff;
 
-    font-size: 13px;
+    font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
     text-transform: uppercase;
 
@@ -807,7 +811,9 @@ body.mobile-nav-active #mobile-nav {
 
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 
-    background: #fff;
+    background: #4F4F4F;
+
+    color: white;
 
 }
 
@@ -838,6 +844,7 @@ body.mobile-nav-active #mobile-nav {
     position: relative;
 
     white-space: nowrap;
+    
 
 }
 
@@ -845,7 +852,7 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-@media (max-width: 768px){
+@media (max-width: 1000px){
 
 #nav-menu-container {
 
@@ -859,6 +866,14 @@ body.mobile-nav-active #mobile-nav {
 
     display: inline;
 
+    padding-right: 50px;
+
+    
+
+}
+
+#header {
+  height: 102px;
 }
 
 }    </style>
@@ -885,121 +900,21 @@ body.mobile-nav-active #mobile-nav {
 
         .box{
 
-            
+            color: white;
 
-            color: black;
-
-            background-color: white;
+            background-color: black;
 
             padding: 15px;
 
             border-radius: 15px;
 
+            border: 2px solid #0000FF;
+
             width: 95%;
 
-        }
-
-
-
-		/* Definindo propriedades da legenda */
-
-        legend{
-
-            padding: 10px;
-
-            text-align: center;
-
-            border-radius: 8px;
-
-            font-size: 19px;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
         }
-
-
-
-		/* Definindo caracteristicas dos botões */
-
-        #alterarquestao{
-
-            width: 32%;
-
-            border: none;
-
-            padding: 15px;
-
-            color: white;
-
-            font-size: 15px;
-
-            cursor: pointer;
-
-            border-radius: 10px;
-
-            background-color: DarkTurquoise;
-
-        }
-
-        #alterarquestao:hover{
-
-            background-color: MediumTurquoise;
-
-        }
-
-        #cancelar{
-
-            width: 64%;
-
-            border: none;
-
-            padding: 15px;
-
-            color: white;
-
-            font-size: 15px;
-
-            cursor: pointer;
-
-            border-radius: 10px;
-
-            background-color: DarkTurquoise;
-
-        }
-
-        #cancelar:hover{
-
-            background-color: MediumTurquoise;
-
-        }
-
-		#limpar{
-
-            width: 32%;
-
-            border: none;
-
-            padding: 15px;
-
-            color: white;
-
-            font-size: 15px;
-
-            cursor: pointer;
-
-            border-radius: 10px;
-
-            background-color: DarkTurquoise;
-
-        }
-
-        #limpar:hover{
-
-            background-color: MediumTurquoise;
-
-        }
-
-
-
-		
 
 		/* Definindo caracteristicas dos botões */
 
@@ -1013,79 +928,45 @@ body.mobile-nav-active #mobile-nav {
 
             color: white;
 
-            font-size: 15px;
+            font-size: clamp(1em, 1em + 0.5vw, 1.5em);
 
             cursor: pointer;
 
             border-radius: 10px;
 
-            background-color: DarkTurquoise;
+            background-color: RoyalBlue;
 
         }
 
         #adcionarquestao:hover{
 
-            background-color: MediumTurquoise;
+            background-color: CornflowerBlue;
 
         }
 
-        #cancelar{
+legend{
 
-            width: 32%;
+padding: 10px;
 
-            border: none;
+text-align: center;
 
-            padding: 15px;
+border-radius: 8px;
 
-            color: white;
+font-size: clamp(1em, 1em + 1vw, 1.5em);
 
-            font-size: 15px;
-
-            cursor: pointer;
-
-            border-radius: 10px;
-
-            background-color: DarkTurquoise;
-
-        }
-
-        #cancelar:hover{
-
-            background-color: MediumTurquoise;
-
-        }
-
-		#limpar{
-
-            width: 32%;
-
-            border: none;
-
-            padding: 15px;
-
-            color: white;
-
-            font-size: 15px;
-
-            cursor: pointer;
-
-            border-radius: 10px;
-
-            background-color: DarkTurquoise;
-
-        }
-
-        #limpar:hover{
-
-            background-color: MediumTurquoise;
-
-        }
-
-
+}
 
 </style>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KW2JRPPJMX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-KW2JRPPJMX');
+</script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -1131,7 +1012,7 @@ body.mobile-nav-active #mobile-nav {
 
       <div id="logo" class="pull-left">
 
-        <h1><a href="sobre.php" class="scrollto">DSENEM</a></h1>
+        <h1><a class="scrollto">DSENEM</a></h1>
 
         <!-- Uncomment below if you prefer to use an image logo -->
 
@@ -1144,6 +1025,10 @@ body.mobile-nav-active #mobile-nav {
       <nav id="nav-menu-container">
 
         <ul class="nav-menu">
+
+        <li><a href='mostar_questoesusu.php'>Questões</a></li>
+
+        <li><a href='mostrar_provas.php'>Provas e Gabaritos</a></li>
 
         <li class="menu-has-children"><a >Simulados</a>
 
@@ -1161,9 +1046,9 @@ body.mobile-nav-active #mobile-nav {
 
           
 
-          <li><a onclick="cadastrar()">Cadastrar-se</a></li>
+          <li><a href="pagina_inscrever-se.php">Cadastrar-se</a></li>
 
-          <li class="menu-active"><i class="bi bi-person-circle" title='Entrar' height ='30px' width='30px' onclick="login()"></i></li>
+          <li class="menu-active"><a href="login.php">Entrar</a></li>
 
           <!-- <li><a >Contact</a></li> -->
 
@@ -1329,8 +1214,6 @@ body.mobile-nav-active #mobile-nav {
 
 
 
-
-
 <!-- Criando um slider -->
 
 <center>
@@ -1450,49 +1333,60 @@ function proximaimagem(){
 <br><br>
 
 <center>
+<div style="width: 50%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="7115760036"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</center>
+<br><br>
+
+<center>
 
 <!-- Mostrando sobre o desenrrola enem -->
 
 <div class="box" Align="left">
 
-<?php print "<p>".nl2br($sobre)."</p>"; ?>
+<font color="white">
 
+<center>
+<legend><b>Quem Somos?</b></legend>
+<br>
+</center>
+<?php print "<p>".nl2br($sobre)."</p>"; ?>
+<br>
+</div>
 <br><br>
 
-
-
 <form action="" method="POST"> 
-
-
-
 <!-- Borda do form -->
-
 <fieldset>  
 
-
-
 <!-- Legenda do form -->
-
-<legend style="color:grey31; font-size:25px; font-weight: bold;">Nos Avalie </legend>
+<div class="box" Align="left">
+<b><legend>Deixe sua avaliação.... </legend></b>
 
 
 
 <b>Comentários</b>
-
 <br>
-
-<textarea cols="95" rows="5" style="width: 99%;" name="txtcomentario" value="text" required></textarea>
-
+<textarea cols="95" rows="5" style="width: 99%; border: 2px solid white; color:white; background-color: black;" name="txtcomentario" value="text" required></textarea>
 <br><br>
 
-
-
-<b>Qual nota você daria para o site?</b>
+<b>Avaliação</b>
 <br>
-
 <style>
   .rating{
-  transform: translate(-44%,-50%) rotateY(180deg);
+  transform: translate(-73%,-50%) rotateY(180deg);
   display: flex;
 }
 
@@ -1512,7 +1406,7 @@ function proximaimagem(){
   position: relative;
   display: block;
   font-size: 50px;
-  color: #0e1316;
+  color: white;
 }
 
 .rating label:after{
@@ -1536,12 +1430,7 @@ function proximaimagem(){
 
 <br><br>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <div class="rating">
-      <input type="radio" name="star" id="star1" value="10"><label for="star1"></label>
-      <input type="radio" name="star" id="star2" value="9"><label for="star2"></label>
-      <input type="radio" name="star" id="star3" value="8"><label for="star3"></label>
-      <input type="radio" name="star" id="star4" value="7"><label for="star4"></label>
-      <input type="radio" name="star" id="star5" value="6"><label for="star5"></label>
+    <div class="rating" aling="center">
       <input type="radio" name="star" id="star6" value="5"><label for="star6"></label>
       <input type="radio" name="star" id="star7" value="4"><label for="star7"></label>
       <input type="radio" name="star" id="star8" value="3"><label for="star8"></label>
@@ -1549,36 +1438,38 @@ function proximaimagem(){
       <input type="radio" name="star" id="star10" value="1"><label for="star10"></label>
     </div>
 
-<br><br>
-
-
-
-<b>Encontrou algum Erro ou Melhoria? (Opicional)</b>
-
+<b>Erro ou Melhoria? (Opicional)</b>
 <br>
-
-<textarea cols="95" rows="5" style="width: 99%;" name="txterromelhoria" value="text"></textarea>
-
+<textarea cols="95" rows="5" style="width: 99%; border: 2px solid white; color:white; background-color: black;" name="txterromelhoria" value="text"></textarea>
 <br><br>
-
-
 
 <center>
-
 <input type="submit" name="adcionarquestao" id="adcionarquestao" value="Enviar Avaliação">    
-
 </form> 
 
-
-
 </fieldset>
+</diV>
+</center>
+<br><br>
 
+<center>
+<div style="width: 90%; height:75px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724042721194868"
+     crossorigin="anonymous"></script>
+<!-- bloco3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1724042721194868"
+     data-ad-slot="8102388707"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 </div>
 </center>
 <br><br>
 
 <!-- Fechando tags em aberto -->
-
 </body>
-
 </html>
